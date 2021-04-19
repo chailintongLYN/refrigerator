@@ -78,9 +78,15 @@ const styles = StyleSheet.create({
     goodtexttitle: {
         alignItems:'center',
         justifyContent:'center',
+<<<<<<< HEAD
         marginTop:40,
         marginLeft:(w-ptd(200))/2,
         width:ptd(200),
+=======
+        marginTop:45,
+        marginLeft:(w-210)/2,
+        width:210,
+>>>>>>> 7b3138e450b3a3385dcc6a00ec71f37154892bf0
         borderRadius:50,
         borderColor:'#BBBBBB',
         height:82,

@@ -15,6 +15,12 @@ import Details from './pages/Details/Details';
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon2 from 'react-native-vector-icons/MaterialIcons';
 import Icon3 from 'react-native-vector-icons/FontAwesome5';
+<<<<<<< HEAD
+=======
+import Details from './pages/Details/Details';
+import HomeSearchPage from './pages/Home/Search/Search';
+
+>>>>>>> 7b3138e450b3a3385dcc6a00ec71f37154892bf0
 
 const Tab = createBottomTabNavigator();
 
@@ -140,6 +146,13 @@ const App = () => {
           }}
           name='Details'
           component={Details}
+        />
+        <RootStack.Screen
+          options={{
+            headerShown: false
+          }}
+          name='HomeSearch'
+          component={HomeSearchPage}
         />
       </RootStack.Navigator>
     </NavigationContainer>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView, Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { ScrollView, Text, View, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/AntDesign';
 
@@ -17,10 +17,10 @@ if (day.length == 1) {
 const username = 'XXX';
 
 const likelist = [
-    {text:'西红柿炒鸡蛋',time:'2021年4月19日',img:require('../images/apple.jpg')},
-    {text:'西红柿炒鸡蛋',time:'2021年4月19日',img:require('../images/apple.jpg')},
-    {text:'西红柿炒鸡蛋',time:'2021年4月19日',img:require('../images/apple.jpg')},
-    {text:'西红柿炒鸡蛋',time:'2021年4月19日',img:require('../images/apple.jpg')},
+    { text: '西红柿炒鸡蛋', time: '2021年4月19日', img: require('../images/apple.jpg') },
+    { text: '西红柿炒鸡蛋', time: '2021年4月19日', img: require('../images/apple.jpg') },
+    { text: '西红柿炒鸡蛋', time: '2021年4月19日', img: require('../images/apple.jpg') },
+    { text: '西红柿炒鸡蛋', time: '2021年4月19日', img: require('../images/apple.jpg') },
 ]
 
 const LikePage = ({ navigation }) => {
@@ -47,10 +47,31 @@ const LikePage = ({ navigation }) => {
             </View>
             <ScrollView style={styles.likelist}>
                 {
-                    likelist.map((nav,idx)=>(
-                        <View key={idx} style={[styles.like,{marginBottom:idx==likelist.length-1?20:0}]}>
-                            <Image source={nav.img} style={styles.img}/>
-                        </View>
+                    likelist.map((nav, idx) => (
+                        <TouchableOpacity
+                            style={[styles.like, { marginBottom: idx == likelist.length - 1 ? 20 : 0 }]}
+                            onPress={() =>navigation.push('Menudetails')}
+                            key={idx}
+                        >
+                            <Image source={nav.img} style={styles.img} />
+                            <Text style={styles.text}>{nav.text}</Text>
+                            <Text style={styles.listtime}>{nav.time}</Text>
+                            <TouchableOpacity 
+                            style={styles.delete}
+                            onPress={()=>{
+                                Alert.alert("Hold on!", "你确定要删除吗？", [
+                                    {
+                                        text: '取消',
+                                        onPress: () => null,
+                                        style: 'cancel'
+                                    },
+                                    { text: '确定', onPress: () => { console.log('删除') } }
+                                ]);
+                            }}
+                            > 
+                                <Image style={{ width: 32, height: 32 }} source={require('../images/delete.png')} />
+                            </TouchableOpacity>
+                        </TouchableOpacity>
                     ))
                 }
             </ScrollView>
@@ -59,23 +80,44 @@ const LikePage = ({ navigation }) => {
 }
 
 const styles = StyleSheet.create({
-    img:{
-        margin:20,
-        width:120,
-        height:120,
-        borderRadius:10,
+    delete: {
+        width: 55,
+        height: 55,
+        borderRadius: 100,
+        backgroundColor: blue,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginLeft: 45,
+        marginTop: 52,
     },
-    like:{
-        // backgroundColor: "#BFC",
-        elevation:10,
-        marginTop:20,
-        borderRadius:25,
+    listtime: {
+        marginTop: 96,
+        marginLeft: -120,
+        fontSize: 18,
+        color: 'black',
+    },
+    text: {
+        fontSize: 20,
+        marginTop: 42,
+    },
+    img: {
+        margin: 20,
+        width: 120,
+        height: 120,
+        borderRadius: 10,
+    },
+    like: {
+        flexDirection: 'row',
+        backgroundColor: "#FFF",
+        elevation: 10,
+        marginTop: 20,
+        marginLeft: 20,
+        borderRadius: 25,
+        width: w - 40,
     },
     likelist: {
-        marginLeft:20,
-        marginTop:25,
-        width:w-40,
-        height:h-190,
+        marginTop: 25,
+        height: h - 190,
     },
     headportrait: {
         width: 48,
@@ -96,12 +138,12 @@ const styles = StyleSheet.create({
     },
     input: {
         fontSize: 18,
-        padding: 0
+        padding: 0,
     },
     searchbar: {
         backgroundColor: blue,
         flexDirection: 'row',
-        height: 50
+        height: 50,
     },
     icon: {
         color: '#9D9E9D',
@@ -115,7 +157,7 @@ const styles = StyleSheet.create({
     hello: {
         marginLeft: 20,
         color: white,
-        fontSize: 16
+        fontSize: 16,
     },
     titlebar: {
         flexDirection: 'row',

@@ -1,8 +1,17 @@
 import React, { useState } from 'react'
-import { Image, Text, View, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
+import { Image, Text, View, StyleSheet, TouchableOpacity, TextInput, Alert } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/AntDesign';
 import '../../common/global'
+
+fetch('http://154.8.164.57:1234/home', {
+    method: 'POST',
+    // body: JSON.stringify(useinfo),
+    headers: new Headers({
+        'Content-Type': 'application/json'
+    })
+}).then(res=>res.json)
+.then(response=>{console.log(response)})
 
 const classbar = [
     { text: '水果蔬菜', img: require('../images/lemon.png'), color: '#BEE570' },
@@ -15,28 +24,52 @@ const classbar = [
 const food = [
     [
         { text: '苹果', time: '4月17日', remainingtime: '3', img: require('../images/apple.jpg'), color: '#BEE570' },
+        { text: '苹果', time: '4月17日', remainingtime: '3', img: require('../images/apple.jpg'), color: '#BEE570' },
     ],
     [
+        { text: '鸡蛋', time: '4月17日', remainingtime: '4', img: require('../images/apple.jpg'), color: '#F8CEB4' },
         { text: '鸡蛋', time: '4月17日', remainingtime: '4', img: require('../images/apple.jpg'), color: '#F8CEB4' },
     ],
     [
         { text: '海鲜', time: '4月17日', remainingtime: '4', img: require('../images/apple.jpg'), color: '#B4DDFF' },
+        { text: '海鲜', time: '4月17日', remainingtime: '4', img: require('../images/apple.jpg'), color: '#B4DDFF' },
     ],
     [
         { text: '速食', time: '4月17日', remainingtime: '5', img: require('../images/apple.jpg'), color: '#9DBAE1' },
+        { text: '速食', time: '4月17日', remainingtime: '5', img: require('../images/apple.jpg'), color: '#9DBAE1' },
     ],
     [
+        { text: '零食', time: '4月17日', remainingtime: '5', img: require('../images/apple.jpg'), color: '#FFE38F' },
         { text: '零食', time: '4月17日', remainingtime: '5', img: require('../images/apple.jpg'), color: '#FFE38F' },
     ],
 ]
 
 const foodall = [
     { text: '苹果', time: '4月17日', remainingtime: '3', img: require('../images/apple.jpg'), color: '#BEE570' },
+    { text: '苹果', time: '4月17日', remainingtime: '3', img: require('../images/apple.jpg'), color: '#BEE570' },
+    { text: '鸡蛋', time: '4月17日', remainingtime: '4', img: require('../images/apple.jpg'), color: '#F8CEB4' },
     { text: '鸡蛋', time: '4月17日', remainingtime: '4', img: require('../images/apple.jpg'), color: '#F8CEB4' },
     { text: '海鲜', time: '4月17日', remainingtime: '4', img: require('../images/apple.jpg'), color: '#B4DDFF' },
+    { text: '海鲜', time: '4月17日', remainingtime: '4', img: require('../images/apple.jpg'), color: '#B4DDFF' },
+    { text: '速食', time: '4月17日', remainingtime: '5', img: require('../images/apple.jpg'), color: '#9DBAE1' },
     { text: '速食', time: '4月17日', remainingtime: '5', img: require('../images/apple.jpg'), color: '#9DBAE1' },
     { text: '零食', time: '4月17日', remainingtime: '5', img: require('../images/apple.jpg'), color: '#FFE38F' },
+    { text: '零食', time: '4月17日', remainingtime: '5', img: require('../images/apple.jpg'), color: '#FFE38F' },
 ]
+
+// var list = foodall,
+//     data = [];
+// for (var i = 0; i < list.length; i++) {
+//     if (!data[list[i].color]) {
+//         var arr = [];
+//         arr.push(list[i]);
+//         data[list[i].color] = arr;
+//         console.log('data:', data[list]);
+//         console.log('arr:', arr);
+//     } else {
+//         data[list[i].color].push(list[i])
+//     }
+// }
 
 const myDate = new Date();
 const year = myDate.getFullYear();
@@ -67,7 +100,12 @@ const Home = ({ navigation }) => {
             <View style={styles.searchbar}>
                 <View style={styles.searchbox}>
                     <Icon name='search1' size={18} style={styles.icon}></Icon>
-                    <TextInput style={styles.input} placeholder='芒果' />
+                    <TextInput
+                        keyboardType={'default'}
+                        onEndEditing={() => navigation.push('HomeSearch')}
+                        style={styles.input}
+                        placeholder='芒果'
+                    />
                 </View>
                 <Image style={styles.headportrait} source={require('../images/logo.jpg')} />
             </View>
@@ -88,7 +126,7 @@ const Home = ({ navigation }) => {
                 {
                     selectTab == index ?
                         food[index].map((nav, idx) => (
-                            <View
+                            <TouchableOpacity
                                 style={styles.food}
                                 key={idx}
                                 onPress={() => {
@@ -102,7 +140,19 @@ const Home = ({ navigation }) => {
                                 <Text style={styles.foodtext}>{nav.text}</Text>
                                 <Text style={styles.foodtime}>{nav.time}进入冰箱</Text>
                                 <Text style={[styles.foodreaminingtime, { color: nav.remainingtime <= '3' ? 'red' : '#858585' }]}>保质期还剩{nav.remainingtime}天</Text>
-                                <TouchableOpacity style={styles.delete}>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        Alert.alert("Hold on!", "你确定要删除吗？", [
+                                            {
+                                                text: '取消',
+                                                onPress: () => null,
+                                                style: 'cancel'
+                                            },
+                                            { text: '确定', onPress: () => { console.log('删除') } }
+                                        ]);
+                                    }}
+                                    style={styles.delete}
+                                >
                                     <Image
                                         style={styles.deleteimg}
                                         source={require('../images/delete.png')}
@@ -111,7 +161,7 @@ const Home = ({ navigation }) => {
                                 <TouchableOpacity style={styles.meal}>
                                     <Text style={{ fontSize: 18 }}>饭</Text>
                                 </TouchableOpacity>
-                            </View>
+                            </TouchableOpacity>
                         ))
                         :
                         foodall.map((nav, idx) => (
@@ -129,7 +179,19 @@ const Home = ({ navigation }) => {
                                 <Text style={styles.foodtext}>{nav.text}</Text>
                                 <Text style={styles.foodtime}>{nav.time}进入冰箱</Text>
                                 <Text style={[styles.foodreaminingtime, { color: nav.remainingtime <= '3' ? 'red' : '#858585' }]}>保质期还剩{nav.remainingtime}天</Text>
-                                <TouchableOpacity style={styles.delete}>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        Alert.alert("Hold on!", "你确定要删除吗？", [
+                                            {
+                                                text: '取消',
+                                                onPress: () => null,
+                                                style: 'cancel'
+                                            },
+                                            { text: '确定', onPress: () => { console.log('删除') } }
+                                        ]);
+                                    }}
+                                    style={styles.delete}
+                                >
                                     <Image
                                         style={styles.deleteimg}
                                         source={require('../images/delete.png')}
@@ -144,7 +206,7 @@ const Home = ({ navigation }) => {
                 <View style={styles.showall}>
                     <Text
                         style={{ color: '#8E8E8F', fontSize: 16 }}
-                        onPress={()=>{setSelectTab(Math.random())}}
+                        onPress={() => { setSelectTab(Math.random()) }}
                     >显示全部分类</Text>
                 </View>
             </ScrollView>
@@ -209,9 +271,10 @@ const styles = StyleSheet.create({
         height: 131,
         marginLeft: 25,
         borderRadius: 25,
-        borderColor: blue,
-        borderWidth: 2,
+        // borderColor: blue,
+        // borderWidth: 2,
         marginBottom: 10,
+        elevation: 10,
     },
     foodbar: {
         height: 500,

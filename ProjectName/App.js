@@ -13,6 +13,7 @@ import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon2 from 'react-native-vector-icons/MaterialIcons';
 import Icon3 from 'react-native-vector-icons/FontAwesome5';
 import Details from './pages/Details/Details';
+import HomeSearchPage from './pages/Home/Search/Search';
 
 
 const Tab = createBottomTabNavigator();
@@ -139,6 +140,13 @@ const App = () => {
           }}
           name='Details'
           component={Details}
+        />
+        <RootStack.Screen
+          options={{
+            headerShown: false
+          }}
+          name='HomeSearch'
+          component={HomeSearchPage}
         />
       </RootStack.Navigator>
     </NavigationContainer>

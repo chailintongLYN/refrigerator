@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     goodtexttitle: {
         alignItems:'center',
         justifyContent:'center',
-        marginTop:5,
+        marginTop:45,
         marginLeft:(w-210)/2,
         width:210,
         borderRadius:50,

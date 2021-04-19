@@ -4,16 +4,17 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { View, Text, TextInput } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomePage from './pages/Home/Home';
 import { createStackNavigator } from '@react-navigation/stack';
+// 引入页面
+import HomePage from './pages/Home/Home';
 import LoginPage from './pages/Login/Login';
 import LogonPage from './pages/Logon/Logon';
 import NewdataPage from './pages/Newdata/Newdata';
+import Details from './pages/Details/Details';
+// 引入图标
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon2 from 'react-native-vector-icons/MaterialIcons';
 import Icon3 from 'react-native-vector-icons/FontAwesome5';
-import Details from './pages/Details/Details';
-
 
 const Tab = createBottomTabNavigator();
 

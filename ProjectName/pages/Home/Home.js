@@ -4,14 +4,14 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/AntDesign';
 import '../../common/global'
 
-fetch('http://154.8.164.57:1234/home', {
-    method: 'POST',
-    // body: JSON.stringify(useinfo),
-    headers: new Headers({
-        'Content-Type': 'application/json'
-    })
-}).then(res=>res.json)
-.then(response=>{console.log(response)})
+// fetch('http://154.8.164.57:1234/home', {
+//     method: 'GET',
+//     // body: JSON.stringify(useinfo),
+//     headers: new Headers({
+//         'Content-Type': 'application/json'
+//     })
+// }).then(res=>res.json())
+// .then((res)=>{console.log(res)})
 
 const classbar = [
     { text: '水果蔬菜', img: require('../images/lemon.png'), color: '#BEE570' },
@@ -207,7 +207,7 @@ const Home = ({ navigation }) => {
                     <Text
                         style={{ color: '#8E8E8F', fontSize: 16 }}
                         onPress={() => { setSelectTab(Math.random()) }}
-                    >显示全部分类</Text>
+                    >——显示全部分类——</Text>
                 </View>
             </ScrollView>
         </View>

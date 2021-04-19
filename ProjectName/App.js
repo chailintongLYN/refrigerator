@@ -14,17 +14,13 @@ import Icon2 from 'react-native-vector-icons/MaterialIcons';
 import Icon3 from 'react-native-vector-icons/FontAwesome5';
 import Details from './pages/Details/Details';
 import HomeSearchPage from './pages/Home/Search/Search';
+import CookPage from './pages/Cook/Cook';
+import CookSearchPage from './pages/Cook/Search/Search';
+import MenudetailsPage from './pages/Cook/Menudetails/Menudetails';
 
 
 const Tab = createBottomTabNavigator();
 
-const ShopPage = () => {
-  return (
-    <View>
-      <Text>Shop</Text>
-    </View>
-  )
-}
 const VipPage = () => {
   return (
     <View>
@@ -71,8 +67,8 @@ const TabNav = () => {
           title: '做饭',
           tabBarIcon: ({ color }) => <Icon1 size={25} name="fire" color={color} />
         }}
-        name='Shop'
-        component={ShopPage}
+        name='Cook'
+        component={CookPage}
       ></Tab.Screen>
       <Tab.Screen
         options={{
@@ -147,6 +143,20 @@ const App = () => {
           }}
           name='HomeSearch'
           component={HomeSearchPage}
+        />
+        <RootStack.Screen
+          options={{
+            headerShown: false
+          }}
+          name='CookSearch'
+          component={CookSearchPage}
+        />
+        <RootStack.Screen
+          options={{
+            headerShown: false
+          }}
+          name='Menudetails'
+          component={MenudetailsPage}
         />
       </RootStack.Navigator>
     </NavigationContainer>

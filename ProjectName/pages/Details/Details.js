@@ -1,6 +1,7 @@
 import React from 'react'
 import { Text, View, StyleSheet, Image } from 'react-native'
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
+import  '../../common/global'
 
 const name = '苹果',
     time = '4月12日',
@@ -66,8 +67,8 @@ const Details = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     goodtext:{
-        width:436,
-        marginLeft:(w-436)/2,
+        width:ptd(360),
+        marginLeft:(w-ptd(360))/2,
         borderColor:'#BBBBBB',
         borderWidth:1,
         borderRadius:10,
@@ -77,12 +78,15 @@ const styles = StyleSheet.create({
     goodtexttitle: {
         alignItems:'center',
         justifyContent:'center',
+        marginTop:40,
+        marginLeft:(w-ptd(200))/2,
+        width:ptd(200),
+
         marginTop:45,
         marginLeft:(w-210)/2,
         width:210,
         borderRadius:50,
         borderColor:'#BBBBBB',
-        borderWidth:1,
         height:82,
         backgroundColor: '#BFC',
     },
@@ -91,7 +95,7 @@ const styles = StyleSheet.create({
         height: 40,
     },
     delete: {
-        marginLeft: 30,
+        marginLeft: 15,
         marginTop: 15,
         alignItems: 'center',
         backgroundColor: blue,
@@ -102,7 +106,7 @@ const styles = StyleSheet.create({
     },
     meal: {
         marginTop: 15,
-        marginLeft: 65,
+        marginLeft: 80,
         alignItems: 'center',
         backgroundColor: blue,
         width: 68,
@@ -130,8 +134,8 @@ const styles = StyleSheet.create({
     },
     img: {
         marginTop: 5,
-        marginLeft: (w - 400) / 2,
-        width: 400,
+        marginLeft: (w - ptd(340)) / 2,
+        width: ptd(340),
         height: 400,
         borderRadius: 25,
         borderColor: blue,

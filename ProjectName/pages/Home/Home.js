@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
         height: 30,
     },
     delete: {
-        marginLeft: 50,
+        marginLeft: ptd(60),
         marginTop: 10,
         alignItems: 'center',
         backgroundColor: blue,
@@ -245,15 +245,15 @@ const styles = StyleSheet.create({
     },
     foodreaminingtime: {
         marginTop: 85,
-        marginLeft: -100,
+        marginLeft: ptd(-90),
     },
     foodtime: {
-        marginLeft: -68,
+        marginLeft: ptd(-30),
         marginTop: 55,
     },
     foodtext: {
         marginTop: 18,
-        marginLeft: 72,
+        marginLeft: ptd(15),
         fontSize: 18
     },
     foodimg: {
@@ -267,14 +267,12 @@ const styles = StyleSheet.create({
     food: {
         flexDirection: 'row',
         backgroundColor: '#FFF',
-        width: w - 50,
+        width: ptd(335),
         height: 131,
-        marginLeft: 25,
+        marginLeft: (w-ptd(335))/2,
         borderRadius: 25,
-        // borderColor: blue,
-        // borderWidth: 2,
-        marginBottom: 10,
-        elevation: 10,
+        marginBottom: 20,
+        elevation: 15,
     },
     foodbar: {
         height: 500,
@@ -286,13 +284,13 @@ const styles = StyleSheet.create({
         marginLeft: (w - 300) / 6,
     },
     class: {
-        width: 70,
+        width: ptd(60),
         height: 70,
         backgroundColor: '#BEE570',
         borderRadius: 100,
         alignItems: 'center',
         justifyContent: 'center',
-        marginLeft: (w - 350) / 6,
+        marginLeft: (w - ptd(300)) / 6,
     },
     classbar: {
         paddingTop: 20,
@@ -330,13 +328,13 @@ const styles = StyleSheet.create({
         paddingRight: 10
     },
     time: {
-        color: '#0F4C66',
-        marginLeft: 65,
+        color: 'white',
+        marginLeft: ptd(30),
         fontSize: 16,
     },
     hello: {
-        marginLeft: 20,
-        color: '#0F4C66',
+        marginLeft: ptd(25),
+        color: 'white',
         fontSize: 16
     },
     titlebar: {

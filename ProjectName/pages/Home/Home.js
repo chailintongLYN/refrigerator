@@ -267,14 +267,12 @@ const styles = StyleSheet.create({
     food: {
         flexDirection: 'row',
         backgroundColor: '#FFF',
-        width: w - 50,
+        width: ptd(335),
         height: 131,
-        marginLeft: 25,
+        marginLeft: (w-ptd(335))/2,
         borderRadius: 25,
-        // borderColor: blue,
-        // borderWidth: 2,
-        marginBottom: 10,
-        elevation: 10,
+        marginBottom: 20,
+        elevation: 15,
     },
     foodbar: {
         height: 500,

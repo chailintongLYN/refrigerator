@@ -11,16 +11,14 @@ import LoginPage from './pages/Login/Login';
 import LogonPage from './pages/Logon/Logon';
 import NewdataPage from './pages/Newdata/Newdata';
 import Details from './pages/Details/Details';
+import Mypage from './pages/Mypage/Mypage'
+import Mycare from './pages/Mypage/Mycare'
 // 引入图标
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon2 from 'react-native-vector-icons/MaterialIcons';
 import Icon3 from 'react-native-vector-icons/FontAwesome5';
-<<<<<<< HEAD
-=======
-import Details from './pages/Details/Details';
 import HomeSearchPage from './pages/Home/Search/Search';
 
->>>>>>> 7b3138e450b3a3385dcc6a00ec71f37154892bf0
 
 const Tab = createBottomTabNavigator();
 
@@ -42,13 +40,6 @@ const ShopcarPage = () => {
   return (
     <View>
       <Text>Shopcar</Text>
-    </View>
-  )
-}
-const MyPage = () => {
-  return (
-    <View>
-      <Text>My</Text>
     </View>
   )
 }
@@ -102,7 +93,7 @@ const TabNav = () => {
           tabBarIcon: ({ color }) => <Icon1 size={25} name="face" color={color} />
         }}
         name='My'
-        component={MyPage}
+        component={Mypage}
       ></Tab.Screen>
 
     </Tab.Navigator>
@@ -153,6 +144,11 @@ const App = () => {
           }}
           name='HomeSearch'
           component={HomeSearchPage}
+        />
+        <RootStack.Screen
+          options={{headerShown:false}}
+          name='Mycare'
+          component={Mycare}
         />
       </RootStack.Navigator>
     </NavigationContainer>

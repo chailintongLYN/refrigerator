@@ -2,7 +2,7 @@ import React from 'react'
 import { Image, Text, View, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
 import '../../common/global'
 
-const NewdataPage = ({ navigation }) => {
+const Newdata = ({ navigation }) => {
     return (
         <View style={styles.body}>
             <Image
@@ -82,4 +82,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default NewdataPage
+export default Newdata

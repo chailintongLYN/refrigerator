@@ -3,7 +3,7 @@ import { ScrollView, View, StyleSheet, Text } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/AntDesign';
 
-const HomeSearchPage = () => {
+const Search = () => {
     return (
         <View style={{ backgroundColor: '#F5F5F5', }}>
             <View style={styles.searchbar}>
@@ -52,4 +52,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default HomeSearchPage
+export default Search

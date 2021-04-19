@@ -11,15 +11,17 @@ import LoginPage from './pages/Login/Login';
 import LogonPage from './pages/Logon/Logon';
 import NewdataPage from './pages/Newdata/Newdata';
 import Details from './pages/Details/Details';
-// 引入图标
-import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
-import Icon2 from 'react-native-vector-icons/MaterialIcons';
-import Icon3 from 'react-native-vector-icons/FontAwesome5';
+import Mypage from './pages/Mypage/Mypage';
+import MycarePage from './pages/Mypage/Mycare';
+import LikePage from './pages/Like/Like';
 import HomeSearchPage from './pages/Home/Search/Search';
 import CookPage from './pages/Cook/Cook';
 import CookSearchPage from './pages/Cook/Search/Search';
 import MenudetailsPage from './pages/Cook/Menudetails/Menudetails';
-import Mypage from './pages/Mypage/Mypage';
+// 引入图标
+import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon2 from 'react-native-vector-icons/MaterialIcons';
+import Icon3 from 'react-native-vector-icons/FontAwesome5';
 
 
 const Tab = createBottomTabNavigator();
@@ -28,13 +30,6 @@ const VipPage = () => {
   return (
     <View>
       <Text>Vip</Text>
-    </View>
-  )
-}
-const ShopcarPage = () => {
-  return (
-    <View>
-      <Text>Shopcar</Text>
     </View>
   )
 }
@@ -79,8 +74,8 @@ const TabNav = () => {
           title: '爱吃',
           tabBarIcon: ({ color }) => <Icon3 size={20} name="star" color={color} />
         }}
-        name='Shopcar'
-        component={ShopcarPage}
+        name='Like'
+        component={LikePage}
       ></Tab.Screen>
       <Tab.Screen
         options={{
@@ -153,6 +148,13 @@ const App = () => {
           }}
           name='Menudetails'
           component={MenudetailsPage}
+        />
+        <RootStack.Screen
+          options={{
+            headerShown: false
+          }}
+          name='Mycare'
+          component={MycarePage}
         />
       </RootStack.Navigator>
     </NavigationContainer>

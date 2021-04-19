@@ -328,13 +328,13 @@ const styles = StyleSheet.create({
         paddingRight: 10
     },
     time: {
-        color: 'white',
+        color: white,
         marginLeft: ptd(30),
         fontSize: 16,
     },
     hello: {
         marginLeft: ptd(25),
-        color: 'white',
+        color: white,
         fontSize: 16
     },
     titlebar: {

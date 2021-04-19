@@ -48,11 +48,11 @@ const Mypage=({navigation})=>{
                 </View> */}
                 {
                     mycook.map((item,index)=>(
-                        <TouchableOpacity style={styles.mycooked}>
-                            <Image source={mycook[index].img} style={styles.cooked_img}/>
+                        <TouchableOpacity style={[styles.mycooked,{marginBottom:index==mycook.length-1?20:0}]} key={index}>
+                            <Image source={item.img} style={styles.cooked_img}/>
                             <View>
-                                <Text style={styles.content}>{mycook[index].content}</Text>
-                                <Text style={{marginLeft:10,color:'#9D9E9D'}}>{mycook[index].time}</Text>
+                                <Text style={styles.content}>{item.content}</Text>
+                                <Text style={{marginLeft:10,color:'#9D9E9D'}}>{item.time}</Text>
                             </View>
                         </TouchableOpacity>
                     ))
@@ -84,7 +84,8 @@ const styles=StyleSheet.create({
         marginTop:20,
         flexDirection:'row',
         borderRadius:20,
-        backgroundColor:'white'
+        backgroundColor:'white',
+        elevation:10,
     },
     title_number:{
         fontSize:20,

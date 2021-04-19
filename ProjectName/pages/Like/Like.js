@@ -16,14 +16,14 @@ if (day.length == 1) {
 
 const username = 'XXX';
 
-const foodrecommend=[
-    {text:'西红柿炒鸡蛋',img:require('../images/apple.jpg')},
-    {text:'菜名XX',img:require('../images/apple.jpg')},
-    {text:'菜名XX',img:require('../images/apple.jpg')},
-    {text:'菜名XX',img:require('../images/apple.jpg')},
-];
+const likelist = [
+    {text:'西红柿炒鸡蛋',time:'2021年4月19日',img:require('../images/apple.jpg')},
+    {text:'西红柿炒鸡蛋',time:'2021年4月19日',img:require('../images/apple.jpg')},
+    {text:'西红柿炒鸡蛋',time:'2021年4月19日',img:require('../images/apple.jpg')},
+    {text:'西红柿炒鸡蛋',time:'2021年4月19日',img:require('../images/apple.jpg')},
+]
 
-const CookPage = ({navigation}) => {
+const LikePage = ({ navigation }) => {
     return (
         <View>
             <View style={styles.titlebar}>
@@ -40,76 +40,42 @@ const CookPage = ({navigation}) => {
                         keyboardType={'default'}
                         onEndEditing={() => navigation.push('CookSearch')}
                         style={styles.input}
-                        placeholder='芒果'
+                        placeholder='搜索我的收藏'
                     />
                 </View>
                 <Image style={styles.headportrait} source={require('../images/logo.jpg')} />
             </View>
-
-            <View style={styles.bodybox}>
-                <Text style={[styles.body_,{marginLeft:w/2-136/2-50}]}>——</Text>
-                <Text style={styles.bodybar}>冰箱推荐</Text>
-                <Text style={styles.body_}>——</Text>
-            </View>
-
-            <ScrollView style={styles.body}>
-                {foodrecommend.map((nav,idx)=>(
-                    <TouchableOpacity 
-                    key={idx} 
-                    style={styles.food}
-                    onPress={()=>navigation.push('Menudetails')}
-                    >
-                        <Text style={styles.foodtext}>
-                            {nav.text}
-                        </Text>
-                        <Image source={nav.img} style={styles.img} />
-                    </TouchableOpacity>
-                ))}
+            <ScrollView style={styles.likelist}>
+                {
+                    likelist.map((nav,idx)=>(
+                        <View key={idx} style={[styles.like,{marginBottom:idx==likelist.length-1?20:0}]}>
+                            <Image source={nav.img} style={styles.img}/>
+                        </View>
+                    ))
+                }
             </ScrollView>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    foodtext:{
-        zIndex:10,
-        position:'absolute',
-        top:25,
-        fontSize:32,
-        left:25,
-    },
     img:{
-        borderRadius:25,
-        width:415,
-        height:415,
+        margin:20,
+        width:120,
+        height:120,
+        borderRadius:10,
     },
-    food:{
-        marginLeft:(w-415)/2,
-        marginTop:10,
-        width:415,
-        backgroundColor: '#BFC',
-        marginBottom:25,
+    like:{
+        // backgroundColor: "#BFC",
         elevation:10,
+        marginTop:20,
         borderRadius:25,
     },
-    body:{
-        height:573,
-    },
-    body_: {
-        marginTop: 18,
-        color: '#E6E6E6',
-        fontSize: 32,
-        fontWeight:'bold'
-    },
-    bodybox: {
-        alignItems: 'center',
-        flexDirection: 'row'
-    },
-    bodybar: {
-        marginTop: 20,
-        color: blue,
-        fontSize: 32,
-        fontWeight: 'bold'
+    likelist: {
+        marginLeft:20,
+        marginTop:25,
+        width:w-40,
+        height:h-190,
     },
     headportrait: {
         width: 48,
@@ -159,4 +125,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default CookPage
+export default LikePage

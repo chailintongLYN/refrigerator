@@ -3,20 +3,20 @@ import { ScrollView, View, StyleSheet, Text, TouchableOpacity, Image } from 'rea
 import { TextInput } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/AntDesign';
 
-// const food = [
-//     { text: '苹果', time: '4月17日', remainingtime: '3', img: require('../../images/apple.jpg'), color: '#BEE570' },
-//     { text: '苹果', time: '4月17日', remainingtime: '3', img: require('../../images/apple.jpg'), color: '#BEE570' },
-//     { text: '鸡蛋', time: '4月17日', remainingtime: '4', img: require('../../images/apple.jpg'), color: '#F8CEB4' },
-//     { text: '鸡蛋', time: '4月17日', remainingtime: '4', img: require('../../images/apple.jpg'), color: '#F8CEB4' },
-//     { text: '海鲜', time: '4月17日', remainingtime: '4', img: require('../../images/apple.jpg'), color: '#B4DDFF' },
-//     { text: '海鲜', time: '4月17日', remainingtime: '4', img: require('../../images/apple.jpg'), color: '#B4DDFF' },
-//     { text: '速食', time: '4月17日', remainingtime: '5', img: require('../../images/apple.jpg'), color: '#9DBAE1' },
-//     { text: '速食', time: '4月17日', remainingtime: '5', img: require('../../images/apple.jpg'), color: '#9DBAE1' },
-//     { text: '零食', time: '4月17日', remainingtime: '5', img: require('../../images/apple.jpg'), color: '#FFE38F' },
-//     { text: '零食', time: '4月17日', remainingtime: '5', img: require('../../images/apple.jpg'), color: '#FFE38F' },
-// ]
+const food = [
+    { text: '苹果', time: '4月17日', remainingtime: '3', img: require('../../images/apple.jpg'), color: '#BEE570' },
+    { text: '苹果', time: '4月17日', remainingtime: '3', img: require('../../images/apple.jpg'), color: '#BEE570' },
+    { text: '鸡蛋', time: '4月17日', remainingtime: '4', img: require('../../images/apple.jpg'), color: '#F8CEB4' },
+    { text: '鸡蛋', time: '4月17日', remainingtime: '4', img: require('../../images/apple.jpg'), color: '#F8CEB4' },
+    { text: '海鲜', time: '4月17日', remainingtime: '4', img: require('../../images/apple.jpg'), color: '#B4DDFF' },
+    { text: '海鲜', time: '4月17日', remainingtime: '4', img: require('../../images/apple.jpg'), color: '#B4DDFF' },
+    { text: '速食', time: '4月17日', remainingtime: '5', img: require('../../images/apple.jpg'), color: '#9DBAE1' },
+    { text: '速食', time: '4月17日', remainingtime: '5', img: require('../../images/apple.jpg'), color: '#9DBAE1' },
+    { text: '零食', time: '4月17日', remainingtime: '5', img: require('../../images/apple.jpg'), color: '#FFE38F' },
+    { text: '零食', time: '4月17日', remainingtime: '5', img: require('../../images/apple.jpg'), color: '#FFE38F' },
+]
 
-const food = undefined;
+// const food = undefined;
 
 const HomeSearchPage = ({ navigation }) => {
     return (

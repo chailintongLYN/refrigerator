@@ -92,8 +92,9 @@ const MenudetailsPage = ({ navigation }) => {
 const styles = StyleSheet.create({
     stepimg: {
         borderRadius: 10,
-        width: w - 80,
-        height: w - 80,
+        marginLeft:20,
+        width: w - 120,
+        height: w - 120,
     },
     steptext: {
         marginTop: 10,

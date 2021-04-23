@@ -1,6 +1,11 @@
 import React from 'react'
-import { Image, Text, View, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
+import { Image, Text, View, StyleSheet, TouchableOpacity, TextInput, AsyncStorage } from 'react-native'
 import '../../common/global'
+
+let logoninfo = {
+    username: '',
+    password: '',
+}
 
 const LogonPage = ({ navigation }) => {
     return (
@@ -11,17 +16,33 @@ const LogonPage = ({ navigation }) => {
             />
             <View style={styles.inputview}>
                 <Text style={styles.userandpsw}>用户名：</Text>
-                <TextInput style={styles.input} autoFocus />
+                <TextInput
+                    style={styles.input}
+                    onChangeText={(value) => {
+                        logoninfo.username = value;
+                    }}
+                    autoFocus
+                />
             </View>
 
             <View style={styles.inputview}>
                 <Text style={styles.userandpsw}>密码：</Text>
-                <TextInput style={styles.input} />
+                <TextInput
+                onChangeText={(value)=>{
+                    logoninfo.password =value;
+                    console.log(logoninfo)
+                }}
+                    style={styles.input}
+                />
             </View>
             <TouchableOpacity
                 style={styles.login}
                 onPress={() => {
                     navigation.push('tabnav')
+                    AsyncStorage.setItem(
+                        'username',
+                        logoninfo.username
+                    )
                 }}
             >
                 <Text style={styles.text}>登录</Text>

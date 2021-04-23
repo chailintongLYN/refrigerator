@@ -2,7 +2,7 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { View, Text, TextInput } from 'react-native';
+import { View, Text, TextInput, Alert } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 // 引入页面
@@ -22,6 +22,8 @@ import MenudetailsPage from './pages/Cook/Menudetails/Menudetails';
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon2 from 'react-native-vector-icons/MaterialIcons';
 import Icon3 from 'react-native-vector-icons/FontAwesome5';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 
 const Tab = createBottomTabNavigator();
@@ -64,9 +66,43 @@ const TabNav = () => {
       <Tab.Screen
         options={{
           title: '添加',
-          tabBarIcon: ({ color }) => <Icon2 size={36} name="add" color={color} />
+          tabBarButton: () =>
+            <TouchableOpacity
+              style={{
+                // marginLeft:20
+                marginRight: 25,
+                marginLeft: 25,
+                marginTop: -5,
+              }}
+              onPress={() => {
+                Alert.alert("添加", "请输入你要添加的物品：", [
+                  {
+                    text: '取消',
+                    onPress: () => null,
+                    style: 'cancel'
+                  },
+                  {
+                    text: '确定',
+                    onPress: () => {
+                      console.log('添加成功');
+                    }
+                  }
+                ])
+              }}
+            >
+              <Icon2 size={36} name="add" color={'red'} ></Icon2>
+              <Text
+                style={{
+                  color: 'red',
+                  marginLeft: 4,
+                  marginTop: -2,
+                }}
+              >添加</Text>
+            </TouchableOpacity>,
+          // tabBarLabel: () => <Text style={{ color: 'red' }}>添加</Text>,
+          // tabBarIcon: () => <Icon2 size={36} name="add" color={'red'} />
         }}
-        name='Vip'
+        name='Add'
         component={VipPage}
       ></Tab.Screen>
       <Tab.Screen

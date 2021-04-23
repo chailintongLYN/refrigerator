@@ -28,7 +28,7 @@ const Mypage=({navigation})=>{
                         <Text style={{fontSize:20,fontWeight:'bold',marginLeft:10}}>3</Text>
                         <Text style={{fontSize:17,marginTop:15,color:'#9D9E9D'}}>关注</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.mysearch}>
+                    <TouchableOpacity style={styles.mysearch} onPress={()=>{navigation.navigate('Myfollows')}}>
                         <Text style={styles.title_number}>3</Text>
                         <Text style={styles.search_name}>我的粉丝</Text>
                     </TouchableOpacity>
@@ -48,7 +48,11 @@ const Mypage=({navigation})=>{
                 </View> */}
                 {
                     mycook.map((item,index)=>(
-                        <TouchableOpacity style={[styles.mycooked,{marginBottom:index==mycook.length-1?20:0}]} key={index}>
+                        <TouchableOpacity 
+                            style={[styles.mycooked,{marginBottom:index==mycook.length-1?20:0}]} 
+                            key={index} 
+                            onPress={()=>navigation.navigate('Mydetails')}
+                        >
                             <Image source={item.img} style={styles.cooked_img}/>
                             <View>
                                 <Text style={styles.content}>{item.content}</Text>

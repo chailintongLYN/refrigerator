@@ -18,6 +18,9 @@ import HomeSearchPage from './pages/Home/Search/Search';
 import CookPage from './pages/Cook/Cook';
 import CookSearchPage from './pages/Cook/Search/Search';
 import MenudetailsPage from './pages/Cook/Menudetails/Menudetails';
+import MycareCon from './pages/Mypage/MycareCon'
+import Mydetails from './pages/Mypage/Mydetails'
+import Myfollows from './pages/Mypage/Myfollows'
 // 引入图标
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon2 from 'react-native-vector-icons/MaterialIcons';
@@ -155,6 +158,21 @@ const App = () => {
           }}
           name='Mycare'
           component={MycarePage}
+        />
+        <RootStack.Screen
+          options={{headerShown:false}}
+          name='MycareCon'
+          component={MycareCon}
+        />
+        <RootStack.Screen
+          options={{headerShown:false}}
+          name='Mydetails'
+          component={Mydetails}
+        />
+        <RootStack.Screen
+          options={{headerShown:false}}
+          name='Myfollows'
+          component={Myfollows}
         />
       </RootStack.Navigator>
     </NavigationContainer>

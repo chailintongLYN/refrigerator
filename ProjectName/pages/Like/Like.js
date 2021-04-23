@@ -50,25 +50,31 @@ const LikePage = ({ navigation }) => {
                     likelist.map((nav, idx) => (
                         <TouchableOpacity
                             style={[styles.like, { marginBottom: idx == likelist.length - 1 ? 20 : 0 }]}
-                            onPress={() =>navigation.push('Menudetails')}
+                            onPress={() => navigation.push('Menudetails')}
                             key={idx}
                         >
                             <Image source={nav.img} style={styles.img} />
                             <Text style={styles.text}>{nav.text}</Text>
                             <Text style={styles.listtime}>{nav.time}</Text>
-                            <TouchableOpacity 
-                            style={styles.delete}
-                            onPress={()=>{
-                                Alert.alert("Hold on!", "你确定要删除吗？", [
-                                    {
-                                        text: '取消',
-                                        onPress: () => null,
-                                        style: 'cancel'
-                                    },
-                                    { text: '确定', onPress: () => { console.log('删除') } }
-                                ]);
-                            }}
-                            > 
+                            <TouchableOpacity
+                                style={styles.delete}
+                                onPress={() => {
+                                    Alert.alert("Hold on!", "你确定要删除吗？", [
+                                        {
+                                            text: '取消',
+                                            onPress: () => null,
+                                            style: 'cancel'
+                                        },
+                                        {
+                                            text: '确定',
+                                            onPress: () => {
+                                                likelist.splice(idx,idx+1);
+                                                console.log('删除');
+                                            }
+                                        }
+                                    ]);
+                                }}
+                            >
                                 <Image style={{ width: 32, height: 32 }} source={require('../images/delete.png')} />
                             </TouchableOpacity>
                         </TouchableOpacity>

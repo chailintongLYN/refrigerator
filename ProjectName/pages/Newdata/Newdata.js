@@ -2,6 +2,11 @@ import React from 'react'
 import { Image, Text, View, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
 import '../../common/global'
 
+let newdatainfo = {
+    username: '',
+    password: '',
+}
+
 const Newdata = ({ navigation }) => {
     return (
         <View style={styles.body}>
@@ -11,21 +16,44 @@ const Newdata = ({ navigation }) => {
             />
             <View style={styles.inputview}>
                 <Text style={styles.userandpsw}>用户名：</Text>
-                <TextInput style={styles.input} autoFocus />
+                <TextInput
+                    style={styles.input}
+                    onChangeText={(value) => {
+                        newdatainfo.username = value;
+                    }}
+                    autoFocus
+                />
             </View>
 
             <View style={styles.inputview}>
                 <Text style={styles.userandpsw}>密码：</Text>
-                <TextInput style={styles.input} />
+                <TextInput
+                    style={styles.input}
+                    onChangeText={(value) => {
+                        newdatainfo.password = value;
+                    }}
+                />
             </View>
             <View style={styles.inputview}>
                 <Text style={styles.userandpsw}>再次输入：</Text>
-                <TextInput style={styles.input} />
+                <TextInput
+                    textContentType='password'
+                    style={styles.input}
+                    onChangeText={(value) => {
+                        if (newdatainfo.password != value) {
+                            console.log('密码不一样');
+                        }
+                    }}
+                />
             </View>
             <TouchableOpacity
                 style={styles.login}
                 onPress={() => {
-                    navigation.push('tabnav')
+                    navigation.push('tabnav');
+                    AsyncStorage.setItem(
+                        'username',
+                        newdatainfo.username
+                    )
                 }}
             >
                 <Text style={styles.text}>注册并登录</Text>

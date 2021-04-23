@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Image, Text, View, StyleSheet, TouchableOpacity, TextInput, Alert } from 'react-native'
+import { Image, Text, View, StyleSheet, TouchableOpacity, TextInput, Alert, AsyncStorage } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/AntDesign';
 import '../../common/global'
@@ -21,7 +21,7 @@ const classbar = [
     { text: '零食饮品', img: require('../images/beer.png'), color: '#FFE38F' },
 ]
 
-const food = [
+let food = [
     [
         { text: '苹果', time: '4月17日', remainingtime: '3', img: require('../images/apple.jpg'), color: '#BEE570' },
         { text: '苹果', time: '4月17日', remainingtime: '3', img: require('../images/apple.jpg'), color: '#BEE570' },
@@ -44,7 +44,7 @@ const food = [
     ],
 ]
 
-const foodall = [
+let foodall = [
     { text: '苹果', time: '4月17日', remainingtime: '3', img: require('../images/apple.jpg'), color: '#BEE570' },
     { text: '苹果', time: '4月17日', remainingtime: '3', img: require('../images/apple.jpg'), color: '#BEE570' },
     { text: '鸡蛋', time: '4月17日', remainingtime: '4', img: require('../images/apple.jpg'), color: '#F8CEB4' },
@@ -56,6 +56,7 @@ const foodall = [
     { text: '零食', time: '4月17日', remainingtime: '5', img: require('../images/apple.jpg'), color: '#FFE38F' },
     { text: '零食', time: '4月17日', remainingtime: '5', img: require('../images/apple.jpg'), color: '#FFE38F' },
 ]
+
 
 // var list = foodall,
 //     data = [];
@@ -82,12 +83,25 @@ if (day.length == 1) {
     day = '0' + day;
 }
 
-const username = 'XXX';
 
 let index = 5;
 
+let username =''
+
+
 const Home = ({ navigation }) => {
     const [selectTab, setSelectTab] = useState(0)
+    const [data,setData] = useState(foodall)
+    const _retrieveData = async () => {
+        try {
+            username = await AsyncStorage.getItem('username');
+            // We have data!!
+        } catch (error) {
+            // Error retrieving data
+        }
+    };
+    _retrieveData();
+    // AsyncStorage.removeItem('username');
     return (
         <View>
             <View style={styles.titlebar}>
@@ -148,7 +162,13 @@ const Home = ({ navigation }) => {
                                                 onPress: () => null,
                                                 style: 'cancel'
                                             },
-                                            { text: '确定', onPress: () => { console.log('删除') } }
+                                            {
+                                                text: '确定',
+                                                onPress: () => {
+                                                    console.log('删除');
+                                                    setData(foodall.splice(idx,idx+1))
+                                                }
+                                            }
                                         ]);
                                     }}
                                     style={styles.delete}
@@ -158,7 +178,12 @@ const Home = ({ navigation }) => {
                                         source={require('../images/delete.png')}
                                     />
                                 </TouchableOpacity>
-                                <TouchableOpacity style={styles.meal}>
+                                <TouchableOpacity
+                                    style={styles.meal}
+                                    onPress={() => {
+                                        navigation.push('tabnav')
+                                    }}
+                                >
                                     <Text style={{ fontSize: 18 }}>饭</Text>
                                 </TouchableOpacity>
                             </TouchableOpacity>
@@ -187,7 +212,13 @@ const Home = ({ navigation }) => {
                                                 onPress: () => null,
                                                 style: 'cancel'
                                             },
-                                            { text: '确定', onPress: () => { console.log('删除') } }
+                                            {
+                                                text: '确定',
+                                                onPress: () => {
+                                                    console.log('删除');
+                                                    setData(foodall.splice(idx,idx+1))
+                                                }
+                                            }
                                         ]);
                                     }}
                                     style={styles.delete}
@@ -269,7 +300,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFF',
         width: ptd(335),
         height: 131,
-        marginLeft: (w-ptd(335))/2,
+        marginLeft: (w - ptd(335)) / 2,
         borderRadius: 25,
         marginBottom: 20,
         elevation: 15,

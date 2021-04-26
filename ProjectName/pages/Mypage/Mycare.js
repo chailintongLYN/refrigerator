@@ -1,6 +1,5 @@
 import React from 'react'
-import { Text, View, StyleSheet, Image, Button } from 'react-native'
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
+import { Text, View, StyleSheet, Image, Button,ScrollView, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign';
 import '../../common/global'
 

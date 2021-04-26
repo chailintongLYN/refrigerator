@@ -1,6 +1,5 @@
 import React from 'react'
-import { Text, View, StyleSheet, Image, Button } from 'react-native'
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
+import { Text, View, StyleSheet, Image, Button,ScrollView, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign';
 import '../../common/global'
 
@@ -52,7 +51,7 @@ const Myfollows = ({navigation}) => {
                         <TouchableOpacity style={styles.attionitem} onPress={()=>{navigation.navigate('MycareCon',{conlist:item})}} key={index}>
                             <Image source={item.attuserimg} style={styles.attimg}/>
                             <Text style={{fontSize:20 ,marginLeft:20}}>{item.attuser}</Text>
-                            <TouchableOpacity style={styles.attbtn} onPress={()=>{console.log('关注')}} >
+                            <TouchableOpacity style={styles.attbtn}>
                                 <Text style={{fontSize:17,color:'white',marginTop:8}}>{item.attstate}</Text>
                             </TouchableOpacity>
                         </TouchableOpacity>

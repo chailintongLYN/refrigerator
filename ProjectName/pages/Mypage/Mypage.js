@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
-import { Image, Text, View, StyleSheet, TouchableOpacity, TextInput, Alert } from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler';
+import React from 'react'
+import { Text, View, StyleSheet, Image, Button,ScrollView, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign';
 import '../../common/global'
 
@@ -15,7 +14,7 @@ const Mypage=({navigation})=>{
     return (
         <ScrollView>
             <View style={styles.bgc}>
-                <Icon name='setting' size={40}  style={{color:'white',marginLeft:ptd(300),marginTop:25}}/>
+                <Icon name='setting' size={40}  style={{color:'white',marginLeft:ptd(300),marginTop:25}} onPress={()=>{navigation.navigate('Myset')}}/>
             </View>
             <View style={styles.titlebar}>
                 <View style={{flexDirection:'row'}}>

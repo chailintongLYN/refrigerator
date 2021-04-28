@@ -22,12 +22,12 @@ import MycareCon from './pages/Mypage/MycareCon'
 import Mydetails from './pages/Mypage/Mydetails'
 import Myfollows from './pages/Mypage/Myfollows'
 import AddPage from './pages/Add/Add';
+import Myset from './pages/Mypage/Myset';
 // 引入图标
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon2 from 'react-native-vector-icons/MaterialIcons';
 import Icon3 from 'react-native-vector-icons/FontAwesome5';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 
 
 const Tab = createBottomTabNavigator();
@@ -198,6 +198,11 @@ const App = () => {
           options={{ headerShown: false }}
           name='Myfollows'
           component={Myfollows}
+        />
+        <RootStack.Screen
+          options={{headerShown:false}}
+          name='Myset'
+          component={Myset}
         />
       </RootStack.Navigator>
     </NavigationContainer>

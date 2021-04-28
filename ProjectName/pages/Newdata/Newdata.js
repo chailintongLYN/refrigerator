@@ -1,10 +1,11 @@
 import React from 'react'
-import { Image, Text, View, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
+import { Image, Text, View, StyleSheet, TouchableOpacity, TextInput, AsyncStorage } from 'react-native'
 import '../../common/global'
 
 let newdatainfo = {
     username: '',
     password: '',
+    psagain: '',
 }
 
 const Newdata = ({ navigation }) => {
@@ -29,6 +30,7 @@ const Newdata = ({ navigation }) => {
                 <Text style={styles.userandpsw}>密码：</Text>
                 <TextInput
                     style={styles.input}
+                    secureTextEntry={true}
                     onChangeText={(value) => {
                         newdatainfo.password = value;
                     }}
@@ -38,22 +40,45 @@ const Newdata = ({ navigation }) => {
                 <Text style={styles.userandpsw}>再次输入：</Text>
                 <TextInput
                     textContentType='password'
+                    secureTextEntry={true}
                     style={styles.input}
                     onChangeText={(value) => {
-                        if (newdatainfo.password != value) {
-                            console.log('密码不一样');
-                        }
+                        newdatainfo.psagain = value;
                     }}
                 />
             </View>
             <TouchableOpacity
                 style={styles.login}
                 onPress={() => {
-                    navigation.push('tabnav');
-                    AsyncStorage.setItem(
-                        'username',
-                        newdatainfo.username
-                    )
+                    if (newdatainfo.password != newdatainfo.psagain) {
+                        alert('两次输入的密码不一样');
+                    }
+                    else {
+                        AsyncStorage.setItem(
+                            'username',
+                            newdatainfo.username
+                        )
+                        fetch('http://154.8.164.57:1127/newdata', {
+                            method: 'POST',
+                            body: JSON.stringify(newdatainfo),
+                            headers: new Headers({
+                                'Content-Type': 'application/json'
+                            })
+                        }).then(res => res.json())
+                            .then((res) => {
+                                console.log(res);
+                                if (res.status == 'usernamefailed') {
+                                    alert('用户名已存在');
+                                }
+                                else if (res.status == 'failed') {
+                                    alert('注册失败');
+                                }
+                                else {
+                                    alert("注册成功");
+                                    navigation.push('tabnav');
+                                }
+                            })
+                    }
                 }}
             >
                 <Text style={styles.text}>注册并登录</Text>

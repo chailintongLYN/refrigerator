@@ -1,5 +1,5 @@
-import React from 'react'
-import { ScrollView, Text, View, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native'
+import React, { useState } from 'react'
+import { ScrollView, Text, View, StyleSheet, Image, TouchableOpacity, Alert, AsyncStorage } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/AntDesign';
 
@@ -14,8 +14,6 @@ if (day.length == 1) {
     day = '0' + day;
 }
 
-const username = 'XXX';
-
 const likelist = [
     { text: '西红柿炒鸡蛋', time: '2021年4月19日', img: require('../images/apple.jpg') },
     { text: '西红柿炒鸡蛋', time: '2021年4月19日', img: require('../images/apple.jpg') },
@@ -24,6 +22,18 @@ const likelist = [
 ]
 
 const LikePage = ({ navigation }) => {
+    const [username, setUserName] = useState('')
+    const [data, setData] = useState(likelist);
+
+    const _retrieveData = async () => {
+        try {
+            setUserName(await AsyncStorage.getItem('username'));
+            // We have data!!
+        } catch (error) {
+            // Error retrieving data
+        }
+    };
+    _retrieveData();
     return (
         <View>
             <View style={styles.titlebar}>
@@ -43,7 +53,12 @@ const LikePage = ({ navigation }) => {
                         placeholder='搜索我的收藏'
                     />
                 </View>
-                <Image style={styles.headportrait} source={require('../images/logo.jpg')} />
+                <TouchableOpacity onPress={()=>{navigation.navigate('My')}}>
+                    <Image
+                        style={styles.headportrait}
+                        source={require('../images/logo.jpg')}
+                    />
+                </TouchableOpacity>
             </View>
             <ScrollView style={styles.likelist}>
                 {
@@ -68,8 +83,7 @@ const LikePage = ({ navigation }) => {
                                         {
                                             text: '确定',
                                             onPress: () => {
-                                                likelist.splice(idx,idx+1);
-                                                console.log('删除');
+                                                setData(likelist.splice(idx, idx + 1))
                                             }
                                         }
                                     ]);
@@ -93,26 +107,36 @@ const styles = StyleSheet.create({
         backgroundColor: blue,
         alignItems: 'center',
         justifyContent: 'center',
-        marginLeft: 45,
-        marginTop: 52,
+        position:'absolute',
+        top:ptd(42),
+        right:ptd(20),
+        // marginLeft: ptd(45),
+        // marginTop: 52,
     },
     listtime: {
-        marginTop: 96,
-        marginLeft: -120,
-        fontSize: 18,
+        fontSize: ptd(15),
         color: 'black',
+        position:'absolute',
+        top:ptd(75),
+        left:ptd(145),
     },
     text: {
-        fontSize: 20,
-        marginTop: 42,
+        fontSize: ptd(18),
+        position:'absolute',
+        top:ptd(32),
+        left:ptd(145),
+        // marginTop: 42,
     },
     img: {
         margin: 20,
-        width: 120,
-        height: 120,
+        width:ptd(100),
+        height:ptd(100),
+        // width: 120,
+        // height: 120,
         borderRadius: 10,
     },
     like: {
+        position:'relative',
         flexDirection: 'row',
         backgroundColor: "#FFF",
         elevation: 10,
@@ -157,7 +181,8 @@ const styles = StyleSheet.create({
     },
     time: {
         color: white,
-        marginLeft: 65,
+        position: 'absolute',
+        right: 25,
         fontSize: 16,
     },
     hello: {

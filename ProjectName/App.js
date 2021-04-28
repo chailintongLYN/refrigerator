@@ -21,6 +21,7 @@ import MenudetailsPage from './pages/Cook/Menudetails/Menudetails';
 import MycareCon from './pages/Mypage/MycareCon'
 import Mydetails from './pages/Mypage/Mydetails'
 import Myfollows from './pages/Mypage/Myfollows'
+import AddPage from './pages/Add/Add';
 // 引入图标
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon2 from 'react-native-vector-icons/MaterialIcons';
@@ -39,7 +40,7 @@ const VipPage = () => {
   )
 }
 
-const TabNav = () => {
+const TabNav = ({ navigation }) => {
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -78,19 +79,8 @@ const TabNav = () => {
                 marginTop: -5,
               }}
               onPress={() => {
-                Alert.alert("添加", "请输入你要添加的物品：", [
-                  {
-                    text: '取消',
-                    onPress: () => null,
-                    style: 'cancel'
-                  },
-                  {
-                    text: '确定',
-                    onPress: () => {
-                      console.log('添加成功');
-                    }
-                  }
-                ])
+                // navigation.push('tabnav')
+                navigation.navigate('Add')
               }}
             >
               <Icon2 size={36} name="add" color={'red'} ></Icon2>
@@ -102,11 +92,10 @@ const TabNav = () => {
                 }}
               >添加</Text>
             </TouchableOpacity>,
-          // tabBarLabel: () => <Text style={{ color: 'red' }}>添加</Text>,
-          // tabBarIcon: () => <Icon2 size={36} name="add" color={'red'} />
+          tabBarIcon: ({ color }) => <Icon2 size={36} name="add" color={color} />
         }}
         name='Add'
-        component={VipPage}
+        component={AddPage}
       ></Tab.Screen>
       <Tab.Screen
         options={{
@@ -196,17 +185,17 @@ const App = () => {
           component={MycarePage}
         />
         <RootStack.Screen
-          options={{headerShown:false}}
+          options={{ headerShown: false }}
           name='MycareCon'
           component={MycareCon}
         />
         <RootStack.Screen
-          options={{headerShown:false}}
+          options={{ headerShown: false }}
           name='Mydetails'
           component={Mydetails}
         />
         <RootStack.Screen
-          options={{headerShown:false}}
+          options={{ headerShown: false }}
           name='Myfollows'
           component={Myfollows}
         />

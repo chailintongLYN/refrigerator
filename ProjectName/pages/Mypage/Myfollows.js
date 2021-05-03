@@ -107,12 +107,7 @@ const attention = [
         ]
     }
 ]
-<<<<<<< HEAD
 const Myfollows = ({navigation}) => {
-=======
-const Myfollows = ({ navigation }) => {
-    console.log(JSON.parse(attention[0].attuserimg))
->>>>>>> 75fb12a32a96b64d9744e154afec7158399c9361
     return (
         <View>
             <View style={styles.head}>
@@ -166,7 +161,6 @@ const styles = StyleSheet.create({
         marginLeft: ptd(80),
         // flex:1
     },
-<<<<<<< HEAD
     attionitem:{
         width:ptd(320),
         height:100,
@@ -176,17 +170,6 @@ const styles = StyleSheet.create({
         alignItems:'center',
         borderRadius:100,
         borderWidth:2,
-=======
-    attionitem: {
-        width: ptd(320),
-        height: 100,
-        flexDirection: 'row',
-        backgroundColor: 'white',
-        marginBottom: 20,
-        alignItems: 'center',
-        borderRadius: 100,
-        borderWidth: 2
->>>>>>> 75fb12a32a96b64d9744e154afec7158399c9361
     },
     head: {
         flexDirection: 'row',
@@ -194,17 +177,9 @@ const styles = StyleSheet.create({
         width: ptd(375),
         height: 60,
     },
-<<<<<<< HEAD
     attionlist:{
         width:ptd(375),
         height:500,
         marginTop:20,
-=======
-    attionlist: {
-        width: ptd(320),
-        height: 500,
-        marginLeft: (w - ptd(320)) / 2,
-        marginTop: 20,
->>>>>>> 75fb12a32a96b64d9744e154afec7158399c9361
     }
 })

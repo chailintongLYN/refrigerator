@@ -83,8 +83,8 @@ const TabNav = ({ navigation }) => {
               <Text
                 style={{
                   color: 'red',
-                  marginLeft: 4,
-                  marginTop: -2,
+                  marginLeft: ptd(4),
+                  marginTop: ptd(-2),
                 }}
               >添加</Text>
             </TouchableOpacity>,

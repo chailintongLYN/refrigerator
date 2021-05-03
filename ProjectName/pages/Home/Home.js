@@ -42,9 +42,11 @@ const Home = ({ navigation }) => {
     const [selectTab, setSelectTab] = useState(-1)
     const [data, setData] = useState(foodall)
     const [username, setUserName] = useState('')
+    const [userimg, setUserImage] = useState('')
     const _retrieveData = async () => {
         try {
             setUserName(await AsyncStorage.getItem('username'));
+            setUserImage(await AsyncStorage.getItem('userimg'));
             // We have data!!
         } catch (error) {
             // Error retrieving data
@@ -73,7 +75,7 @@ const Home = ({ navigation }) => {
                 <TouchableOpacity onPress={() => { navigation.navigate('My') }}>
                     <Image
                         style={styles.headportrait}
-                        source={require('../images/logo.jpg')}
+                        source={{uri:"data:image/jpeg;base64," + userimg}}
                     />
                 </TouchableOpacity>
             </View>

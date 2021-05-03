@@ -5,6 +5,7 @@ import '../../common/global'
 let logoninfo = {
     username: '',
     password: '',
+    img: './static/uploaduserimg/logo.jpg',
 }
 
 const LogonPage = ({ navigation }) => {
@@ -41,14 +42,14 @@ const LogonPage = ({ navigation }) => {
                 onPress={async () => {
 
                     //这一行后台开启了要注释掉
-                    navigation.push('tabnav');
+                    // navigation.push('tabnav');
 
                     await AsyncStorage.setItem(
                         'username',
                         logoninfo.username
                     )
                     console.log(logoninfo)
-                    fetch('http://154.8.164.57:1127/data', {
+                    fetch('http://154.8.164.57:1127/userimg', {
                         method: 'POST',
                         body: JSON.stringify(logoninfo),
                         headers: new Headers({
@@ -56,12 +57,17 @@ const LogonPage = ({ navigation }) => {
                         })
                     }).then(res => res.json())
                         .then((res) => {
-                            if (res.status == 'failed') {
-                                alert("登录失败")
+                            AsyncStorage.setItem(
+                                'userimg',
+                                res.results
+                            )
+                            console.log(res.results);
+                            if (res.status == 'success') {
+                                alert("登录成功")
+                                navigation.push('tabnav');
                             }
                             else {
-                                alert('登录成功')
-                                navigation.push('tabnav');
+                                alert('登录失败')
                             }
                         })
 

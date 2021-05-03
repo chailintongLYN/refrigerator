@@ -107,7 +107,12 @@ const attention = [
         ]
     }
 ]
+<<<<<<< HEAD
 const Myfollows = ({navigation}) => {
+=======
+const Myfollows = ({ navigation }) => {
+    console.log(JSON.parse(attention[0].attuserimg))
+>>>>>>> 07afb345eefefc5b814dbf46f5696e833c25b68e
     return (
         <View>
             <View style={styles.head}>
@@ -177,9 +182,17 @@ const styles = StyleSheet.create({
         width: ptd(375),
         height: 60,
     },
+<<<<<<< HEAD
     attionlist:{
         width:ptd(375),
         height:500,
         marginTop:20,
+=======
+    attionlist: {
+        width: ptd(320),
+        height: 500,
+        marginLeft: (w - ptd(320)) / 2,
+        marginTop: 20,
+>>>>>>> 07afb345eefefc5b814dbf46f5696e833c25b68e
     }
 })

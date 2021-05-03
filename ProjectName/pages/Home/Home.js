@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Image, Text, View, StyleSheet, TouchableOpacity, TextInput, Alert, AsyncStorage } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler';
-import Icon from 'react-native-vector-icons/AntDesign';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import '../../common/global'
 
 const classbar = [

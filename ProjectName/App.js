@@ -21,18 +21,11 @@ import MenudetailsPage from './pages/Cook/Menudetails/Menudetails';
 import MycareCon from './pages/Mypage/MycareCon'
 import Mydetails from './pages/Mypage/Mydetails'
 import Myfollows from './pages/Mypage/Myfollows'
-<<<<<<< HEAD
-import Myset from './pages/Mypage/set/Myset'
-import SetUserimg from './pages/Mypage/set/SetUserimg'
-import SetPassword from './pages/Mypage/set/SetPassword'
-import AddPage from './pages/Add/Add'
-=======
 import MysetPage from './pages/Mypage/set/Myset'
 import SetUserimgPage from './pages/Mypage/set/SetUserimg'
 import SetPasswordPage from './pages/Mypage/set/SetPassword'
 import AddPage from './pages/Add/Add';
 // import Myset from './pages/Mypage/Myset'
->>>>>>> 07afb345eefefc5b814dbf46f5696e833c25b68e
 // 引入图标
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon2 from 'react-native-vector-icons/MaterialIcons';

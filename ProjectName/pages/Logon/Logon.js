@@ -42,7 +42,7 @@ const LogonPage = ({ navigation }) => {
                 onPress={async () => {
 
                     //这一行后台开启了要注释掉
-                    // navigation.push('tabnav');
+                    navigation.push('tabnav');
 
                     await AsyncStorage.setItem(
                         'username',

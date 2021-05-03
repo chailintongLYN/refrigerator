@@ -6,6 +6,7 @@ let newdatainfo = {
     username: '',
     password: '',
     psagain: '',
+    img: './static/uploaduserimg/logo.jpg',
 }
 
 const Newdata = ({ navigation }) => {
@@ -50,6 +51,7 @@ const Newdata = ({ navigation }) => {
             <TouchableOpacity
                 style={styles.login}
                 onPress={() => {
+                    console.log("newdatainfo:",newdatainfo);
                     if (newdatainfo.password != newdatainfo.psagain) {
                         alert('两次输入的密码不一样');
                     }

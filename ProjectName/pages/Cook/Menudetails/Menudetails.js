@@ -3,7 +3,7 @@ import { ScrollView, Text, View, StyleSheet, Image, TouchableOpacity } from 'rea
 import Icon1 from 'react-native-vector-icons/MaterialIcons';
 import Icon2 from 'react-native-vector-icons/AntDesign';
 
-const menudetails = {
+const mealdetails = {
     text: '外加里嫩~炸豆腐丸子',
     time: '约12-15分钟',
     savenum: '411',
@@ -31,12 +31,12 @@ const MenudetailsPage = ({ navigation }) => {
         <ScrollView>
             <View style={styles.titlebar}>
                 <Text style={styles.titletext}>
-                    {menudetails.text}
+                    {mealdetails.text}
                 </Text>
                 <Icon1 name='access-time' size={32} style={styles.icontime}></Icon1>
-                <Text style={styles.timetext}>时间：{menudetails.time}</Text>
+                <Text style={styles.timetext}>时间：{mealdetails.time}</Text>
                 <Icon2 name='star' size={32} style={styles.iconsave}></Icon2>
-                <Text style={styles.savetext}>收藏：{menudetails.savenum}人</Text>
+                <Text style={styles.savetext}>收藏：{mealdetails.savenum}人</Text>
                 <TouchableOpacity style={styles.iconclose} onPress={() => navigation.goBack()}>
                     <Icon2 name='closecircle' size={46} color={white2}></Icon2>
                 </TouchableOpacity>
@@ -47,8 +47,8 @@ const MenudetailsPage = ({ navigation }) => {
                         用料：
                     </Text>
                     {
-                        menudetails.details.map((nav, idx) => (
-                            <View key={idx} style={[styles.detailsbar, { marginBottom: idx == menudetails.details.length - 1 ? 25 : 0 }]}>
+                        mealdetails.details.map((nav, idx) => (
+                            <View key={idx} style={[styles.detailsbar, { marginBottom: idx == mealdetails.details.length - 1 ? 25 : 0 }]}>
                                 <Text style={styles.detailsname} >
                                     {nav.name}
                                 </Text>
@@ -61,7 +61,7 @@ const MenudetailsPage = ({ navigation }) => {
                 </View>
                 <View style={{ marginBottom: 20, }}>
                     {
-                        menudetails.step.map((nav, idx) => (
+                        mealdetails.step.map((nav, idx) => (
                             <View key={idx} style={styles.step}>
                                 <Text style={styles.steptitle}>
                                     步骤{idx + 1}：
@@ -80,7 +80,7 @@ const MenudetailsPage = ({ navigation }) => {
                         <Text style={[styles.steptitle,{marginBottom:10}]}>最终成品：</Text>
                         <Image
                             style={styles.stepimg}
-                            source={menudetails.img}
+                            source={mealdetails.img}
                         />
                     </View>
                 </View>

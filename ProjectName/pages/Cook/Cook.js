@@ -1,5 +1,5 @@
-import React from 'react'
-import { ScrollView, Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import React, { useState } from 'react'
+import { ScrollView, Text, View, StyleSheet, Image, TouchableOpacity, AsyncStorage } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/AntDesign';
 
@@ -14,16 +14,24 @@ if (day.length == 1) {
     day = '0' + day;
 }
 
-const username = 'XXX';
-
-const foodrecommend=[
-    {text:'西红柿炒鸡蛋',img:require('../images/apple.jpg')},
-    {text:'菜名XX',img:require('../images/apple.jpg')},
-    {text:'菜名XX',img:require('../images/apple.jpg')},
-    {text:'菜名XX',img:require('../images/apple.jpg')},
+const foodrecommend = [
+    { text: '西红柿炒鸡蛋', img: require('../images/apple.jpg') },
+    { text: '菜名XX', img: require('../images/apple.jpg') },
+    { text: '菜名XX', img: require('../images/apple.jpg') },
+    { text: '菜名XX', img: require('../images/apple.jpg') },
 ];
 
-const CookPage = ({navigation}) => {
+const CookPage = ({ navigation }) => {
+    const [username, setUserName] = useState('')
+    const _retrieveData = async () => {
+        try {
+            setUserName(await AsyncStorage.getItem('username'));
+            // We have data!!
+        } catch (error) {
+            // Error retrieving data
+        }
+    };
+    _retrieveData();
     return (
         <View>
             <View style={styles.titlebar}>
@@ -43,21 +51,26 @@ const CookPage = ({navigation}) => {
                         placeholder='芒果'
                     />
                 </View>
-                <Image style={styles.headportrait} source={require('../images/logo.jpg')} />
+                <TouchableOpacity onPress={()=>{navigation.navigate('My')}}>
+                    <Image
+                        style={styles.headportrait}
+                        source={require('../images/logo.jpg')}
+                    />
+                </TouchableOpacity>
             </View>
 
             <View style={styles.bodybox}>
-                <Text style={[styles.body_,{marginLeft:w/2-136/2-50}]}>——</Text>
+                <Text style={[styles.body_, { marginLeft: w / 2 - 136 / 2 - 50 }]}>——</Text>
                 <Text style={styles.bodybar}>冰箱推荐</Text>
                 <Text style={styles.body_}>——</Text>
             </View>
 
             <ScrollView style={styles.body}>
-                {foodrecommend.map((nav,idx)=>(
-                    <TouchableOpacity 
-                    key={idx} 
-                    style={styles.food}
-                    onPress={()=>navigation.push('Menudetails')}
+                {foodrecommend.map((nav, idx) => (
+                    <TouchableOpacity
+                        key={idx}
+                        style={styles.food}
+                        onPress={() => navigation.push('Menudetails')}
                     >
                         <Text style={styles.foodtext}>
                             {nav.text}
@@ -71,35 +84,35 @@ const CookPage = ({navigation}) => {
 }
 
 const styles = StyleSheet.create({
-    foodtext:{
-        zIndex:10,
-        position:'absolute',
-        top:25,
-        fontSize:32,
-        left:25,
+    foodtext: {
+        zIndex: 10,
+        position: 'absolute',
+        top: 25,
+        fontSize: ptd(26),
+        left: 25,
     },
-    img:{
-        borderRadius:25,
-        width:415,
-        height:415,
+    img: {
+        borderRadius: 25,
+        width: w-50,
+        height: w-50,
     },
-    food:{
-        marginLeft:(w-415)/2,
-        marginTop:10,
-        width:415,
+    food: {
+        marginLeft: 25,
+        marginTop: 10,
+        width: w-50,
         backgroundColor: '#BFC',
-        marginBottom:25,
-        elevation:10,
-        borderRadius:25,
+        marginBottom: 25,
+        elevation: 10,
+        borderRadius: 25,
     },
-    body:{
-        height:573,
+    body: {
+        height: 573,
     },
     body_: {
         marginTop: 18,
         color: '#E6E6E6',
         fontSize: 32,
-        fontWeight:'bold'
+        fontWeight: 'bold'
     },
     bodybox: {
         alignItems: 'center',
@@ -143,7 +156,8 @@ const styles = StyleSheet.create({
     },
     time: {
         color: white,
-        marginLeft: 65,
+        position:'absolute',
+        right:25,
         fontSize: 16,
     },
     hello: {

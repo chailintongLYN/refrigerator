@@ -28,21 +28,44 @@ const LogonPage = ({ navigation }) => {
             <View style={styles.inputview}>
                 <Text style={styles.userandpsw}>密码：</Text>
                 <TextInput
-                onChangeText={(value)=>{
-                    logoninfo.password =value;
-                    console.log(logoninfo)
-                }}
+                    textContentType='password'
+                    secureTextEntry={true}
+                    onChangeText={(value) => {
+                        logoninfo.password = value;
+                    }}
                     style={styles.input}
                 />
             </View>
             <TouchableOpacity
                 style={styles.login}
-                onPress={() => {
-                    navigation.push('tabnav')
-                    AsyncStorage.setItem(
+                onPress={async () => {
+
+                    //这一行后台开启了要注释掉
+                    navigation.push('tabnav');
+
+                    await AsyncStorage.setItem(
                         'username',
                         logoninfo.username
                     )
+                    console.log(logoninfo)
+                    fetch('http://154.8.164.57:1127/data', {
+                        method: 'POST',
+                        body: JSON.stringify(logoninfo),
+                        headers: new Headers({
+                            'Content-Type': 'application/json'
+                        })
+                    }).then(res => res.json())
+                        .then((res) => {
+                            if (res.status == 'failed') {
+                                alert("登录失败")
+                            }
+                            else {
+                                alert('登录成功')
+                                navigation.push('tabnav');
+                            }
+                        })
+
+
                 }}
             >
                 <Text style={styles.text}>登录</Text>

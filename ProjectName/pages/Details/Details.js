@@ -31,7 +31,7 @@ const Details = ({ navigation }) => {
                 <Text style={[styles.remainingtime, { color: remainingtime <= '3' ? 'red' : 'black' }]}>
                     保质期还剩{remainingtime}天
                 </Text>
-                <TouchableOpacity style={styles.meal}>
+                {/* <TouchableOpacity style={styles.meal}>
                     <Text style={{ fontSize: 30 }}>饭</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.delete}>
@@ -39,7 +39,7 @@ const Details = ({ navigation }) => {
                         style={styles.deleteimg}
                         source={require('../images/delete.png')}
                     />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
             <View style={styles.goodtexttitle}>
                 <Text style={{fontSize:32}}>
@@ -95,40 +95,55 @@ const styles = StyleSheet.create({
         height: 40,
     },
     delete: {
-        marginLeft: 15,
-        marginTop: 15,
+        // marginLeft: 15,
+        // marginTop: 15,
         alignItems: 'center',
         backgroundColor: blue,
         width: 68,
         height: 68,
         borderRadius: 100,
         justifyContent: 'center',
+        position:'absolute',
+        top:ptd(25),
+        left:ptd(56),
     },
     meal: {
-        marginTop: 15,
-        marginLeft: 80,
+        // marginTop: 15,
+        // marginLeft: 80,
         alignItems: 'center',
         backgroundColor: blue,
         width: 68,
         height: 68,
         borderRadius: 100,
         justifyContent: 'center',
+        position:'relative',
+        left:ptd(56),
+        top:ptd(12),
     },
     remainingtime: {
-        marginLeft: -210,
-        marginTop: 50,
-        fontSize: 24,
+        // marginLeft: -210,
+        // marginTop: 50,
+        position:'absolute',
+        top:ptd(45),
+        left:ptd(30),
+        fontSize: ptd(20),
     },
     time: {
-        fontSize: 16,
-        marginTop: 20,
-        marginLeft: 30,
+        fontSize: ptd(13),
+        position:'absolute',
+        top:ptd(15),
+        left:ptd(75),
+        // marginTop: 20,
+        // marginLeft: 30,
     },
     name: {
-        fontSize: 34,
+        fontSize: ptd(28),
     },
     bodytitle: {
+        width:w-50,
+        height:ptd(55),
         flexDirection: 'row',
+        position:'relative',
         marginTop: 20,
         marginLeft: 25,
     },
@@ -136,27 +151,27 @@ const styles = StyleSheet.create({
         marginTop: 5,
         marginLeft: (w - ptd(340)) / 2,
         width: ptd(340),
-        height: 400,
+        height: ptd(340),
         borderRadius: 25,
         borderColor: blue,
         borderWidth: 3,
     },
     titlebar: {
-        height: 50,
+        height: ptd(50),
     },
     goback: {
-        marginLeft: 10,
-        marginTop: 15,
-        width: 36,
-        height: 36,
+        marginLeft: ptd(10),
+        marginTop: ptd(12),
+        width: ptd(36),
+        height: ptd(36),
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: blue,
         borderRadius: 100,
     },
     gobackicon: {
-        marginTop: -8,
-        fontSize: 45,
+        marginTop: ptd(-8),
+        fontSize: ptd(45),
         color: '#FFF'
     }
 })

@@ -4,15 +4,6 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/AntDesign';
 import '../../common/global'
 
-// fetch('http://154.8.164.57:1234/home', {
-//     method: 'GET',
-//     // body: JSON.stringify(useinfo),
-//     headers: new Headers({
-//         'Content-Type': 'application/json'
-//     })
-// }).then(res=>res.json())
-// .then((res)=>{console.log(res)})
-
 const classbar = [
     { text: '水果蔬菜', img: require('../images/lemon.png'), color: '#BEE570' },
     { text: '肉蛋食品', img: require('../images/toll.png'), color: '#F8CEB4' },
@@ -21,56 +12,18 @@ const classbar = [
     { text: '零食饮品', img: require('../images/beer.png'), color: '#FFE38F' },
 ]
 
-let food = [
-    [
-        { text: '苹果', time: '4月17日', remainingtime: '3', img: require('../images/apple.jpg'), color: '#BEE570' },
-        { text: '苹果', time: '4月17日', remainingtime: '3', img: require('../images/apple.jpg'), color: '#BEE570' },
-    ],
-    [
-        { text: '鸡蛋', time: '4月17日', remainingtime: '4', img: require('../images/apple.jpg'), color: '#F8CEB4' },
-        { text: '鸡蛋', time: '4月17日', remainingtime: '4', img: require('../images/apple.jpg'), color: '#F8CEB4' },
-    ],
-    [
-        { text: '海鲜', time: '4月17日', remainingtime: '4', img: require('../images/apple.jpg'), color: '#B4DDFF' },
-        { text: '海鲜', time: '4月17日', remainingtime: '4', img: require('../images/apple.jpg'), color: '#B4DDFF' },
-    ],
-    [
-        { text: '速食', time: '4月17日', remainingtime: '5', img: require('../images/apple.jpg'), color: '#9DBAE1' },
-        { text: '速食', time: '4月17日', remainingtime: '5', img: require('../images/apple.jpg'), color: '#9DBAE1' },
-    ],
-    [
-        { text: '零食', time: '4月17日', remainingtime: '5', img: require('../images/apple.jpg'), color: '#FFE38F' },
-        { text: '零食', time: '4月17日', remainingtime: '5', img: require('../images/apple.jpg'), color: '#FFE38F' },
-    ],
-]
-
 let foodall = [
-    { text: '苹果', time: '4月17日', remainingtime: '3', img: require('../images/apple.jpg'), color: '#BEE570' },
-    { text: '苹果', time: '4月17日', remainingtime: '3', img: require('../images/apple.jpg'), color: '#BEE570' },
-    { text: '鸡蛋', time: '4月17日', remainingtime: '4', img: require('../images/apple.jpg'), color: '#F8CEB4' },
-    { text: '鸡蛋', time: '4月17日', remainingtime: '4', img: require('../images/apple.jpg'), color: '#F8CEB4' },
-    { text: '海鲜', time: '4月17日', remainingtime: '4', img: require('../images/apple.jpg'), color: '#B4DDFF' },
-    { text: '海鲜', time: '4月17日', remainingtime: '4', img: require('../images/apple.jpg'), color: '#B4DDFF' },
-    { text: '速食', time: '4月17日', remainingtime: '5', img: require('../images/apple.jpg'), color: '#9DBAE1' },
-    { text: '速食', time: '4月17日', remainingtime: '5', img: require('../images/apple.jpg'), color: '#9DBAE1' },
-    { text: '零食', time: '4月17日', remainingtime: '5', img: require('../images/apple.jpg'), color: '#FFE38F' },
-    { text: '零食', time: '4月17日', remainingtime: '5', img: require('../images/apple.jpg'), color: '#FFE38F' },
+    { foodid: 1, text: '苹果', time: '4月17日', remainingday: 13, img: require('../images/apple.jpg'), color: '#BEE570' },
+    { foodid: 2, text: '苹果', time: '4月17日', remainingday: 13, img: require('../images/apple.jpg'), color: '#BEE570' },
+    { foodid: 3, text: '鸡蛋', time: '4月17日', remainingday: 14, img: require('../images/apple.jpg'), color: '#F8CEB4' },
+    { foodid: 4, text: '鸡蛋', time: '4月17日', remainingday: 14, img: require('../images/apple.jpg'), color: '#F8CEB4' },
+    { foodid: 5, text: '海鲜', time: '4月17日', remainingday: 14, img: require('../images/apple.jpg'), color: '#B4DDFF' },
+    { foodid: 6, text: '海鲜', time: '4月17日', remainingday: 14, img: require('../images/apple.jpg'), color: '#B4DDFF' },
+    { foodid: 7, text: '速食', time: '4月17日', remainingday: 15, img: require('../images/apple.jpg'), color: '#9DBAE1' },
+    { foodid: 8, text: '速食', time: '4月17日', remainingday: 15, img: require('../images/apple.jpg'), color: '#9DBAE1' },
+    { foodid: 9, text: '零食', time: '4月17日', remainingday: 15, img: require('../images/apple.jpg'), color: '#FFE38F' },
+    { foodid: 10, text: '零食', time: '4月17日', remainingday: 15, img: require('../images/apple.jpg'), color: '#FFE38F' },
 ]
-
-
-// var list = foodall,
-//     data = [];
-// for (var i = 0; i < list.length; i++) {
-//     if (!data[list[i].color]) {
-//         var arr = [];
-//         arr.push(list[i]);
-//         data[list[i].color] = arr;
-//         console.log('data:', data[list]);
-//         console.log('arr:', arr);
-//     } else {
-//         data[list[i].color].push(list[i])
-//     }
-// }
 
 const myDate = new Date();
 const year = myDate.getFullYear();
@@ -83,25 +36,21 @@ if (day.length == 1) {
     day = '0' + day;
 }
 
-
 let index = 5;
 
-let username =''
-
-
 const Home = ({ navigation }) => {
-    const [selectTab, setSelectTab] = useState(0)
-    const [data,setData] = useState(foodall)
+    const [selectTab, setSelectTab] = useState(-1)
+    const [data, setData] = useState(foodall)
+    const [username, setUserName] = useState('')
     const _retrieveData = async () => {
         try {
-            username = await AsyncStorage.getItem('username');
+            setUserName(await AsyncStorage.getItem('username'));
             // We have data!!
         } catch (error) {
             // Error retrieving data
         }
     };
     _retrieveData();
-    // AsyncStorage.removeItem('username');
     return (
         <View>
             <View style={styles.titlebar}>
@@ -121,7 +70,12 @@ const Home = ({ navigation }) => {
                         placeholder='芒果'
                     />
                 </View>
-                <Image style={styles.headportrait} source={require('../images/logo.jpg')} />
+                <TouchableOpacity onPress={() => { navigation.navigate('My') }}>
+                    <Image
+                        style={styles.headportrait}
+                        source={require('../images/logo.jpg')}
+                    />
+                </TouchableOpacity>
             </View>
 
             <View style={styles.classbar}>
@@ -139,7 +93,27 @@ const Home = ({ navigation }) => {
             <ScrollView style={styles.foodbar}>
                 {
                     selectTab == index ?
-                        food[index].map((nav, idx) => (
+                        foodall.filter((food) => {
+                            switch (index) {
+                                case 0:
+                                    return food.color == '#BEE570';
+                                    break;
+                                case 1:
+                                    return food.color == '#F8CEB4';
+                                    break;
+                                case 2:
+                                    return food.color == '#B4DDFF';
+                                    break;
+                                case 3:
+                                    return food.color == '#9DBAE1';
+                                    break;
+                                case 4:
+                                    return food.color == '#FFE38F';
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }).map((nav, idx) => (
                             <TouchableOpacity
                                 style={styles.food}
                                 key={idx}
@@ -153,7 +127,7 @@ const Home = ({ navigation }) => {
                                 />
                                 <Text style={styles.foodtext}>{nav.text}</Text>
                                 <Text style={styles.foodtime}>{nav.time}进入冰箱</Text>
-                                <Text style={[styles.foodreaminingtime, { color: nav.remainingtime <= '3' ? 'red' : '#858585' }]}>保质期还剩{nav.remainingtime}天</Text>
+                                <Text style={[styles.foodreaminingtime, { color: nav.remainingday <= 3 ? 'red' : '#858585' }]}>保质期还剩{nav.remainingday}天</Text>
                                 <TouchableOpacity
                                     onPress={() => {
                                         Alert.alert("Hold on!", "你确定要删除吗？", [
@@ -166,7 +140,7 @@ const Home = ({ navigation }) => {
                                                 text: '确定',
                                                 onPress: () => {
                                                     console.log('删除');
-                                                    setData(foodall.splice(idx,idx+1))
+                                                    setData(foodall.splice(idx, idx + 1))
                                                 }
                                             }
                                         ]);
@@ -181,7 +155,7 @@ const Home = ({ navigation }) => {
                                 <TouchableOpacity
                                     style={styles.meal}
                                     onPress={() => {
-                                        navigation.push('tabnav')
+                                        navigation.navigate('Cook')
                                     }}
                                 >
                                     <Text style={{ fontSize: 18 }}>饭</Text>
@@ -203,7 +177,7 @@ const Home = ({ navigation }) => {
                                 />
                                 <Text style={styles.foodtext}>{nav.text}</Text>
                                 <Text style={styles.foodtime}>{nav.time}进入冰箱</Text>
-                                <Text style={[styles.foodreaminingtime, { color: nav.remainingtime <= '3' ? 'red' : '#858585' }]}>保质期还剩{nav.remainingtime}天</Text>
+                                <Text style={[styles.foodreaminingtime, { color: nav.remainingday <= '3' ? 'red' : '#858585' }]}>保质期还剩{nav.remainingday}天</Text>
                                 <TouchableOpacity
                                     onPress={() => {
                                         Alert.alert("Hold on!", "你确定要删除吗？", [
@@ -216,7 +190,7 @@ const Home = ({ navigation }) => {
                                                 text: '确定',
                                                 onPress: () => {
                                                     console.log('删除');
-                                                    setData(foodall.splice(idx,idx+1))
+                                                    setData(foodall.splice(idx, idx + 1))
                                                 }
                                             }
                                         ]);
@@ -228,7 +202,12 @@ const Home = ({ navigation }) => {
                                         source={require('../images/delete.png')}
                                     />
                                 </TouchableOpacity>
-                                <TouchableOpacity style={styles.meal}>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        navigation.navigate('Cook')
+                                    }}
+                                    style={styles.meal}
+                                >
                                     <Text style={{ fontSize: 18 }}>饭</Text>
                                 </TouchableOpacity>
                             </TouchableOpacity>
@@ -251,8 +230,11 @@ const styles = StyleSheet.create({
         marginBottom: 15,
     },
     meal: {
-        marginTop: 70,
-        marginLeft: -48,
+        // marginTop: 70,
+        // marginLeft: -48,
+        position: 'absolute',
+        right: ptd(25),
+        bottom: ptd(12),
         alignItems: 'center',
         backgroundColor: blue,
         width: 49,
@@ -265,8 +247,12 @@ const styles = StyleSheet.create({
         height: 30,
     },
     delete: {
-        marginLeft: ptd(60),
-        marginTop: 10,
+        // marginLeft:0,
+        // marginLeft: ptd(60),
+        // marginTop: ptd(10),
+        position: 'absolute',
+        top: ptd(12),
+        right: ptd(25),
         alignItems: 'center',
         backgroundColor: blue,
         width: 49,
@@ -275,21 +261,30 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     foodreaminingtime: {
-        marginTop: 85,
-        marginLeft: ptd(-90),
+        // marginTop: 85,
+        // marginLeft: ptd(-90),
+        position: 'absolute',
+        top: ptd(85),
+        left: ptd(145),
     },
     foodtime: {
-        marginLeft: ptd(-30),
-        marginTop: 55,
+        // marginLeft: ptd(-30),
+        // marginTop: 55,
+        position: 'absolute',
+        top: ptd(60),
+        left: ptd(145),
     },
     foodtext: {
-        marginTop: 18,
-        marginLeft: ptd(15),
+        position: 'absolute',
+        top: ptd(25),
+        left: ptd(160),
+        // marginTop: 18,
+        // marginLeft: ptd(15),
         fontSize: 18
     },
     foodimg: {
-        width: 109,
-        height: 109,
+        width: ptd(109),
+        height: ptd(109),
         borderWidth: 5,
         borderRadius: 5,
         margin: 9,
@@ -299,11 +294,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: '#FFF',
         width: ptd(335),
-        height: 131,
         marginLeft: (w - ptd(335)) / 2,
         borderRadius: 25,
         marginBottom: 20,
         elevation: 15,
+        position: 'relative',
     },
     foodbar: {
         height: 500,
@@ -316,7 +311,7 @@ const styles = StyleSheet.create({
     },
     class: {
         width: ptd(60),
-        height: 70,
+        height: ptd(60),
         backgroundColor: '#BEE570',
         borderRadius: 100,
         alignItems: 'center',
@@ -360,7 +355,8 @@ const styles = StyleSheet.create({
     },
     time: {
         color: white,
-        marginLeft: ptd(30),
+        position: 'absolute',
+        right: 25,
         fontSize: 16,
     },
     hello: {

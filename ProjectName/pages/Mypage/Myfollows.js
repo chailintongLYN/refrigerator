@@ -38,14 +38,13 @@ const attention=[
     }
 ]
 const Myfollows = ({navigation}) => {
-    console.log(JSON.parse(attention[0].attuserimg))
     return (
         <ScrollView>
             <View style={styles.head}>
                 <Icon name='left' size={35} style={{marginLeft:ptd(50)}} onPress={()=>{navigation.goBack()}}/>
                 <Text style={{fontSize:20,marginLeft:85,fontWeight:'bold'}}>我的粉丝</Text>
             </View>
-            <ScrollView style={styles.attionlist}>
+            <ScrollView style={styles.attionlist} contentContainerStyle={{alignItems:'center'}}>
                 {
                     attention.map((item,index)=>(
                         <TouchableOpacity style={styles.attionitem} onPress={()=>{navigation.navigate('MycareCon',{conlist:item})}} key={index}>
@@ -87,7 +86,7 @@ const styles=StyleSheet.create({
         marginBottom:20,
         alignItems:'center',
         borderRadius:100,
-        borderWidth:2
+        borderWidth:2,
     },
     head:{
         flexDirection:'row',
@@ -96,9 +95,8 @@ const styles=StyleSheet.create({
         height:60,
     },
     attionlist:{
-        width:ptd(320),
+        width:ptd(375),
         height:500,
-        marginLeft:(w-ptd(320))/2,
         marginTop:20,
     }
 })

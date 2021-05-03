@@ -44,7 +44,7 @@ const MycarePage = ({navigation}) => {
                 <Icon name='left' size={35} style={{marginLeft:ptd(50)}} onPress={()=>{navigation.goBack()}}/>
                 <Text style={{fontSize:20,marginLeft:85,fontWeight:'bold'}}>你关注的人</Text>
             </View>
-            <ScrollView style={styles.attionlist}>
+            <ScrollView style={styles.attionlist} contentContainerStyle={{alignItems:'center'}}>
                 {
                     attention.map((item,index)=>(
                         <TouchableOpacity style={styles.attionitem} onPress={()=>{navigation.navigate('MycareCon',{conlist:item})}} key={index}>
@@ -94,9 +94,8 @@ const styles=StyleSheet.create({
         height:60,
     },
     attionlist:{
-        width:ptd(320),
+        width:ptd(375),
         height:500,
-        marginLeft:(w-ptd(320))/2,
         marginTop:20,
     }
 })

@@ -37,7 +37,7 @@ const Mypage=({navigation})=>{
                     </TouchableOpacity>
                 </View> 
             </View>
-            <ScrollView style={{marginTop:30}}>
+            <ScrollView style={{marginTop:30, width:ptd(375)}} contentContainerStyle={{alignItems:'center'}}>
                 {/* <View style={styles.mycooked}>
                     <Image source={require('../images/cooked.png')} style={styles.cooked_img}/>
                     <View>
@@ -83,7 +83,6 @@ const styles=StyleSheet.create({
     mycooked:{
         width:ptd(340),
         height:120,
-        marginLeft:(w-ptd(340))/2,
         marginTop:20,
         flexDirection:'row',
         borderRadius:20,

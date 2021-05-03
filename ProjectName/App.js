@@ -21,11 +21,14 @@ import MenudetailsPage from './pages/Cook/Menudetails/Menudetails';
 import MycareCon from './pages/Mypage/MycareCon'
 import Mydetails from './pages/Mypage/Mydetails'
 import Myfollows from './pages/Mypage/Myfollows'
-import Myset from './pages/Mypage/Myset'
+import Myset from './pages/Mypage/set/Myset'
+import SetUserimg from './pages/Mypage/set/SetUserimg'
+import SetPassword from './pages/Mypage/set/SetPassword'
 // 引入图标
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon2 from 'react-native-vector-icons/MaterialIcons';
 import Icon3 from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/AntDesign';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
@@ -211,10 +214,20 @@ const App = () => {
           component={Myfollows}
         />
         <RootStack.Screen
-          options={{headerShown:false}}
+          options={{
+            headerShown:false
+        }}
           name='Myset'
           component={Myset}
         />
+        <RootStack.Screen
+          options={{
+            headerShown:false
+        }}
+          name='SetUserimg'
+          component={SetUserimg}
+        />
+        <RootStack.Screen options={{headerShown:false}} name='SetPassword' component={SetPassword}/> 
       </RootStack.Navigator>
     </NavigationContainer>
     // <Tab.Navigator

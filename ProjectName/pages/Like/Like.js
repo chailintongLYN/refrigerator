@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { ScrollView, Text, View, StyleSheet, Image, TouchableOpacity, Alert, AsyncStorage } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/AntDesign';
+import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const myDate = new Date();
 const year = myDate.getFullYear();
@@ -89,7 +90,8 @@ const LikePage = ({ navigation }) => {
                                     ]);
                                 }}
                             >
-                                <Image style={{ width: 32, height: 32 }} source={require('../images/delete.png')} />
+                                {/* <Image style={{ width: 32, height: 32 }} source={require('../images/delete.png')} /> */}
+                                <Icon1 name='delete-empty' size={35} style={{color:'rgb(243,230,82)'}}/>
                             </TouchableOpacity>
                         </TouchableOpacity>
                     ))

@@ -42,7 +42,7 @@ const LogonPage = ({ navigation }) => {
                 onPress={async () => {
 
                     //这一行后台开启了要注释掉
-                    navigation.push('tabnav');
+                    // navigation.push('tabnav');
 
                     await AsyncStorage.setItem(
                         'username',
@@ -61,7 +61,6 @@ const LogonPage = ({ navigation }) => {
                                 'userimg',
                                 res.results
                             )
-                            console.log(res.results);
                             if (res.status == 'success') {
                                 alert("登录成功")
                                 navigation.push('tabnav');
@@ -70,8 +69,6 @@ const LogonPage = ({ navigation }) => {
                                 alert('登录失败')
                             }
                         })
-
-
                 }}
             >
                 <Text style={styles.text}>登录</Text>

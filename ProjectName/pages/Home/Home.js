@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Image, Text, View, StyleSheet, TouchableOpacity, TextInput, Alert, AsyncStorage } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/AntDesign';
+import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons'
 import '../../common/global'
 
 const classbar = [
@@ -187,10 +188,11 @@ const Home = ({ navigation }) => {
                                     }}
                                     style={styles.delete}
                                 >
-                                    <Image
+                                    {/* <Image
                                         style={styles.deleteimg}
                                         source={require('../images/delete.png')}
-                                    />
+                                    /> */}
+                                    <Icon1 name='delete-empty' size={35} style={{color:'rgb(251,252,154)'}}/>
                                 </TouchableOpacity>
                                 <TouchableOpacity
                                     style={styles.meal}
@@ -237,10 +239,11 @@ const Home = ({ navigation }) => {
                                     }}
                                     style={styles.delete}
                                 >
-                                    <Image
+                                    {/* <Image
                                         style={styles.deleteimg}
                                         source={require('../images/delete.png')}
-                                    />
+                                    /> */}
+                                    <Icon1 name='delete-empty' size={35} style={{color:'rgb(243,230,82)'}}/>
                                 </TouchableOpacity>
                                 <TouchableOpacity
                                     onPress={() => {
@@ -248,7 +251,7 @@ const Home = ({ navigation }) => {
                                     }}
                                     style={styles.meal}
                                 >
-                                    <Text style={{ fontSize: 18 }}>饭</Text>
+                                    <Text style={{ fontSize: 18 ,color:'rgb(243,230,82)',fontWeight:'bold'}}>饭</Text>
                                 </TouchableOpacity>
                             </TouchableOpacity>
                         ))

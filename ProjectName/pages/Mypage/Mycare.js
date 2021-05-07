@@ -39,7 +39,7 @@ const attention=[
 ]
 const MycarePage = ({navigation}) => {
     return (
-        <ScrollView>
+        <View style={{flex:1}}>
             <View style={styles.head}>
                 <Icon name='left' size={35} style={{marginLeft:ptd(50)}} onPress={()=>{navigation.goBack()}}/>
                 <Text style={{fontSize:20,marginLeft:85,fontWeight:'bold'}}>你关注的人</Text>
@@ -57,7 +57,7 @@ const MycarePage = ({navigation}) => {
                     ))
                 }
             </ScrollView>
-        </ScrollView>
+        </View>
     )
 }
 export default MycarePage

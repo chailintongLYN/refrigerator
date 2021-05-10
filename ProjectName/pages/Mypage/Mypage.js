@@ -4,15 +4,21 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import '../../common/global'
 
 const mycook=[
+    {username:'小小刀',userimg:require('../images/logo.jpg'),content:'今天吃生蚝啊，清蒸生蚝好好吃llllllalallalalallalalalalalallalalalala的哈哈哈哈哈哈哈哈哈哈哈哈哈',time:'2021-04-19',img:require('../images/cooked.png')},
     {username:'小小刀',userimg:require('../images/logo.jpg'),content:'今天吃生蚝啊，清蒸生蚝好好吃',time:'2021-04-19',img:require('../images/cooked.png')},
     {username:'小小刀',userimg:require('../images/logo.jpg'),content:'今天吃生蚝啊，清蒸生蚝好好吃',time:'2021-04-19',img:require('../images/cooked.png')},
     {username:'小小刀',userimg:require('../images/logo.jpg'),content:'今天吃生蚝啊，清蒸生蚝好好吃',time:'2021-04-19',img:require('../images/cooked.png')},
     {username:'小小刀',userimg:require('../images/logo.jpg'),content:'今天吃生蚝啊，清蒸生蚝好好吃',time:'2021-04-19',img:require('../images/cooked.png')},
+    {username:'小小刀',userimg:require('../images/logo.jpg'),content:'今天吃生蚝啊，清蒸生蚝好好吃',time:'2021-04-19',img:require('../images/cooked.png')},
+    {username:'小小刀',userimg:require('../images/logo.jpg'),content:'今天吃生蚝啊，清蒸生蚝好好吃',time:'2021-04-19',img:require('../images/cooked.png')},
+    {username:'小小刀',userimg:require('../images/logo.jpg'),content:'今天吃生蚝啊，清蒸生蚝好好吃',time:'2021-04-19',img:require('../images/cooked.png')},
+    
 ]
+
 
 const Mypage=({navigation})=>{
     return (
-        <ScrollView>
+        <View style={{flex:1}}>
             <View style={styles.bgc}>
                 <Icon name='setting' size={40}  style={{color:'white',marginLeft:ptd(300),marginTop:25}} onPress={()=>{navigation.navigate('Myset')}}/>
             </View>
@@ -20,7 +26,7 @@ const Mypage=({navigation})=>{
                 <View style={{flexDirection:'row'}}>
                     <Image source={require('../images/logo.jpg')} style={styles.userimg}/>
                     <Text style={styles.username}>小小刀</Text>
-                    <Icon name='camera' size={40} style={{color:blue,marginLeft:ptd(115),marginTop:25}}/>
+                    <Icon name='camera' size={40} style={{color:blue,marginLeft:ptd(115),marginTop:25}} onPress={()=>navigation.navigate('Myadd')}/>
                 </View>
                 <View style={{flexDirection:'row'}}>
                     <TouchableOpacity style={styles.mysearch} onPress={()=>{navigation.navigate('Mycare')}}>
@@ -31,26 +37,19 @@ const Mypage=({navigation})=>{
                         <Text style={styles.title_number}>3</Text>
                         <Text style={styles.search_name}>我的粉丝</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.mysearch}>
+                    <TouchableOpacity style={styles.mysearch} onPress={()=>navigation.navigate('Mydetails',{index:0,list:mycook})}>
                         <Text style={styles.title_number}>3</Text>
                         <Text style={styles.search_name}>我的心得</Text>
                     </TouchableOpacity>
                 </View> 
             </View>
-            <ScrollView style={{marginTop:30, width:ptd(375)}} contentContainerStyle={{alignItems:'center'}}>
-                {/* <View style={styles.mycooked}>
-                    <Image source={require('../images/cooked.png')} style={styles.cooked_img}/>
-                    <View>
-                        <Text style={styles.content}>今天吃生蚝啊，清蒸生蚝好好吃,啦啦啦啦啦啦啦啦</Text>
-                        <Text style={{marginLeft:10,color:'#9D9E9D'}}>2021-04-19</Text>
-                    </View>
-                </View> */}
+            <ScrollView style={{marginTop:20, width:ptd(375)}} contentContainerStyle={{alignItems:'center'}}>
                 {
                     mycook.map((item,index)=>(
                         <TouchableOpacity 
                             style={[styles.mycooked,{marginBottom:index==mycook.length-1?20:0}]} 
                             key={index} 
-                            onPress={()=>navigation.navigate('Mydetails')}
+                            onPress={()=>navigation.navigate('Mydetails',{index:index,list:mycook})}
                         >
                             <Image source={item.img} style={styles.cooked_img}/>
                             <View>
@@ -61,7 +60,7 @@ const Mypage=({navigation})=>{
                     ))
                 }
             </ScrollView> 
-        </ScrollView>
+        </View>
     )
 }
 const styles=StyleSheet.create({

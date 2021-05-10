@@ -48,8 +48,8 @@ const LogonPage = ({ navigation }) => {
                         'username',
                         logoninfo.username
                     )
-                    console.log(logoninfo)
-                    fetch('http://154.8.164.57:1127/userimg', {
+                    console.log(logoninfo.username)
+                    fetch('http://154.8.164.57:1127/data', {
                         method: 'POST',
                         body: JSON.stringify(logoninfo),
                         headers: new Headers({
@@ -57,11 +57,20 @@ const LogonPage = ({ navigation }) => {
                         })
                     }).then(res => res.json())
                         .then((res) => {
-                            AsyncStorage.setItem(
-                                'userimg',
-                                res.results
-                            )
                             if (res.status == 'success') {
+                                fetch('http://154.8.164.57:1127/userimg', {
+                                    method: 'POST',
+                                    body: JSON.stringify(logoninfo),
+                                    headers: new Headers({
+                                        'Content-Type': 'application/json'
+                                    })
+                                }).then(res => res.json())
+                                    .then((res) => {
+                                        AsyncStorage.setItem(
+                                            'userimg',
+                                            res.results
+                                        )
+                                    })
                                 alert("登录成功")
                                 navigation.push('tabnav');
                             }
@@ -69,6 +78,7 @@ const LogonPage = ({ navigation }) => {
                                 alert('登录失败')
                             }
                         })
+
                 }}
             >
                 <Text style={styles.text}>登录</Text>

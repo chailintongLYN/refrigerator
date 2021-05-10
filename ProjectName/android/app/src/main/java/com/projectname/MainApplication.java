@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import cn.jiguang.plugins.push.JPushPackage;
+import cn.jpush.reactnativejpush.JPushPackage; 
 import com.imagepicker.ImagePickerPackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
 // import com.reactnative.ivpusic.imagepicker.PickerPackage;

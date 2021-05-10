@@ -46,12 +46,14 @@ const CookPage = ({ navigation }) => {
                     <Icon name='search1' size={18} style={styles.icon}></Icon>
                     <TextInput
                         keyboardType={'default'}
-                        onEndEditing={() => navigation.push('CookSearch')}
+                        onEndEditing={(value) => {
+                            navigation.push('CookSearch', {text:value.nativeEvent.text,from:'Cook'})
+                        }}
                         style={styles.input}
-                        placeholder='芒果'
+                        placeholder='搜索菜谱'
                     />
                 </View>
-                <TouchableOpacity onPress={()=>{navigation.navigate('My')}}>
+                <TouchableOpacity onPress={() => { navigation.navigate('My') }}>
                     <Image
                         style={styles.headportrait}
                         source={require('../images/logo.jpg')}
@@ -93,13 +95,13 @@ const styles = StyleSheet.create({
     },
     img: {
         borderRadius: 25,
-        width: w-50,
-        height: w-50,
+        width: w - 50,
+        height: w - 50,
     },
     food: {
         marginLeft: 25,
         marginTop: 10,
-        width: w-50,
+        width: w - 50,
         backgroundColor: '#BFC',
         marginBottom: 25,
         elevation: 10,
@@ -156,8 +158,8 @@ const styles = StyleSheet.create({
     },
     time: {
         color: white,
-        position:'absolute',
-        right:25,
+        position: 'absolute',
+        right: 25,
         fontSize: 16,
     },
     hello: {

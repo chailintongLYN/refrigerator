@@ -5,6 +5,8 @@ import com.imagepicker.permissions.OnImagePickerPermissionsCallback; // <- add t
 import com.facebook.react.modules.core.PermissionListener; // <- add this import
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
+import android.os.Bundle;
+import cn.jpush.android.api.JPushInterface;
 import com.facebook.react.ReactRootView;
 import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
 
@@ -29,4 +31,26 @@ public class MainActivity extends ReactActivity {
   //       }
   //   };
   // }
+  @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        JPushInterface.init(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        JPushInterface.onPause(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        JPushInterface.onResume(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

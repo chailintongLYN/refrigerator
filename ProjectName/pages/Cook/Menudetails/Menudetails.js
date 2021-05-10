@@ -1,32 +1,81 @@
-import React from 'react'
-import { ScrollView, Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { ScrollView, Text, View, StyleSheet, Image, TouchableOpacity, AsyncStorage } from 'react-native'
 import Icon1 from 'react-native-vector-icons/MaterialIcons';
 import Icon2 from 'react-native-vector-icons/AntDesign';
 
-const mealdetails = {
-    text: '外加里嫩~炸豆腐丸子',
-    time: '约12-15分钟',
-    savenum: '411',
-    details: [
-        { name: '北豆腐', weight: '133.3g' },
-        { name: '香菜', weight: '26.6g' },
-        { name: '胡萝卜', weight: '26.6g' },
-        { name: '水发木耳', weight: '13.3g' },
-        { name: '鸡蛋', weight: '3-4个' },
-        { name: '盐', weight: '13.3g' },
-        { name: '生抽', weight: '13.3g' },
-        { name: '五香粉', weight: '13.3g' },
-    ],
-    step: [
-        { text: '豆腐用勺子捣碎', img: require('../../images/apple.jpg') },
-        { text: '豆腐用勺子捣碎', img: require('../../images/apple.jpg') },
-        { text: '豆腐用勺子捣碎', img: require('../../images/apple.jpg') },
-        { text: '豆腐用勺子捣碎', img: require('../../images/apple.jpg') },
-    ],
-    img: require('../../images/apple.jpg')
-}
+const MenudetailsPage = ({ navigation, route }) => {
+    let mealdetail = {
+        text: route.params,
+        time: '约0分钟',
+        details: [
+        ],
+        step: [
+        ],
+        img: require('../../images/apple.jpg')
+    }
+    
+    useEffect(async () => {
+        console.log('detailseffect')
+        let username = await AsyncStorage.getItem('username')
+        fetch('http://154.8.164.57:1127/getmealdatas', {
+            method: 'POST',
+            body: JSON.stringify({ mealname: route.params }),
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            })
+        }).then(res => res.json())
+            .then((res) => {
+                setSave(parseInt(res.meal[0].savenumber))
+                mealdetail.time = res.meal[0].time
+                let i = 0;
+                for (const key in res.details[0]) {
+                    if (Object.hasOwnProperty.call(res.details[0], key)) {
+                        if (res.details[0][key] == 0) continue;
+                        // mealdetail.details
+                        else if (i != 0) {
+                            if (mealdetail.details[i - 1] == undefined) {
+                                mealdetail.details.push({})
+                            }
+                            mealdetail.details[i - 1].name = res.details[0][key].split(' ')[0];
+                            mealdetail.details[i - 1].weight = res.details[0][key].split(' ')[1];
+                        }
+                        i++;
+                    }
+                }
+                i = 0;
+                for (const key in res.steps[0]) {
+                    if (Object.hasOwnProperty.call(res.steps[0], key)) {
+                        if (res.steps[0][key] == 0) continue;
+                        else if (i != 0) {
+                            if (mealdetail.step[i - 1] == undefined) {
+                                mealdetail.step.push({})
+                            }
+                            mealdetail.step[i - 1].text = res.steps[0][key]
+                        }
+                    }
+                    i++;
+                }
+                // console.log(res.meal[0].img);
+                // mealdetail.img = res.meal[0].img
+                setMealDetails({ ...mealdetail })
+            })
 
-const MenudetailsPage = ({ navigation }) => {
+        fetch('http://154.8.164.57:1127/checklike', {
+            method: 'POST',
+            body: JSON.stringify({ username: username, mealname: route.params }),
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            })
+        }).then(res => res.json())
+            .then((res) => {
+                console.log(res);
+            })
+
+    }, [])
+    const [mealdetails, setMealDetails] = useState(mealdetail);
+    const [ifsave, setIfSave] = useState(false);
+    const [save, setSave] = useState(0);
+
     return (
         <ScrollView>
             <View style={styles.titlebar}>
@@ -35,8 +84,37 @@ const MenudetailsPage = ({ navigation }) => {
                 </Text>
                 <Icon1 name='access-time' size={32} style={styles.icontime}></Icon1>
                 <Text style={styles.timetext}>时间：{mealdetails.time}</Text>
-                <Icon2 name='star' size={32} style={styles.iconsave}></Icon2>
-                <Text style={styles.savetext}>收藏：{mealdetails.savenum}人</Text>
+                <TouchableOpacity
+                    style={styles.iconsave}
+                    onPress={() => {
+                        ifsave == true ? setIfSave(false) : setIfSave(true);
+                        ifsave == true ? setSave(save - 1) : setSave(save + 1);
+                        // ifsave == true ?
+                        //     fetch('http://154.8.164.57:1127/getmealdatas', {
+                        //         method: 'POST',
+                        //         body: JSON.stringify({ mealname: route.params }),
+                        //         headers: new Headers({
+                        //             'Content-Type': 'application/json'
+                        //         })
+                        //     }).then(res => res.json())
+                        //         .then((res) => {
+
+                        //         }) :
+                        //     fetch('http://154.8.164.57:1127/getmealdatas', {
+                        //         method: 'POST',
+                        //         body: JSON.stringify({ mealname: route.params }),
+                        //         headers: new Headers({
+                        //             'Content-Type': 'application/json'
+                        //         })
+                        //     }).then(res => res.json())
+                        //         .then((res) => {
+
+                        //         })
+                    }}
+                >
+                    <Icon2 name='star' size={32} style={{ color: ifsave == true ? 'rgb(243,230,82)' : white2 }}></Icon2>
+                </TouchableOpacity>
+                <Text style={styles.savetext}>收藏：{save}人</Text>
                 <TouchableOpacity style={styles.iconclose} onPress={() => navigation.goBack()}>
                     <Icon2 name='closecircle' size={46} color={white2}></Icon2>
                 </TouchableOpacity>
@@ -69,15 +147,15 @@ const MenudetailsPage = ({ navigation }) => {
                                 <Text style={styles.steptext}>
                                     {nav.text}
                                 </Text>
-                                <Image
+                                {/* <Image
                                     style={styles.stepimg}
                                     source={nav.img}
-                                />
+                                /> */}
                             </View>
                         ))
                     }
                     <View style={styles.step}>
-                        <Text style={[styles.steptitle,{marginBottom:10}]}>最终成品：</Text>
+                        <Text style={[styles.steptitle, { marginBottom: 10 }]}>最终成品：</Text>
                         <Image
                             style={styles.stepimg}
                             source={mealdetails.img}
@@ -92,7 +170,7 @@ const MenudetailsPage = ({ navigation }) => {
 const styles = StyleSheet.create({
     stepimg: {
         borderRadius: 10,
-        marginLeft:20,
+        marginLeft: 20,
         width: w - 120,
         height: w - 120,
     },
@@ -150,31 +228,35 @@ const styles = StyleSheet.create({
     },
     iconclose: {
         color: white2,
-        marginLeft: -45,
-        marginTop: 10,
+        position: 'absolute',
+        top: 10,
+        right: 20,
     },
     savetext: {
         color: white2,
-        marginTop: 70,
-        marginLeft: 10,
+        position: 'absolute',
+        left: 270,
+        top: 70,
         fontSize: 18,
         fontWeight: 'bold',
     },
     iconsave: {
-        color: white2,
-        marginTop: 64,
-        marginLeft: 32,
+        position: 'absolute',
+        left: 230,
+        top: 65,
     },
     timetext: {
         color: white2,
-        marginTop: 70,
+        position: 'absolute',
+        top: 70,
+        left: 60,
         fontSize: 18,
-        marginLeft: 10,
         fontWeight: 'bold',
     },
     icontime: {
-        marginLeft: -215,
-        marginTop: 65,
+        position: 'absolute',
+        top: 65,
+        left: 25,
         color: white2,
     },
     titletext: {
@@ -193,6 +275,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         borderRadius: 10,
         elevation: 10,
+        position: 'relative',
     }
 })
 

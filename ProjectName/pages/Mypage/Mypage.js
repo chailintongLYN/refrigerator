@@ -26,7 +26,7 @@ const Mypage=({navigation})=>{
                 <View style={{flexDirection:'row'}}>
                     <Image source={require('../images/logo.jpg')} style={styles.userimg}/>
                     <Text style={styles.username}>小小刀</Text>
-                    <Icon name='camera' size={40} style={{color:blue,marginLeft:ptd(115),marginTop:25}}/>
+                    <Icon name='camera' size={40} style={{color:blue,marginLeft:ptd(115),marginTop:25}} onPress={()=>navigation.navigate('Myadd')}/>
                 </View>
                 <View style={{flexDirection:'row'}}>
                     <TouchableOpacity style={styles.mysearch} onPress={()=>{navigation.navigate('Mycare')}}>

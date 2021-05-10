@@ -22,6 +22,7 @@ import MycareCon from './pages/Mypage/MycareCon'
 import Mydetails from './pages/Mypage/Mydetails'
 import Myfollows from './pages/Mypage/Myfollows'
 import MysetPage from './pages/Mypage/set/Myset'
+import Myadd from './pages/Mypage/Myadd'
 import SetUserimgPage from './pages/Mypage/set/SetUserimg'
 import SetPasswordPage from './pages/Mypage/set/SetPassword'
 import AddPage from './pages/Add/Add';
@@ -210,6 +211,7 @@ const App = () => {
           component={SetUserimgPage}
         />
         <RootStack.Screen options={{headerShown:false}} name='SetPassword' component={SetPasswordPage}/> 
+        <RootStack.Screen options={{headerShown:false}} name='Myadd' component={Myadd}/> 
       </RootStack.Navigator>
     </NavigationContainer>
     // <Tab.Navigator

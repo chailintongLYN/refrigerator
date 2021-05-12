@@ -4,7 +4,6 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons'
 import '../../common/global'
-import JPushModule from 'jpush-react-native'
 
 const classbar = [
     { text: '水果蔬菜', img: require('../images/lemon.png'), color: '#BEE570' },
@@ -43,8 +42,8 @@ const Home = ({ navigation }) => {
     };
     _retrieveData();
 
-    useEffect(async() => {
-        setUserName(await AsyncStorage.getItem('username'));
+    React.useEffect(() => {
+        setUserName( AsyncStorage.getItem('username'));
         console.log('effect');
         fetch('http://154.8.164.57:1127/getmysavefood', {
             method: 'POST',
@@ -54,7 +53,7 @@ const Home = ({ navigation }) => {
             })
         }).then(res => res.json())
             .then((res) => {
-
+                console.log(res);
                 var foodall = res.results
                 for (let i = 0; i < foodall.length; i++) {
                     if (foodall[i].type == '水果蔬菜') {
@@ -80,7 +79,7 @@ const Home = ({ navigation }) => {
                 }
                 setData(foodall)
             })
-    }, [])
+    },[])
 
     const food = [
         { text: '黄瓜', time: '4月17日', remainingday: '3', img: require('../images/apple.jpg'), color: '#BEE570' },

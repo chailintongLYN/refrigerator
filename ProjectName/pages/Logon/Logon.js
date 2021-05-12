@@ -8,6 +8,8 @@ let logoninfo = {
     img: './static/uploaduserimg/logo.jpg',
 }
 
+
+
 const LogonPage = ({ navigation }) => {
     return (
         <View style={styles.body}>
@@ -66,9 +68,10 @@ const LogonPage = ({ navigation }) => {
                                     })
                                 }).then(res => res.json())
                                     .then((res) => {
+                                        console.log(res.results[0].img);
                                         AsyncStorage.setItem(
                                             'userimg',
-                                            res.results
+                                            res.results[0].img
                                         )
                                     })
                                 alert("登录成功")

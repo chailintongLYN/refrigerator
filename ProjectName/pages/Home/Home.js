@@ -1,10 +1,9 @@
-import React, { useEffect, useState, PureComponent } from 'react'
-import { Linking, Image, Text, View, StyleSheet, TouchableOpacity, TextInput, Alert, AsyncStorage } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { Image, Text, View, StyleSheet, TouchableOpacity, TextInput, Alert, AsyncStorage } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons'
 import '../../common/global'
-import JPushModule from 'jpush-react-native'
 
 const classbar = [
     { text: '水果蔬菜', img: require('../images/lemon.png'), color: '#BEE570' },
@@ -36,6 +35,7 @@ const Home = ({ navigation }) => {
     const _retrieveData = async () => {
         try {
             setUserImage(await AsyncStorage.getItem('userimg'));
+            setUserName(await AsyncStorage.getItem('username'));
             // We have data!!
         } catch (error) {
             // Error retrieving data
@@ -43,8 +43,7 @@ const Home = ({ navigation }) => {
     };
     _retrieveData();
 
-    useEffect(async() => {
-        setUserName(await AsyncStorage.getItem('username'));
+    useEffect(() => {
         console.log('effect');
         fetch('http://154.8.164.57:1127/getmysavefood', {
             method: 'POST',
@@ -54,7 +53,6 @@ const Home = ({ navigation }) => {
             })
         }).then(res => res.json())
             .then((res) => {
-
                 var foodall = res.results
                 for (let i = 0; i < foodall.length; i++) {
                     if (foodall[i].type == '水果蔬菜') {
@@ -119,7 +117,7 @@ const Home = ({ navigation }) => {
                 <TouchableOpacity onPress={() => { navigation.navigate('My') }}>
                     <Image
                         style={styles.headportrait}
-                        source={{ uri: "data:image/jpeg;base64," + userimg }}
+                        source={{ uri: userimg }}
                     />
                 </TouchableOpacity>
             </View>
@@ -237,7 +235,7 @@ const Home = ({ navigation }) => {
                             <Image
                                 style={[styles.foodimg, { borderColor: nav.color }]}
                                 // source={nav.img}
-                                source={{ uri: "data:image/jpeg;base64," + nav.img }}
+                                source={{ uri: nav.img }}
                             />
                             <Text style={styles.foodtext}>{nav.text}</Text>
                             <Text style={styles.foodtime}>{nav.time}进入冰箱</Text>

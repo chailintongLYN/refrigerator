@@ -135,10 +135,10 @@ android {
         versionCode 1
         vectorDrawables.useSupportLibrary = true
         versionName "1.0"
-        manifestPlaceholders = [
-                JPUSH_APPKEY: "6d318f0ae76bd54dc334880c", //在此替换你极光官网上申请的 APPKey
-                APP_CHANNEL: "developer-default"    //应用渠道号, 默认即可
-        ]
+        // manifestPlaceholders = [
+        //         JPUSH_APPKEY: "6d318f0ae76bd54dc334880c", //在此替换你极光官网上申请的 APPKey
+        //         APP_CHANNEL: "developer-default"    //应用渠道号, 默认即可
+        // ]
     }
     splits {
         abi {
@@ -196,8 +196,8 @@ android {
 
 dependencies {
 
-    compile project(':jpush-react-native')  // 添加 jpush 依赖
-    compile project(':jcore-react-native')  // 添加 jcore 依赖
+    // compile project(':jpush-react-native')  // 添加 jpush 依赖
+    // compile project(':jcore-react-native')  // 添加 jcore 依赖
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules

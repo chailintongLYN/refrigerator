@@ -89,7 +89,7 @@ const CookSearchPage = ({ navigation, route }) => {
                             >
                                 <Image
                                     style={[styles.menuimg]}
-                                    source={{ uri: "data:image/jpeg;base64," + nav.img }}
+                                    source={{ uri: nav.img }}
                                 />
                                 <Text style={styles.menutext}>{nav.mealname}</Text>
                             </TouchableOpacity>

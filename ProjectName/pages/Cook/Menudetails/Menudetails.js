@@ -3,7 +3,11 @@ import { ScrollView, Text, View, StyleSheet, Image, TouchableOpacity, AsyncStora
 import Icon1 from 'react-native-vector-icons/MaterialIcons';
 import Icon2 from 'react-native-vector-icons/AntDesign';
 
+
+
 const MenudetailsPage = ({ navigation, route }) => {
+
+
     let mealdetail = {
         text: route.params,
         time: '约0分钟',
@@ -13,68 +17,71 @@ const MenudetailsPage = ({ navigation, route }) => {
         ],
         img: require('../../images/apple.jpg')
     }
-    
-    useEffect(async () => {
-        console.log('detailseffect')
-        let username = await AsyncStorage.getItem('username')
-        fetch('http://154.8.164.57:1127/getmealdatas', {
-            method: 'POST',
-            body: JSON.stringify({ mealname: route.params }),
-            headers: new Headers({
-                'Content-Type': 'application/json'
-            })
-        }).then(res => res.json())
-            .then((res) => {
-                setSave(parseInt(res.meal[0].savenumber))
-                mealdetail.time = res.meal[0].time
-                let i = 0;
-                for (const key in res.details[0]) {
-                    if (Object.hasOwnProperty.call(res.details[0], key)) {
-                        if (res.details[0][key] == 0) continue;
-                        // mealdetail.details
-                        else if (i != 0) {
-                            if (mealdetail.details[i - 1] == undefined) {
-                                mealdetail.details.push({})
+
+    useEffect(() => {
+        AsyncStorage.getItem('username').then((username) => {
+            setUserName(username)
+            fetch('http://154.8.164.57:1127/getmealdatas', {
+                method: 'POST',
+                body: JSON.stringify({ mealname: route.params }),
+                headers: new Headers({
+                    'Content-Type': 'application/json'
+                })
+            }).then(res => res.json())
+                .then((res) => {
+                    setSave(parseInt(res.meal[0].savenumber))
+                    mealdetail.time = res.meal[0].time
+                    let i = 0;
+                    for (const key in res.details[0]) {
+                        if (Object.hasOwnProperty.call(res.details[0], key)) {
+                            if (res.details[0][key] == 0) continue;
+                            // mealdetail.details
+                            else if (i != 0) {
+                                if (mealdetail.details[i - 1] == undefined) {
+                                    mealdetail.details.push({})
+                                }
+                                mealdetail.details[i - 1].name = res.details[0][key].split(' ')[0];
+                                mealdetail.details[i - 1].weight = res.details[0][key].split(' ')[1];
                             }
-                            mealdetail.details[i - 1].name = res.details[0][key].split(' ')[0];
-                            mealdetail.details[i - 1].weight = res.details[0][key].split(' ')[1];
+                            i++;
+                        }
+                    }
+                    i = 0;
+                    for (const key in res.steps[0]) {
+                        if (Object.hasOwnProperty.call(res.steps[0], key)) {
+                            if (res.steps[0][key] == 0) continue;
+                            else if (i != 0) {
+                                if (mealdetail.step[i - 1] == undefined) {
+                                    mealdetail.step.push({})
+                                }
+                                mealdetail.step[i - 1].text = res.steps[0][key]
+                            }
                         }
                         i++;
                     }
-                }
-                i = 0;
-                for (const key in res.steps[0]) {
-                    if (Object.hasOwnProperty.call(res.steps[0], key)) {
-                        if (res.steps[0][key] == 0) continue;
-                        else if (i != 0) {
-                            if (mealdetail.step[i - 1] == undefined) {
-                                mealdetail.step.push({})
-                            }
-                            mealdetail.step[i - 1].text = res.steps[0][key]
-                        }
-                    }
-                    i++;
-                }
-                // console.log(res.meal[0].img);
-                // mealdetail.img = res.meal[0].img
-                setMealDetails({ ...mealdetail })
-            })
+                    // console.log(res.meal[0].img);
+                    // mealdetail.img = res.meal[0].img
+                    setMealDetails({ ...mealdetail })
+                })
 
-        fetch('http://154.8.164.57:1127/checklike', {
-            method: 'POST',
-            body: JSON.stringify({ username: username, mealname: route.params }),
-            headers: new Headers({
-                'Content-Type': 'application/json'
-            })
-        }).then(res => res.json())
-            .then((res) => {
-                console.log(res);
-            })
+            fetch('http://154.8.164.57:1127/checklike', {
+                method: 'POST',
+                body: JSON.stringify({ username: username, mealname: route.params }),
+                headers: new Headers({
+                    'Content-Type': 'application/json'
+                })
+            }).then(res => res.json())
+                .then((res) => {
+                    setIfSave(res.results)
+                })
+        });
+        console.log('detailseffect')
 
     }, [])
     const [mealdetails, setMealDetails] = useState(mealdetail);
     const [ifsave, setIfSave] = useState(false);
     const [save, setSave] = useState(0);
+    const [username, setUserName] = useState('')
 
     return (
         <ScrollView>
@@ -89,27 +96,27 @@ const MenudetailsPage = ({ navigation, route }) => {
                     onPress={() => {
                         ifsave == true ? setIfSave(false) : setIfSave(true);
                         ifsave == true ? setSave(save - 1) : setSave(save + 1);
-                        // ifsave == true ?
-                        //     fetch('http://154.8.164.57:1127/getmealdatas', {
-                        //         method: 'POST',
-                        //         body: JSON.stringify({ mealname: route.params }),
-                        //         headers: new Headers({
-                        //             'Content-Type': 'application/json'
-                        //         })
-                        //     }).then(res => res.json())
-                        //         .then((res) => {
-
-                        //         }) :
-                        //     fetch('http://154.8.164.57:1127/getmealdatas', {
-                        //         method: 'POST',
-                        //         body: JSON.stringify({ mealname: route.params }),
-                        //         headers: new Headers({
-                        //             'Content-Type': 'application/json'
-                        //         })
-                        //     }).then(res => res.json())
-                        //         .then((res) => {
-
-                        //         })
+                        ifsave == true ?
+                            fetch('http://154.8.164.57:1127/addlike', {
+                                method: 'POST',
+                                body: JSON.stringify({ username: username, mealname: route.params }),
+                                headers: new Headers({
+                                    'Content-Type': 'application/json'
+                                })
+                            }).then(res => res.json())
+                                .then((res) => {
+                                    console.log(res);
+                                }) :
+                            fetch('http://154.8.164.57:1127/deletesave', {
+                                method: 'POST',
+                                body: JSON.stringify({ username: username, mealname: route.params }),
+                                headers: new Headers({
+                                    'Content-Type': 'application/json'
+                                })
+                            }).then(res => res.json())
+                                .then((res) => {
+                                    console.log(res);
+                                })
                     }}
                 >
                     <Icon2 name='star' size={32} style={{ color: ifsave == true ? 'rgb(243,230,82)' : white2 }}></Icon2>

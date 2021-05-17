@@ -180,7 +180,6 @@ const styles = StyleSheet.create({
     },
     attionlist: {
         width: ptd(320),
-        height: 500,
         marginLeft: (w - ptd(320)) / 2,
         marginTop: 20,
     }

@@ -14,12 +14,6 @@ if (day.length == 1) {
     day = '0' + day;
 }
 
-const foodrecommend = [
-    { text: '西红柿炒鸡蛋', img: require('../images/apple.jpg') },
-    { text: '菜名XX', img: require('../images/apple.jpg') },
-    { text: '菜名XX', img: require('../images/apple.jpg') },
-    { text: '菜名XX', img: require('../images/apple.jpg') },
-];
 
 const CookPage = ({ navigation }) => {
     const [username, setUserName] = useState('')
@@ -63,23 +57,14 @@ const CookPage = ({ navigation }) => {
 
             <View style={styles.bodybox}>
                 <Text style={[styles.body_, { marginLeft: w / 2 - 136 / 2 - 50 }]}>——</Text>
-                <Text style={styles.bodybar}>冰箱推荐</Text>
+                <Text style={styles.bodybar}>心得广场</Text>
                 <Text style={styles.body_}>——</Text>
             </View>
 
             <ScrollView style={styles.body}>
-                {foodrecommend.map((nav, idx) => (
-                    <TouchableOpacity
-                        key={idx}
-                        style={styles.food}
-                        onPress={() => navigation.push('Menudetails')}
-                    >
-                        <Text style={styles.foodtext}>
-                            {nav.text}
-                        </Text>
-                        <Image source={nav.img} style={styles.img} />
-                    </TouchableOpacity>
-                ))}
+                <View style={styles.items}>
+                </View>
+                
             </ScrollView>
         </View>
     )
@@ -110,69 +95,6 @@ const styles = StyleSheet.create({
     body: {
         height: 573,
     },
-    body_: {
-        marginTop: 18,
-        color: '#E6E6E6',
-        fontSize: 32,
-        fontWeight: 'bold'
-    },
-    bodybox: {
-        alignItems: 'center',
-        flexDirection: 'row'
-    },
-    bodybar: {
-        marginTop: 20,
-        color: blue,
-        fontSize: 32,
-        fontWeight: 'bold'
-    },
-    headportrait: {
-        width: 48,
-        height: 48,
-        borderRadius: 100,
-        marginLeft: 25,
-        marginTop: -5
-    },
-    searchbox: {
-        backgroundColor: '#FFF',
-        marginLeft: 43,
-        flexDirection: 'row',
-        width: w - 138,
-        borderRadius: 50,
-        height: 38,
-        alignItems: 'center',
-        paddingLeft: 15
-    },
-    input: {
-        fontSize: 18,
-        padding: 0
-    },
-    searchbar: {
-        backgroundColor: blue,
-        flexDirection: 'row',
-        height: 50
-    },
-    icon: {
-        color: '#9D9E9D',
-        paddingRight: 10
-    },
-    time: {
-        color: white,
-        position: 'absolute',
-        right: 25,
-        fontSize: 16,
-    },
-    hello: {
-        marginLeft: 20,
-        color: white,
-        fontSize: 16
-    },
-    titlebar: {
-        flexDirection: 'row',
-        backgroundColor: blue,
-        height: 40,
-    }
-
 })
 
 export default CookPage

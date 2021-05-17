@@ -43,12 +43,7 @@ const Home = ({ navigation }) => {
     };
     _retrieveData();
 
-<<<<<<< HEAD
-    React.useEffect(() => {
-        setUserName( AsyncStorage.getItem('username'));
-=======
     useEffect(() => {
->>>>>>> c552f8b8bf8b566c66453097059aff7b7cfe1b2d
         console.log('effect');
         fetch('http://154.8.164.57:1127/getmysavefood', {
             method: 'POST',
@@ -58,10 +53,6 @@ const Home = ({ navigation }) => {
             })
         }).then(res => res.json())
             .then((res) => {
-<<<<<<< HEAD
-                console.log(res);
-=======
->>>>>>> c552f8b8bf8b566c66453097059aff7b7cfe1b2d
                 var foodall = res.results
                 for (let i = 0; i < foodall.length; i++) {
                     if (foodall[i].type == '水果蔬菜') {

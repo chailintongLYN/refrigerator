@@ -58,7 +58,7 @@ const TabNav = ({ navigation }) => {
       </Tab.Screen>
       <Tab.Screen
         options={{
-          title: '菜谱/社区',
+          title: '心得广场',
           tabBarIcon: ({ color }) => <Icon1 size={25} name="fire" color={color} />
         }}
         name='Cook'

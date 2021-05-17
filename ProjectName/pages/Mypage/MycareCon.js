@@ -5,6 +5,7 @@ import '../../common/global'
 
 const MtCareCon=({navigation,route})=>{
     var conlist=route.params.conlist.attcook;
+    console.log(route.params)
     
     return( 
         <ScrollView>
@@ -24,7 +25,7 @@ const MtCareCon=({navigation,route})=>{
                         <TouchableOpacity 
                             style={[styles.mycooked,{marginBottom:index==conlist.length-1?20:0}]} 
                             key={index} 
-                            onPress={()=>navigation.navigate('Mydetails')}
+                            onPress={()=>navigation.navigate('Mydetails',{index:index,list:conlist})}
                         >
                             <Image source={require('../images/cooked.png')} style={styles.cooked_img}/>
                             <View>

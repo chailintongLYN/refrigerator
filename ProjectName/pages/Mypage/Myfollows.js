@@ -179,8 +179,7 @@ const styles = StyleSheet.create({
         height: 60,
     },
     attionlist: {
-        width: ptd(320),
-        marginLeft: (w - ptd(320)) / 2,
+        // marginLeft:(w-ptd(320))/2,
         marginTop: 20,
     }
 })

@@ -27,10 +27,10 @@ const Mydetails=({navigation,route})=>{
                 {
                     list.map((item,index)=>(
                         <View key={index} style={styles.v1} onLayout={event=>con(index,event)}>
-                            <Image source={require('../images/logo.jpg')} style={styles.userimg}/>
+                            <Image source={require('../images/logo.jpg')} style={styles.userimg} onPress={()=>navigation.navigate('Mypages')}/>
                             <View style={{marginLeft:w-440}}>
                                 <View style={{flexDirection:'row',marginTop:20,alignItems:'center'}}>
-                                    <Text style={{fontSize:18}}>{item.username}</Text>
+                                    <Text style={{fontSize:18}} onPress={()=>navigation.navigate('Mypages')}>{item.username}</Text>
                                     <Text style={{marginLeft:w-330,color:'#9D9E9D'}}>{item.time}</Text>
                                     <Text style={styles.delete} onPress={()=>console.log('删除')}>删除</Text>
                                 </View>

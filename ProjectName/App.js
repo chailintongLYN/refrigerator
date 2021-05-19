@@ -12,6 +12,7 @@ import LogonPage from './pages/Logon/Logon';
 import NewdataPage from './pages/Newdata/Newdata';
 import Details from './pages/Details/Details';
 import Mypage from './pages/Mypage/Mypage';
+import Mypages from './pages/Mypage/Mypages'
 import MycarePage from './pages/Mypage/Mycare';
 import LikePage from './pages/Like/Like';
 import HomeSearchPage from './pages/Home/Search/Search';
@@ -138,6 +139,12 @@ const App = () => {
             headerShown: false,
           }}
           name="Newdata" component={NewdataPage}
+        />
+        <RootStack.Screen
+          options={{
+            headerShown: false,
+          }}
+          name="Mypages" component={Mypages}
         />
         <RootStack.Screen
           options={{

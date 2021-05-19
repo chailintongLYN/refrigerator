@@ -54,7 +54,7 @@ const Newdata = ({ navigation }) => {
                     if (newdatainfo.password != newdatainfo.psagain) {
                         alert('两次输入的密码不一样');
                     }
-                    else {
+                    else if (newdatainfo.username != '' && newdatainfo.password != '' && newdatainfo.psagain != '') {
                         AsyncStorage.setItem(
                             'username',
                             newdatainfo.username
@@ -79,6 +79,9 @@ const Newdata = ({ navigation }) => {
                                     navigation.push('tabnav');
                                 }
                             })
+                    }
+                    else{
+                        alert('用户名或密码不能为空')
                     }
                 }}
             >

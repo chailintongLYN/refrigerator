@@ -16,19 +16,32 @@ if (day.length == 1) {
     day = '0' + day;
 }
 
+
+
+
 const AddPage = ({ navigation }) => {
+
     const [username, setUserName] = useState('')
+    const [userimg, setUserImage] = useState('')
     const _retrieveData = async () => {
         try {
             setUserName(await AsyncStorage.getItem('username'));
+            setUserImage(await AsyncStorage.getItem('userimg'));
             // We have data!!
         } catch (error) {
             // Error retrieving data
         }
     };
     _retrieveData();
+    const [img, setImg] = useState('')
 
-    const [img, setImg] = useState('../images/apple.jpg')
+    let datainfo = {
+        username: username,
+        text: '',
+        type: '',
+        remainingday: '',
+        img: img
+    }
     const options = {
         title: '请选择',
         cancelButtonTitle: '返回',
@@ -76,7 +89,7 @@ const AddPage = ({ navigation }) => {
                 <TouchableOpacity onPress={() => { navigation.navigate('My') }}>
                     <Image
                         style={styles.headportrait}
-                        source={require('../images/logo.jpg')}
+                        source={{ uri: userimg }}
                     />
                 </TouchableOpacity>
             </View>
@@ -84,12 +97,17 @@ const AddPage = ({ navigation }) => {
             <View style={styles.bodybox}>
                 <View style={styles.items}>
                     <Text style={styles.itemsname}>物品名称：</Text>
-                    <TextInput style={styles.nameinput} />
+                    <TextInput
+                        style={styles.nameinput}
+                        onChangeText={(value) => {
+                            datainfo.text = value
+                        }}
+                    />
                 </View>
                 <View style={styles.items}>
                     <Text style={styles.itemsname}>类别：</Text>
                     <ModalDropdown
-                        defaultValue={'水果蔬菜'}
+                        defaultValue={'请选择'}
                         style={styles.modalbutton}
                         textStyle={{ fontSize: ptd(18) }}
                         dropdownStyle={styles.dropdown}
@@ -99,23 +117,49 @@ const AddPage = ({ navigation }) => {
                                 position: 'relative',
                                 borderRadius: 50,
                                 fontSize: ptd(18),
-                                color: 'black',
+                                color: '#FFFFFF',
                                 backgroundColor: blue,
                             }
                         }
                         options={['水果蔬菜', '肉蛋食品', '海鲜水产', '速食冷冻', '零食饮品']}
+                        onSelect={(value) => {
+                            switch (value) {
+                                case 0:
+                                    datainfo.type = '水果蔬菜';
+                                    break;
+                                case 1:
+                                    datainfo.type = '肉蛋食品';
+                                    break;
+                                case 2:
+                                    datainfo.type = '海鲜水产';
+                                    break;
+                                case 3:
+                                    datainfo.type = '速食冷冻';
+                                    break;
+                                case 4:
+                                    datainfo.text = '零食饮品';
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }}
                     />
                 </View>
                 <View style={styles.items}>
                     <Text style={styles.itemsname}>保质期：</Text>
-                    <TextInput style={[styles.nameinput, { width: 60, position: 'relative', left: ptd(68) }]} placeholder='' />
+                    <TextInput
+                        style={[styles.nameinput, { width: 60, position: 'relative', left: ptd(68) }]}
+                        onChangeText={(value) => {
+                            datainfo.remainingday = value
+                        }}
+                    />
                     <Text style={[styles.itemsname, { position: 'relative', left: ptd(75) }]}>天</Text>
                 </View>
-                <View style={styles.items}>
-                    <Text style={styles.itemsname}>拍照：</Text>
+                <View style={[styles.items, { borderBottomColor: white }]}>
+                    <Text style={styles.itemsname}>拍照（可选）：</Text>
                     <TouchableOpacity style={styles.tackphotos}>
                         <Text
-                            style={{ fontSize: ptd(20) }}
+                            style={{ fontSize: ptd(20), color: '#FFFFFF' }}
                             onPress={take}
                         >
                             点击拍照
@@ -125,9 +169,37 @@ const AddPage = ({ navigation }) => {
                 <Image
                     style={{ width: ptd(225), height: ptd(225), marginTop: ptd(10) }}
                     source={{ uri: img }}
+                    onLoad={() => {
+                        datainfo.img = img;
+                        console.log(img);
+                    }}
                 />
-                <View style={styles.items}>
-                    <TouchableOpacity style={styles.confirm}>
+                <View style={[styles.items, { borderBottomColor: white2 }]}>
+                    <TouchableOpacity
+                        style={styles.confirm}
+                        onPress={() => {
+                            if (datainfo.text != '' && datainfo.type != '' && datainfo.remainingday != '') {
+                                fetch('http://154.8.164.57:1127/updata', {
+                                    method: 'POST',
+                                    body: JSON.stringify(datainfo),
+                                    headers: new Headers({
+                                        'Content-Type': 'application/json'
+                                    })
+                                }).then(res => res)
+                                    .then((res) => {
+                                        if (res.status == 200) {
+                                            alert('添加成功')
+                                        }
+                                        else {
+                                            alert('添加失败')
+                                        }
+                                    })
+                            }
+                            else {
+                                alert('物品名称或类别或保质期不能为空')
+                            }
+                        }}
+                    >
                         <Text style={{ fontSize: ptd(20), color: '#FFFFFF' }}>确认添加</Text>
                     </TouchableOpacity>
                 </View>
@@ -145,6 +217,7 @@ const styles = StyleSheet.create({
         borderRadius: 50,
     },
     modalbutton: {
+        color: '#FFFFFF',
         position: 'relative',
         left: ptd(45),
         width: w - 285,
@@ -166,7 +239,7 @@ const styles = StyleSheet.create({
         height: ptd(66),
     },
     tackphotos: {
-        marginLeft: ptd(50),
+        marginLeft: ptd(20),
         borderRadius: ptd(50),
         alignItems: 'center',
         backgroundColor: blue,
@@ -189,14 +262,17 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     items: {
-        // backgroundColor: '#BFC',
+        borderBottomWidth: ptd(2),
+        borderBottomColor: blue,
         alignItems: 'center',
         width: w - 100,
         marginTop: 25,
         flexDirection: 'row',
+        paddingBottom: ptd(10),
     },
     bodybox: {
         alignItems: 'center',
+        backgroundColor: white,
     },
     headportrait: {
         width: 48,

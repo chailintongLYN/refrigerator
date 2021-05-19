@@ -4,6 +4,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons'
 import '../../common/global'
+import { useFocusEffect } from '@react-navigation/native';
 
 const classbar = [
     { text: '水果蔬菜', img: require('../images/lemon.png'), color: '#BEE570' },
@@ -42,15 +43,47 @@ const Home = ({ navigation }) => {
         }
     };
     _retrieveData();
+    useFocusEffect(
+        React.useCallback(() => {
 
-    useEffect(() => {
-        console.log('effect');
-        fetch('http://154.8.164.57:1127/getmysavefood', {
-            method: 'POST',
-            body: JSON.stringify({ username: username }),
-            headers: new Headers({
-                'Content-Type': 'application/json'
+            console.log('effect');
+            AsyncStorage.getItem('username').then((username) => {
+                setUserName(username)
+                fetch('http://154.8.164.57:1127/getmysavefood', {
+                    method: 'POST',
+                    body: JSON.stringify({ username: username }),
+                    headers: new Headers({
+                        'Content-Type': 'application/json'
+                    })
+                }).then(res => res.json())
+                    .then((res) => {
+                        var foodall = res.results
+                        for (let i = 0; i < foodall.length; i++) {
+                            if (foodall[i].type == '水果蔬菜') {
+                                foodall[i].color = '#BEE570'
+                            }
+                            else if (foodall[i].type == '肉蛋食品') {
+                                foodall[i].color = '#F8CEB4'
+                            }
+                            else if (foodall[i].type == '海鲜水产') {
+                                foodall[i].color = '#B4DDFF'
+                            }
+                            else if (foodall[i].type == '速食冷冻') {
+                                foodall[i].color = '#9DBAE1'
+                            }
+                            else if (foodall[i].type == '零食饮品') {
+                                foodall[i].color = '#FFE38F'
+                            }
+                            else {
+                                foodall[i].color = '#FF0000'
+                            }
+                            foodall[i].time = foodall[i].time.slice(5, 10)
+                            foodall[i].remainingday = foodall[i].remainingday - ((Number(month) - Number(foodall[i].time.slice(0, 2))) * 30 + Number(day) - Number(foodall[i].time.slice(3, 5)))
+                        }
+                        setData(foodall)
+                    })
             })
+<<<<<<< HEAD
         }).then(res => res.json())
             .then((res) => {
                 var foodall = res.results
@@ -93,6 +126,10 @@ const Home = ({ navigation }) => {
         { text: '零食', time: '4月17日', remainingday: '5', img: require('../images/apple.jpg'), color: '#FFE38F' },
     ]
 
+=======
+        }, [])
+    )
+>>>>>>> 4ffee462693241c892d5a4d701197d58c7bb7f99
     const [selectTab, setSelectTab] = useState(-1)
 
     return (
@@ -109,7 +146,12 @@ const Home = ({ navigation }) => {
                     <Icon name='search1' size={18} style={styles.icon}></Icon>
                     <TextInput
                         keyboardType={'default'}
-                        onEndEditing={(value) => { navigation.push('HomeSearch', { sevalue: value.nativeEvent.text, username }); }}
+                        onEndEditing={(value) => {
+                            if (value.nativeEvent.text != '') {
+                                console.log(value.nativeEvent.text);
+                                navigation.push('HomeSearch', { sevalue: value.nativeEvent.text, username });
+                            }
+                        }}
                         style={styles.input}
                         placeholder='芒果'
                     />
@@ -136,157 +178,163 @@ const Home = ({ navigation }) => {
             </View>
             <ScrollView style={styles.foodbar}>
                 {
-                    // selectTab == index ?
-                    // data.filter((food) => {
-                    //     switch (index) {
-                    //         case 0:
-                    //             return food.color == '#BEE570';
-                    //             break;
-                    //         case 1:
-                    //             return food.color == '#F8CEB4';
-                    //             break;
-                    //         case 2:
-                    //             return food.color == '#B4DDFF';
-                    //             break;
-                    //         case 3:
-                    //             return food.color == '#9DBAE1';
-                    //             break;
-                    //         case 4:
-                    //             return food.color == '#FFE38F';
-                    //             break;
-                    //         default:
-                    //             break;
-                    //     }
-                    // }).map((nav, idx) => (
-                    //     <TouchableOpacity
-                    //         style={styles.food}
-                    //         key={idx}
-                    //         onPress={() => {
-                    //             navigation.push('Details',
-                    //             {
-                    //                 text: nav.text,
-                    //                 time: nav.time,
-                    //                 img: nav.img,
-                    //                 remainingday:nav.remainingday
-                    //             }
-                    //         )
-                    //         }}
-                    //     >
-                    //         <Image
-                    //             style={[styles.foodimg, { borderColor: nav.color }]}
-                    //             source={{ uri: "data:image/jpeg;base64," + nav.img }}
-                    //         />
-                    //         <Text style={styles.foodtext}>{nav.text}</Text>
-                    //         <Text style={styles.foodtime}>{nav.time}进入冰箱</Text>
-                    //         <Text style={[styles.foodreaminingtime, { color: nav.remainingday <= 3 ? 'red' : '#858585' }]}>保质期还剩{nav.remainingday}天</Text>
-                    //         <TouchableOpacity
-                    //             onPress={() => {
-                    //                 Alert.alert("Hold on!", "你确定要删除吗？", [
-                    //                     {
-                    //                         text: '取消',
-                    //                         onPress: () => null,
-                    //                         style: 'cancel'
-                    //                     },
-                    //                     {
-                    //                         text: '确定',
-                    //                         onPress: () => {
-                    //                             console.log('删除');
-
-                    //                             data.splice(idx, idx + 1)
-                    //                             setData([...data])
-                    //                         }
-                    //                     }
-                    //                 ]);
-                    //             }}
-                    //             style={styles.delete}
-                    //         >
-                    //             {/* <Image
-                    //                 style={styles.deleteimg}
-                    //                 source={require('../images/delete.png')}
-                    //             /> */}
-                    //             <Icon1 name='delete-empty' size={35} style={{ color: 'rgb(251,252,154)' }} />
-                    //         </TouchableOpacity>
-                    //         <TouchableOpacity
-                    //             style={styles.meal}
-                    //             onPress={() => {
-                    //                 navigation.navigate('Cook')
-                    //             }}
-                    //         >
-                    //             <Text style={{ fontSize: 18, color: 'rgb(243,230,82)', fontWeight: 'bold' }}>饭</Text>
-                    //         </TouchableOpacity>
-                    //     </TouchableOpacity>
-                    // ))
-                    // :
-                    data.map((nav, idx) => (
-                        <TouchableOpacity
-                            style={styles.food}
-                            key={idx}
-                            onPress={() => {
-                                navigation.push('Details',
-                                    {
-                                        text: nav.text,
-                                        time: nav.time,
-                                        img: nav.img,
-                                        remainingday: nav.remainingday
-                                    }
-                                )
-                            }}
-                        >
-                            <Image
-                                style={[styles.foodimg, { borderColor: nav.color }]}
-                                // source={nav.img}
-                                source={{ uri: nav.img }}
-                            />
-                            <Text style={styles.foodtext}>{nav.text}</Text>
-                            <Text style={styles.foodtime}>{nav.time}进入冰箱</Text>
-                            <Text style={[styles.foodreaminingtime, { color: nav.remainingday <= '3' ? 'red' : '#858585' }]}>保质期还剩{nav.remainingday}天</Text>
+                    selectTab == index ?
+                        data.filter((food) => {
+                            switch (index) {
+                                case 0:
+                                    return food.color == '#BEE570';
+                                case 1:
+                                    return food.color == '#F8CEB4';
+                                case 2:
+                                    return food.color == '#B4DDFF';
+                                case 3:
+                                    return food.color == '#9DBAE1';
+                                case 4:
+                                    return food.color == '#FFE38F';
+                                default:
+                                    break;
+                            }
+                        }).map((nav, idx) => (
                             <TouchableOpacity
+                                style={styles.food}
+                                key={idx}
                                 onPress={() => {
-                                    Alert.alert("Hold on!", "你确定要删除吗？", [
+                                    navigation.push('Details',
                                         {
-                                            text: '取消',
-                                            onPress: () => null,
-                                            style: 'cancel'
-                                        },
-                                        {
-                                            text: '确定',
-                                            onPress: () => {
-                                                console.log('删除');
-                                                data.splice(idx, 1)
-                                                setData([...data])
-                                                fetch('http://154.8.164.57:1127/deletefooddata', {
-                                                    method: 'POST',
-                                                    body: JSON.stringify({ foodid: nav.foodid }),
-                                                    headers: new Headers({
-                                                        'Content-Type': 'application/json'
-                                                    })
-                                                }).then(res => res.json())
-                                                    .then((res) => {
-                                                        console.log(res);
-                                                    })
-                                            }
+                                            text: nav.text,
+                                            time: nav.time,
+                                            img: nav.img,
+                                            remainingday: nav.remainingday
                                         }
-                                    ]);
+                                    )
                                 }}
-                                style={styles.delete}
                             >
-                                {/* <Image
+                                <Image
+                                    style={[styles.foodimg, { borderColor: nav.color }]}
+                                    // source={nav.img}
+                                    source={{ uri: nav.img }}
+                                />
+                                <Text style={styles.foodtext}>{nav.text}</Text>
+                                <Text style={styles.foodtime}>{nav.time}进入冰箱</Text>
+                                <Text style={[styles.foodreaminingtime, { color: nav.remainingday <= '3' ? 'red' : '#858585' }]}>保质期还剩{nav.remainingday}天</Text>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        Alert.alert("Hold on!", "你确定要删除吗？", [
+                                            {
+                                                text: '取消',
+                                                onPress: () => null,
+                                                style: 'cancel'
+                                            },
+                                            {
+                                                text: '确定',
+                                                onPress: () => {
+                                                    console.log('删除');
+                                                    data.splice(idx, 1)
+                                                    setData([...data])
+                                                    fetch('http://154.8.164.57:1127/deletefooddata', {
+                                                        method: 'POST',
+                                                        body: JSON.stringify({ foodid: nav.foodid }),
+                                                        headers: new Headers({
+                                                            'Content-Type': 'application/json'
+                                                        })
+                                                    }).then(res => res.json())
+                                                        .then((res) => {
+                                                            console.log(res);
+                                                        })
+                                                }
+                                            }
+                                        ]);
+                                    }}
+                                    style={styles.delete}
+                                >
+                                    {/* <Image
                                         style={styles.deleteimg}
                                         source={require('../images/delete.png')}
                                     /> */}
-                                <Icon1 name='delete-empty' size={35} style={{ color: 'rgb(243,230,82)' }} />
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                onPress={() => {
+                                    <Icon1 name='delete-empty' size={35} style={{ color: 'rgb(243,230,82)' }} />
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    onPress={() => {
 
-                                    navigation.navigate('CookSearch', { text: nav.text, from: 'Home' })
-                                }}
-                                style={styles.meal}
-                            >
-                                <Text style={{ fontSize: 18, color: 'rgb(243,230,82)', fontWeight: 'bold' }}>饭</Text>
+                                        navigation.navigate('CookSearch', { text: nav.text, from: 'Home' })
+                                    }}
+                                    style={styles.meal}
+                                >
+                                    <Text style={{ fontSize: 18, color: 'rgb(243,230,82)', fontWeight: 'bold' }}>饭</Text>
+                                </TouchableOpacity>
                             </TouchableOpacity>
-                        </TouchableOpacity>
-                    ))
+                        ))
+                        :
+                        data.map((nav, idx) => (
+                            <TouchableOpacity
+                                style={styles.food}
+                                key={idx}
+                                onPress={() => {
+                                    navigation.push('Details',
+                                        {
+                                            text: nav.text,
+                                            time: nav.time,
+                                            img: nav.img,
+                                            remainingday: nav.remainingday
+                                        }
+                                    )
+                                }}
+                            >
+                                <Image
+                                    style={[styles.foodimg, { borderColor: nav.color }]}
+                                    // source={nav.img}
+                                    source={{ uri: nav.img }}
+                                />
+                                <Text style={styles.foodtext}>{nav.text}</Text>
+                                <Text style={styles.foodtime}>{nav.time}进入冰箱</Text>
+                                <Text style={[styles.foodreaminingtime, { color: nav.remainingday <= '3' ? 'red' : '#858585' }]}>保质期还剩{nav.remainingday}天</Text>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        Alert.alert("Hold on!", "你确定要删除吗？", [
+                                            {
+                                                text: '取消',
+                                                onPress: () => null,
+                                                style: 'cancel'
+                                            },
+                                            {
+                                                text: '确定',
+                                                onPress: () => {
+                                                    console.log('删除');
+                                                    data.splice(idx, 1)
+                                                    setData([...data])
+                                                    fetch('http://154.8.164.57:1127/deletefooddata', {
+                                                        method: 'POST',
+                                                        body: JSON.stringify({ foodid: nav.foodid }),
+                                                        headers: new Headers({
+                                                            'Content-Type': 'application/json'
+                                                        })
+                                                    }).then(res => res.json())
+                                                        .then((res) => {
+                                                            console.log(res);
+                                                        })
+                                                }
+                                            }
+                                        ]);
+                                    }}
+                                    style={styles.delete}
+                                >
+                                    {/* <Image
+                                        style={styles.deleteimg}
+                                        source={require('../images/delete.png')}
+                                    /> */}
+                                    <Icon1 name='delete-empty' size={35} style={{ color: 'rgb(243,230,82)' }} />
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    onPress={() => {
+
+                                        navigation.navigate('CookSearch', { text: nav.text, from: 'Home' })
+                                    }}
+                                    style={styles.meal}
+                                >
+                                    <Text style={{ fontSize: 18, color: 'rgb(243,230,82)', fontWeight: 'bold' }}>饭</Text>
+                                </TouchableOpacity>
+                            </TouchableOpacity>
+                        ))
                 }
                 <View style={styles.showall}>
                     <Text
@@ -322,9 +370,6 @@ const styles = StyleSheet.create({
         height: 30,
     },
     delete: {
-        // marginLeft:0,
-        // marginLeft: ptd(60),
-        // marginTop: ptd(10),
         position: 'absolute',
         top: ptd(12),
         right: ptd(25),
@@ -336,15 +381,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     foodreaminingtime: {
-        // marginTop: 85,
-        // marginLeft: ptd(-90),
         position: 'absolute',
         top: ptd(85),
         left: ptd(145),
     },
     foodtime: {
-        // marginLeft: ptd(-30),
-        // marginTop: 55,
         position: 'absolute',
         top: ptd(60),
         left: ptd(145),
@@ -353,8 +394,6 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: ptd(25),
         left: ptd(160),
-        // marginTop: 18,
-        // marginLeft: ptd(15),
         fontSize: 18
     },
     foodimg: {

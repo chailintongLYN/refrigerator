@@ -27,8 +27,10 @@ const list=[
 
 const CookPage = ({ navigation }) => {
     const [username, setUserName] = useState('')
+    const [userimg, setUserImage] = useState('')
     const _retrieveData = async () => {
         try {
+            setUserImage(await AsyncStorage.getItem('userimg'));
             setUserName(await AsyncStorage.getItem('username'));
             // We have data!!
         } catch (error) {
@@ -51,7 +53,7 @@ const CookPage = ({ navigation }) => {
                     <TextInput
                         keyboardType={'default'}
                         onEndEditing={(value) => {
-                            navigation.push('CookSearch', {text:value.nativeEvent.text,from:'Cook'})
+                            navigation.push('CookSearch', { text: value.nativeEvent.text, from: 'Cook' })
                         }}
                         style={styles.input}
                         placeholder='搜索菜谱'
@@ -60,14 +62,19 @@ const CookPage = ({ navigation }) => {
                 <TouchableOpacity onPress={() => { navigation.navigate('My') }}>
                     <Image
                         style={styles.headportrait}
-                        source={require('../images/logo.jpg')}
+                        source={{ uri: userimg }}
                     />
                 </TouchableOpacity>
             </View>
 
             <View style={styles.bodybox}>
+<<<<<<< HEAD
                 <Text style={[styles.body_,]}>——</Text>
                 <Text style={styles.bodybar}>心得广场</Text>
+=======
+                <Text style={[styles.body_, { marginLeft: w / 2 - 136 / 2 - 50 }]}>——</Text>
+                <Text style={styles.bodybar}>社区分享</Text>
+>>>>>>> 4ffee462693241c892d5a4d701197d58c7bb7f99
                 <Text style={styles.body_}>——</Text>
             </View>
 

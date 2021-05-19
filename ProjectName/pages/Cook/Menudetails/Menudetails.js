@@ -7,7 +7,6 @@ import Icon2 from 'react-native-vector-icons/AntDesign';
 
 const MenudetailsPage = ({ navigation, route }) => {
 
-
     let mealdetail = {
         text: route.params,
         time: '约0分钟',
@@ -15,7 +14,7 @@ const MenudetailsPage = ({ navigation, route }) => {
         ],
         step: [
         ],
-        img: require('../../images/apple.jpg')
+        img: '',
     }
 
     useEffect(() => {
@@ -59,8 +58,8 @@ const MenudetailsPage = ({ navigation, route }) => {
                         }
                         i++;
                     }
-                    // console.log(res.meal[0].img);
-                    // mealdetail.img = res.meal[0].img
+                    console.log(res.meal[0].img);
+                    mealdetail.img = res.meal[0].img
                     setMealDetails({ ...mealdetail })
                 })
 
@@ -96,7 +95,7 @@ const MenudetailsPage = ({ navigation, route }) => {
                     onPress={() => {
                         ifsave == true ? setIfSave(false) : setIfSave(true);
                         ifsave == true ? setSave(save - 1) : setSave(save + 1);
-                        ifsave == true ?
+                        ifsave == false ?
                             fetch('http://154.8.164.57:1127/addlike', {
                                 method: 'POST',
                                 body: JSON.stringify({ username: username, mealname: route.params }),
@@ -107,7 +106,7 @@ const MenudetailsPage = ({ navigation, route }) => {
                                 .then((res) => {
                                     console.log(res);
                                 }) :
-                            fetch('http://154.8.164.57:1127/deletesave', {
+                            fetch('http://154.8.164.57:1127/delesave', {
                                 method: 'POST',
                                 body: JSON.stringify({ username: username, mealname: route.params }),
                                 headers: new Headers({
@@ -165,7 +164,7 @@ const MenudetailsPage = ({ navigation, route }) => {
                         <Text style={[styles.steptitle, { marginBottom: 10 }]}>最终成品：</Text>
                         <Image
                             style={styles.stepimg}
-                            source={mealdetails.img}
+                            source={{ uri: mealdetails.img }}
                         />
                     </View>
                 </View>

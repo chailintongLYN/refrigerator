@@ -1,5 +1,6 @@
 [
     {
+<<<<<<< HEAD
         "merged": "D:\\refrigerator\\menuAdmin\\android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher.png.flat",
         "source": "D:\\refrigerator\\menuAdmin\\android\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher.png"
     },
@@ -38,5 +39,45 @@
     {
         "merged": "D:\\refrigerator\\menuAdmin\\android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher.png.flat",
         "source": "D:\\refrigerator\\menuAdmin\\android\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
+=======
+        "merged": "D:\\sdk\\refrigerator\\menuAdmin\\android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "D:\\sdk\\refrigerator\\menuAdmin\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\sdk\\refrigerator\\menuAdmin\\android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi_ic_launcher.png.flat",
+        "source": "D:\\sdk\\refrigerator\\menuAdmin\\android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\sdk\\refrigerator\\menuAdmin\\android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "D:\\sdk\\refrigerator\\menuAdmin\\android\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\sdk\\refrigerator\\menuAdmin\\android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher.png.flat",
+        "source": "D:\\sdk\\refrigerator\\menuAdmin\\android\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\sdk\\refrigerator\\menuAdmin\\android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "D:\\sdk\\refrigerator\\menuAdmin\\android\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\sdk\\refrigerator\\menuAdmin\\android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "D:\\sdk\\refrigerator\\menuAdmin\\android\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "D:\\sdk\\refrigerator\\menuAdmin\\android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "D:\\sdk\\refrigerator\\menuAdmin\\android\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "D:\\sdk\\refrigerator\\menuAdmin\\android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "D:\\sdk\\refrigerator\\menuAdmin\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "D:\\sdk\\refrigerator\\menuAdmin\\android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "D:\\sdk\\refrigerator\\menuAdmin\\android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "D:\\sdk\\refrigerator\\menuAdmin\\android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "D:\\sdk\\refrigerator\\menuAdmin\\android\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher_round.png"
+>>>>>>> 4ffee462693241c892d5a4d701197d58c7bb7f99
     }
 ]

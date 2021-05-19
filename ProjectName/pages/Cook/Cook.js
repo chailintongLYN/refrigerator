@@ -23,8 +23,10 @@ const foodrecommend = [
 
 const CookPage = ({ navigation }) => {
     const [username, setUserName] = useState('')
+    const [userimg, setUserImage] = useState('')
     const _retrieveData = async () => {
         try {
+            setUserImage(await AsyncStorage.getItem('userimg'));
             setUserName(await AsyncStorage.getItem('username'));
             // We have data!!
         } catch (error) {
@@ -47,7 +49,7 @@ const CookPage = ({ navigation }) => {
                     <TextInput
                         keyboardType={'default'}
                         onEndEditing={(value) => {
-                            navigation.push('CookSearch', {text:value.nativeEvent.text,from:'Cook'})
+                            navigation.push('CookSearch', { text: value.nativeEvent.text, from: 'Cook' })
                         }}
                         style={styles.input}
                         placeholder='搜索菜谱'
@@ -56,14 +58,14 @@ const CookPage = ({ navigation }) => {
                 <TouchableOpacity onPress={() => { navigation.navigate('My') }}>
                     <Image
                         style={styles.headportrait}
-                        source={require('../images/logo.jpg')}
+                        source={{ uri: userimg }}
                     />
                 </TouchableOpacity>
             </View>
 
             <View style={styles.bodybox}>
                 <Text style={[styles.body_, { marginLeft: w / 2 - 136 / 2 - 50 }]}>——</Text>
-                <Text style={styles.bodybar}>冰箱推荐</Text>
+                <Text style={styles.bodybar}>社区分享</Text>
                 <Text style={styles.body_}>——</Text>
             </View>
 

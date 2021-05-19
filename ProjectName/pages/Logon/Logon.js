@@ -46,42 +46,45 @@ const LogonPage = ({ navigation }) => {
                     //这一行后台开启了要注释掉
                     // navigation.push('tabnav');
 
-                    await AsyncStorage.setItem(
-                        'username',
-                        logoninfo.username
-                    )
-                    console.log(logoninfo.username)
-                    fetch('http://154.8.164.57:1127/data', {
-                        method: 'POST',
-                        body: JSON.stringify(logoninfo),
-                        headers: new Headers({
-                            'Content-Type': 'application/json'
-                        })
-                    }).then(res => res.json())
-                        .then((res) => {
-                            if (res.status == 'success') {
-                                fetch('http://154.8.164.57:1127/userimg', {
-                                    method: 'POST',
-                                    body: JSON.stringify(logoninfo),
-                                    headers: new Headers({
-                                        'Content-Type': 'application/json'
-                                    })
-                                }).then(res => res.json())
-                                    .then((res) => {
-                                        console.log(res.results[0].img);
-                                        AsyncStorage.setItem(
-                                            'userimg',
-                                            res.results[0].img
-                                        )
-                                    })
-                                alert("登录成功")
-                                navigation.push('tabnav');
-                            }
-                            else {
-                                alert('登录失败')
-                            }
-                        })
-
+                    if (logoninfo.username != '' && logoninfo.password != '') {
+                        await AsyncStorage.setItem(
+                            'username',
+                            logoninfo.username
+                        )
+                        fetch('http://154.8.164.57:1127/data', {
+                            method: 'POST',
+                            body: JSON.stringify(logoninfo),
+                            headers: new Headers({
+                                'Content-Type': 'application/json'
+                            })
+                        }).then(res => res.json())
+                            .then((res) => {
+                                if (res.status == 'success') {
+                                    fetch('http://154.8.164.57:1127/userimg', {
+                                        method: 'POST',
+                                        body: JSON.stringify(logoninfo),
+                                        headers: new Headers({
+                                            'Content-Type': 'application/json'
+                                        })
+                                    }).then(res => res.json())
+                                        .then((res) => {
+                                            console.log(res.results[0].img);
+                                            AsyncStorage.setItem(
+                                                'userimg',
+                                                res.results[0].img
+                                            )
+                                        })
+                                    alert("登录成功")
+                                    navigation.push('tabnav');
+                                }
+                                else {
+                                    alert('登录失败')
+                                }
+                            })
+                    }
+                    else{
+                        alert('用户名或密码不能为空')
+                    }
                 }}
             >
                 <Text style={styles.text}>登录</Text>

@@ -3,21 +3,6 @@ import { ScrollView, View, StyleSheet, Text, TouchableOpacity, Image } from 'rea
 import { TextInput } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/AntDesign';
 
-// const menu = [
-//     { text: '苹果', img: require('../../images/apple.jpg') },
-//     { text: '苹果', img: require('../../images/apple.jpg') },
-//     { text: '鸡蛋', img: require('../../images/apple.jpg') },
-//     { text: '鸡蛋', img: require('../../images/apple.jpg') },
-//     { text: '海鲜', img: require('../../images/apple.jpg') },
-//     { text: '海鲜', img: require('../../images/apple.jpg') },
-//     { text: '速食', img: require('../../images/apple.jpg') },
-//     { text: '速食', img: require('../../images/apple.jpg') },
-//     { text: '零食', img: require('../../images/apple.jpg') },
-//     { text: '零食', img: require('../../images/apple.jpg') },
-// ]
-
-// const menu = [];
-
 const CookSearchPage = ({ navigation, route }) => {
 
     const [data, setData] = useState([]);
@@ -32,22 +17,24 @@ const CookSearchPage = ({ navigation, route }) => {
 
         if (from == 'Home') {
             console.log('home');
-            fetch('http://154.8.164.57:1127/findfoods', {
-                method: 'POST',
-                body: JSON.stringify({ mealname }),
-                headers: new Headers({
-                    'Content-Type': 'application/json'
-                })
-            }).then(res => res.json())
-                .then((res) => {
-                    console.log(res.results[0].mealname);
-                    setData(res.results)
-                })
+            if (mealname !='') {
+                fetch('http://154.8.164.57:1127/findfoods', {
+                    method: 'POST',
+                    body: JSON.stringify({ mealname }),
+                    headers: new Headers({
+                        'Content-Type': 'application/json'
+                    })
+                }).then(res => res.json())
+                    .then((res) => {
+                        console.log(res.results[0].mealname);
+                        setMealN(res.results[0].mealname)
+                        setData(res.results)
+                    })
+            }
         }
         else if (from == 'Cook') {
             console.log('cook');
             if (mealname != '') {
-
                 fetch('http://154.8.164.57:1127/getmeal', {
                     method: 'POST',
                     body: JSON.stringify({ mealname }),
@@ -72,7 +59,13 @@ const CookSearchPage = ({ navigation, route }) => {
                 </Text>
                 <View style={styles.searchbox}>
                     <Icon name='search1' size={18} style={styles.icon}></Icon>
-                    <TextInput style={styles.input} placeholder={mealname} />
+                    <TextInput
+                        style={styles.input}
+                        placeholder={mealname}
+                        onEndEditing={(value) => {
+                            navigation.push('CookSearch', { text: value.nativeEvent.text, from: 'Cook' })
+                        }}
+                    />
                 </View>
             </View>
             <ScrollView style={styles.menubar}>

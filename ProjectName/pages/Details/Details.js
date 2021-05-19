@@ -20,7 +20,7 @@ const Details = ({ navigation, route }) => {
             </View>
             <Image
                 style={styles.img}
-                source={{ uri: "data:image/jpeg;base64," + img }}
+                source={{ uri: img }}
             />
             <View style={styles.bodytitle}>
                 <Text style={styles.name}>
@@ -96,8 +96,6 @@ const styles = StyleSheet.create({
         height: 40,
     },
     delete: {
-        // marginLeft: 15,
-        // marginTop: 15,
         alignItems: 'center',
         backgroundColor: blue,
         width: 68,
@@ -109,8 +107,6 @@ const styles = StyleSheet.create({
         left: ptd(56),
     },
     meal: {
-        // marginTop: 15,
-        // marginLeft: 80,
         alignItems: 'center',
         backgroundColor: blue,
         width: 68,
@@ -122,8 +118,6 @@ const styles = StyleSheet.create({
         top: ptd(12),
     },
     remainingtime: {
-        // marginLeft: -210,
-        // marginTop: 50,
         position: 'absolute',
         top: ptd(45),
         left: ptd(30),
@@ -133,9 +127,7 @@ const styles = StyleSheet.create({
         fontSize: ptd(13),
         position: 'absolute',
         top: ptd(15),
-        left: ptd(75),
-        // marginTop: 20,
-        // marginLeft: 30,
+        right: ptd(50),
     },
     name: {
         fontSize: ptd(28),

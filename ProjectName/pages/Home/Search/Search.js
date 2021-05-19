@@ -3,19 +3,6 @@ import { ScrollView, View, StyleSheet, Text, TouchableOpacity, Image } from 'rea
 import { TextInput } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/AntDesign';
 
-const food = [
-    { text: '苹果', time: '4月17日', remainingtime: '3', img: require('../../images/apple.jpg'), color: '#BEE570' },
-    { text: '苹果', time: '4月17日', remainingtime: '3', img: require('../../images/apple.jpg'), color: '#BEE570' },
-    { text: '鸡蛋', time: '4月17日', remainingtime: '4', img: require('../../images/apple.jpg'), color: '#F8CEB4' },
-    { text: '鸡蛋', time: '4月17日', remainingtime: '4', img: require('../../images/apple.jpg'), color: '#F8CEB4' },
-    { text: '海鲜', time: '4月17日', remainingtime: '4', img: require('../../images/apple.jpg'), color: '#B4DDFF' },
-    { text: '海鲜', time: '4月17日', remainingtime: '4', img: require('../../images/apple.jpg'), color: '#B4DDFF' },
-    { text: '速食', time: '4月17日', remainingtime: '5', img: require('../../images/apple.jpg'), color: '#9DBAE1' },
-    { text: '速食', time: '4月17日', remainingtime: '5', img: require('../../images/apple.jpg'), color: '#9DBAE1' },
-    { text: '零食', time: '4月17日', remainingtime: '5', img: require('../../images/apple.jpg'), color: '#FFE38F' },
-    { text: '零食', time: '4月17日', remainingtime: '5', img: require('../../images/apple.jpg'), color: '#FFE38F' },
-]
-
 const myDate = new Date();
 let month = (myDate.getMonth() + 1).toString();
 if (month.length == 1) {
@@ -26,8 +13,6 @@ if (day.length == 1) {
     day = '0' + day;
 }
 
-// const food = [];
-
 const HomeSearchPage = ({ navigation, route }) => {
 
     let info = {
@@ -37,39 +22,41 @@ const HomeSearchPage = ({ navigation, route }) => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        fetch('http://154.8.164.57:1127/getfoods', {
-            method: 'POST',
-            body: JSON.stringify(info),
-            headers: new Headers({
-                'Content-Type': 'application/json'
-            })
-        }).then(res => res.json())
-            .then((res) => {
-                var foodall = res.results
-                for (let i = 0; i < foodall.length; i++) {
-                    if (foodall[i].type == '水果蔬菜') {
-                        foodall[i].color = '#BEE570'
+        if (info.sevalue != '') {
+            fetch('http://154.8.164.57:1127/getfoods', {
+                method: 'POST',
+                body: JSON.stringify(info),
+                headers: new Headers({
+                    'Content-Type': 'application/json'
+                })
+            }).then(res => res.json())
+                .then((res) => {
+                    var foodall = res.results
+                    for (let i = 0; i < foodall.length; i++) {
+                        if (foodall[i].type == '水果蔬菜') {
+                            foodall[i].color = '#BEE570'
+                        }
+                        else if (foodall[i].type == '肉蛋食品') {
+                            foodall[i].color = '#F8CEB4'
+                        }
+                        else if (foodall[i].type == '海鲜水产') {
+                            foodall[i].color = '#B4DDFF'
+                        }
+                        else if (foodall[i].type == '速食冷冻') {
+                            foodall[i].color = '#9DBAE1'
+                        }
+                        else if (foodall[i].type == '零食饮品') {
+                            foodall[i].color = '#FFE38F'
+                        }
+                        else {
+                            foodall[i].color = '#FF0000'
+                        }
+                        foodall[i].time = foodall[i].time.slice(5, 10)
+                        foodall[i].remainingday = foodall[i].remainingday - ((Number(month) - Number(foodall[i].time.slice(0, 2))) * 30 + Number(day) - Number(foodall[i].time.slice(3, 5)))
                     }
-                    else if (foodall[i].type == '肉蛋食品') {
-                        foodall[i].color = '#F8CEB4'
-                    }
-                    else if (foodall[i].type == '海鲜水产') {
-                        foodall[i].color = '#B4DDFF'
-                    }
-                    else if (foodall[i].type == '速食冷冻') {
-                        foodall[i].color = '#9DBAE1'
-                    }
-                    else if (foodall[i].type == '零食饮品') {
-                        foodall[i].color = '#FFE38F'
-                    }
-                    else {
-                        foodall[i].color = '#FF0000'
-                    }
-                    foodall[i].time = foodall[i].time.slice(5, 10)
-                    foodall[i].remainingday = foodall[i].remainingday - ((Number(month) - Number(foodall[i].time.slice(0, 2))) * 30 + Number(day) - Number(foodall[i].time.slice(3, 5)))
-                }
-                setData(foodall)
-            })
+                    setData(foodall)
+                })
+        }
     }, [])
 
     return (
@@ -80,12 +67,15 @@ const HomeSearchPage = ({ navigation, route }) => {
                 </Text>
                 <View style={styles.searchbox}>
                     <Icon name='search1' size={18} style={styles.icon}></Icon>
-                    <TextInput style={styles.input} placeholder={route.params.sevalue} />
+                    <TextInput
+                        style={styles.input}
+                        placeholder={route.params.sevalue}
+                        onEndEditing={(value) => { navigation.push('HomeSearch', { sevalue: value.nativeEvent.text, username: route.params.username }); }}
+                    />
                 </View>
             </View>
             <ScrollView style={styles.foodbar}>
                 {
-
                     data != [] ? data.map((nav, idx) => (
                         <TouchableOpacity
                             style={styles.food}
@@ -103,7 +93,7 @@ const HomeSearchPage = ({ navigation, route }) => {
                         >
                             <Image
                                 style={[styles.foodimg, { borderColor: nav.color }]}
-                                source={{ uri: "data:image/jpeg;base64," + nav.img }}
+                                source={{ uri: nav.img }}
                             />
                             <Text style={styles.foodtext}>{nav.text}</Text>
                             <Text style={styles.foodtime}>{nav.time}进入冰箱</Text>

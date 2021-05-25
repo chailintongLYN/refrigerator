@@ -1,5 +1,5 @@
-import React from 'react'
-import { Text, View, StyleSheet, Image, Button,ScrollView, TouchableOpacity } from 'react-native'
+import React, { useState,useEffect } from 'react'
+import { Text, View, StyleSheet, Image, Button,ScrollView, TouchableOpacity, AsyncStorage } from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign';
 import '../../common/global'
 

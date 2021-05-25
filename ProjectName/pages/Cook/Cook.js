@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { ScrollView, Text, View, StyleSheet, Image, TouchableOpacity, AsyncStorage } from 'react-native'
-import { TextInput } from 'react-native-gesture-handler'
+import { ScrollView, Text, View, StyleSheet, Image, TouchableOpacity, AsyncStorage ,TextInput} from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign';
+import { useFocusEffect } from '@react-navigation/native';
 
 const myDate = new Date();
 const year = myDate.getFullYear();
@@ -38,6 +38,27 @@ const CookPage = ({ navigation }) => {
         }
     };
     _retrieveData();
+
+    useFocusEffect(
+        React.useCallback(() => {
+            console.log('cook');
+            AsyncStorage.getItem('username').then((username) => {
+                console.log(username);
+                setUserName(username);
+                fetch('http://154.8.164.57:1127/gettext', {
+                    method: 'POST',
+                    body: JSON.stringify({ username: username }),
+                    headers: new Headers({
+                        'Content-Type': 'applocation/json'
+                    })
+                }).then(res => res.json())
+                    .then((res) => {
+                        console.log(res);
+                        console.log(1)
+                    })
+            })
+        }, [])
+    )
     return (
         <View style={{flex:1}}>
             <View style={styles.titlebar}>
@@ -68,13 +89,8 @@ const CookPage = ({ navigation }) => {
             </View>
 
             <View style={styles.bodybox}>
-<<<<<<< HEAD
                 <Text style={[styles.body_,]}>——</Text>
                 <Text style={styles.bodybar}>心得广场</Text>
-=======
-                <Text style={[styles.body_, { marginLeft: w / 2 - 136 / 2 - 50 }]}>——</Text>
-                <Text style={styles.bodybar}>社区分享</Text>
->>>>>>> 4ffee462693241c892d5a4d701197d58c7bb7f99
                 <Text style={styles.body_}>——</Text>
             </View>
 

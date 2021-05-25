@@ -8,6 +8,10 @@ var layout={
 }
 const Mydetails=({navigation,route})=>{
     const list=route.params.list;
+    // console.log('userimg:',route.params.userimg)
+    const userimg=route.params.userimg;
+    
+    console.log(list)
     function con(index,event){
         if(index===route.params.index){
             layout = event.nativeEvent.layout
@@ -27,7 +31,7 @@ const Mydetails=({navigation,route})=>{
                 {
                     list.map((item,index)=>(
                         <View key={index} style={styles.v1} onLayout={event=>con(index,event)}>
-                            <Image source={require('../images/logo.jpg')} style={styles.userimg} onPress={()=>navigation.navigate('Mypages')}/>
+                            <Image source={{uri:userimg}} style={styles.userimg} onPress={()=>navigation.navigate('Mypages')}/>
                             <View style={{marginLeft:w-440}}>
                                 <View style={{flexDirection:'row',marginTop:20,alignItems:'center'}}>
                                     <Text style={{fontSize:18}} onPress={()=>navigation.navigate('Mypages')}>{item.username}</Text>
@@ -36,7 +40,8 @@ const Mydetails=({navigation,route})=>{
                                 </View>
                                 <View style={{marginTop:10}}>
                                     <Text style={{width:ptd(200),fontSize:15}}>{item.content}</Text>
-                                    <Image source={require('../images/cooked.png')} style={styles.img}/>
+                                    {/* <Image source={{uri:item.img}} style={styles.img}/> */}
+                                    <Image source={require('../images/cook1.jpg')} style={styles.img}/>
                                 </View>
                             </View>
                         </View>
@@ -50,8 +55,10 @@ const Mydetails=({navigation,route})=>{
 export default Mydetails
 const styles=StyleSheet.create({
     img:{
+        width:250,
         borderRadius:20,
-        marginTop:10
+        marginTop:10,
+        height:230,
     },
     delete:{
         marginLeft:w-430,

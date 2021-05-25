@@ -83,53 +83,8 @@ const Home = ({ navigation }) => {
                         setData(foodall)
                     })
             })
-<<<<<<< HEAD
-        }).then(res => res.json())
-            .then((res) => {
-                var foodall = res.results
-                for (let i = 0; i < foodall.length; i++) {
-                    if (foodall[i].type == '水果蔬菜') {
-                        foodall[i].color = '#BEE570'
-                    }
-                    else if (foodall[i].type == '肉蛋食品') {
-                        foodall[i].color = '#F8CEB4'
-                    }
-                    else if (foodall[i].type == '海鲜水产') {
-                        foodall[i].color = '#B4DDFF'
-                    }
-                    else if (foodall[i].type == '速食冷冻') {
-                        foodall[i].color = '#9DBAE1'
-                    }
-                    else if (foodall[i].type == '零食饮品') {
-                        foodall[i].color = '#FFE38F'
-                    }
-                    else {
-                        foodall[i].color = '#FF0000'
-                    }
-                    foodall[i].time = foodall[i].time.slice(5, 10)
-                    foodall[i].remainingday = foodall[i].remainingday - ((Number(month) - Number(foodall[i].time.slice(0, 2))) * 30 + Number(day) - Number(foodall[i].time.slice(3, 5)))
-                }
-                setData(foodall)
-            })
-    },[])
-
-    const food = [
-        { text: '黄瓜', time: '4月17日', remainingday: '3', img: require('../images/apple.jpg'), color: '#BEE570' },
-        { text: '苹果', time: '4月17日', remainingday: '3', img: require('../images/apple.jpg'), color: '#BEE570' },
-        { text: '鸡蛋', time: '4月17日', remainingday: '4', img: require('../images/apple.jpg'), color: '#F8CEB4' },
-        { text: '鸡蛋', time: '4月17日', remainingday: '4', img: require('../images/apple.jpg'), color: '#F8CEB4' },
-        { text: '海鲜', time: '4月17日', remainingday: '4', img: require('../images/apple.jpg'), color: '#B4DDFF' },
-        { text: '海鲜', time: '4月17日', remainingday: '4', img: require('../images/apple.jpg'), color: '#B4DDFF' },
-        { text: '速食', time: '4月17日', remainingday: '5', img: require('../images/apple.jpg'), color: '#9DBAE1' },
-        { text: '速食', time: '4月17日', remainingday: '5', img: require('../images/apple.jpg'), color: '#9DBAE1' },
-        { text: '零食', time: '4月17日', remainingday: '5', img: require('../images/apple.jpg'), color: '#FFE38F' },
-        { text: '零食', time: '4月17日', remainingday: '5', img: require('../images/apple.jpg'), color: '#FFE38F' },
-    ]
-
-=======
         }, [])
     )
->>>>>>> 4ffee462693241c892d5a4d701197d58c7bb7f99
     const [selectTab, setSelectTab] = useState(-1)
 
     return (

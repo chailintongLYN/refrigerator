@@ -20,6 +20,8 @@ const AddPage = ({ navigation }) => {
 
     const [username, setUserName] = useState('')
     const [userimg, setUserImage] = useState('')
+    const [imgpath, setImagePath] = useState('http://154.8.164.57:1127/static/upimg/logo.jpg')
+    const [imgname, setImageName] = useState('')
     const _retrieveData = async () => {
         try {
             setUserName(await AsyncStorage.getItem('username'));
@@ -30,13 +32,13 @@ const AddPage = ({ navigation }) => {
         }
     };
     _retrieveData();
-    const [img, setImg] = useState('')
 
     let datainfo = {
         username: username,
         text: '',
         type: '',
         remainingday: '',
+        img: '',
     }
     const options = {
         title: '请选择',
@@ -57,8 +59,10 @@ const AddPage = ({ navigation }) => {
             } else if (response.customButton) {
                 console.log('custom:', response.customButton);
             } else {
+                console.log(response.path);
+                setImageName(response.fileName)
                 const source = { uri: response.uri };
-                setImg(source.uri)
+                setImagePath(source.uri)
             }
         });
     }
@@ -164,45 +168,59 @@ const AddPage = ({ navigation }) => {
                 </View>
                 <Image
                     style={{ width: ptd(225), height: ptd(225), marginTop: ptd(10) }}
-                    source={{ uri: img }}
-                    onLoad={() => {
-                        // datainfo.img = img;
-                    }}
+                    source={{ uri: imgpath }}
+                // onLoad={() => {
+                //     datainfo.img = img;
+                // }}
                 />
                 <View style={[styles.items, { borderBottomColor: white2 }]}>
                     <TouchableOpacity
                         style={styles.confirm}
-                        onPress={() => {
+                        onPress={async () => {
                             if (datainfo.text != '' && datainfo.type != '' && datainfo.remainingday != '') {
+
+                                // fetch('http://154.8.164.57:1127/updata', {
+                                //     method: 'POST',
+                                //     body: JSON.stringify(datainfo),
+                                //     headers: new Headers({
+                                //         'Content-Type': 'application/json'
+                                //     })
+                                // }).then(res => res)
+                                //     .then((res) => {
+                                //         if (res.status == 200) {
+                                //             alert('添加成功')
+                                //         }
+                                //         else {
+                                //             alert('添加失败')
+                                //         }
+                                //     })
+                                var formData = new FormData();
+                                let file = {
+                                    uri: imgpath,
+                                    type: 'application/octet-stream',
+                                    name: imgname,
+                                };
+                                formData.append('image', file);
+                                formData.append('username', datainfo.username)
+                                formData.append('text', datainfo.text)
+                                formData.append('type', datainfo.type)
+                                formData.append('remainingday', datainfo.remainingday)
+
                                 fetch('http://154.8.164.57:1127/updata', {
                                     method: 'POST',
-                                    body: JSON.stringify(datainfo),
-                                    headers: new Headers({
-                                        'Content-Type': 'application/json'
-                                    })
-                                }).then(res => res)
+                                    // headers: {
+                                    //     'Content-Type': 'multipart/form-data',
+                                    // },
+                                    body: formData,
+                                }).then((res) => res.json())
                                     .then((res) => {
-                                        if (res.status == 200) {
+                                        console.log(res);
+                                        if (res.status == 'success') {
                                             alert('添加成功')
                                         }
                                         else {
                                             alert('添加失败')
                                         }
-                                    })
-
-                                var formData = new FormData();
-                                let file = { uri: img, type: 'multipart/form-data', name: 'image.png' };
-                                formData.append('image', file);
-                                formData.append('foodid',34)
-                                fetch('http://154.8.164.57:1127/uploaduserimg', {
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'multipart/form-data',
-                                    },
-                                    body: formData,
-                                }).then((res) => res.json())
-                                    .then((res) => {
-                                        console.log(res);
                                     })
                             }
                             else {

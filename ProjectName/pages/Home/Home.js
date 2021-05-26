@@ -59,6 +59,9 @@ const Home = ({ navigation }) => {
                     .then((res) => {
                         var foodall = res.results
                         for (let i = 0; i < foodall.length; i++) {
+                            if (foodall[i].foodid == 34) {
+                                console.log(foodall[i].img);
+                            }
                             if (foodall[i].type == '水果蔬菜') {
                                 foodall[i].color = '#BEE570'
                             }
@@ -172,7 +175,7 @@ const Home = ({ navigation }) => {
                                 <Text style={styles.foodtext}>{nav.text}</Text>
                                 <Text style={styles.foodtime}>{nav.time}进入冰箱</Text>
                                 <Text style={[styles.foodreaminingtime, { color: nav.remainingday <= '3' ? 'red' : '#858585' }]}>保质期还剩{nav.remainingday}天</Text>
-                                <TouchableOpacity
+                                {/* <TouchableOpacity
                                     onPress={() => {
                                         Alert.alert("Hold on!", "你确定要删除吗？", [
                                             {
@@ -202,12 +205,8 @@ const Home = ({ navigation }) => {
                                     }}
                                     style={styles.delete}
                                 >
-                                    {/* <Image
-                                        style={styles.deleteimg}
-                                        source={require('../images/delete.png')}
-                                    /> */}
                                     <Icon1 name='delete-empty' size={35} style={{ color: 'rgb(243,230,82)' }} />
-                                </TouchableOpacity>
+                                </TouchableOpacity> */}
                                 <TouchableOpacity
                                     onPress={() => {
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ScrollView, Text, View, StyleSheet, Image, TouchableOpacity, AsyncStorage ,TextInput} from 'react-native'
+import { ScrollView, Text, View, StyleSheet, Image, TouchableOpacity, AsyncStorage, TextInput } from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign';
 import { useFocusEffect } from '@react-navigation/native';
 
@@ -14,15 +14,15 @@ if (day.length == 1) {
     day = '0' + day;
 }
 
-const list=[
-    {username:'小小刀',userimg:require('../images/logo.jpg'),content:'今天吃生蚝啊，清蒸生蚝好好吃llllllalallalalallalalalalalallalalalala的哈哈哈哈哈哈哈哈哈哈哈哈哈',time:'2021-04-19',img:require('../images/cooked.png')},
-    {username:'小小刀',userimg:require('../images/logo.jpg'),content:'今天吃生蚝啊，清蒸生蚝好好吃',time:'2021-04-19',img:require('../images/cooked.png')},
-    {username:'小小刀',userimg:require('../images/logo.jpg'),content:'今天吃生蚝啊，清蒸生蚝好好吃',time:'2021-04-19',img:require('../images/cooked.png')},
-    {username:'小小刀',userimg:require('../images/logo.jpg'),content:'今天吃生蚝啊，清蒸生蚝好好吃',time:'2021-04-19',img:require('../images/cooked.png')},
-    {username:'小小刀',userimg:require('../images/logo.jpg'),content:'今天吃生蚝啊，清蒸生蚝好好吃',time:'2021-04-19',img:require('../images/cooked.png')},
-    {username:'小小刀',userimg:require('../images/logo.jpg'),content:'今天吃生蚝啊，清蒸生蚝好好吃',time:'2021-04-19',img:require('../images/cooked.png')},
-    {username:'小小刀',userimg:require('../images/logo.jpg'),content:'今天吃生蚝啊，清蒸生蚝好好吃',time:'2021-04-19',img:require('../images/cooked.png')},
-    {username:'小小刀',userimg:require('../images/logo.jpg'),content:'今天吃生蚝啊，清蒸生蚝好好吃',time:'2021-04-19',img:require('../images/cooked.png')},
+const list = [
+    { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃llllllalallalalallalalalalalallalalalala的哈哈哈哈哈哈哈哈哈哈哈哈哈', time: '2021-04-19', img: require('../images/cooked.png') },
+    { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
+    { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
+    { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
+    { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
+    { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
+    { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
+    { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
 ]
 
 const CookPage = ({ navigation }) => {
@@ -37,10 +37,10 @@ const CookPage = ({ navigation }) => {
             // Error retrieving data
         }
     };
-    _retrieveData();
 
     useFocusEffect(
         React.useCallback(() => {
+            _retrieveData();
             console.log('cook');
             AsyncStorage.getItem('username').then((username) => {
                 console.log(username);
@@ -60,7 +60,7 @@ const CookPage = ({ navigation }) => {
         }, [])
     )
     return (
-        <View style={{flex:1}}>
+        <View style={{ flex: 1 }}>
             <View style={styles.titlebar}>
                 <Text style={styles.hello}>
                     {username}主人，欢迎来到你的冰箱!
@@ -97,67 +97,67 @@ const CookPage = ({ navigation }) => {
             <ScrollView>
                 <View style={styles.xinde}>
                     {
-                        list.map((item,index)=>(
-                            <TouchableOpacity style={styles.items} onPress={()=>navigation.navigate('Mydetails',{index:index,list:list})}>
-                                <Image source={require('../images/cook1.jpg')} style={styles.item_img}/>
+                        list.map((item, index) => (
+                            <TouchableOpacity style={styles.items} onPress={() => navigation.navigate('Mydetails', { index: index, list: list })}>
+                                <Image source={require('../images/cook1.jpg')} style={styles.item_img} />
                                 <Text style={styles.item_text}>{item.content}</Text>
                                 <View style={styles.item_user}>
-                                    <Image source={require('../images/logo.jpg')} style={styles.item_userimg}/>
+                                    <Image source={require('../images/logo.jpg')} style={styles.item_userimg} />
                                     <Text style={styles.item_username}>{item.username}</Text>
                                 </View>
                             </TouchableOpacity>
                         ))
                     }
                 </View>
-                
+
             </ScrollView>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    xinde:{
-        flexDirection:'row',
+    xinde: {
+        flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'space-between',
-        marginTop:20,
-        width:w-40,
+        marginTop: 20,
+        width: w - 40,
     },
-    items:{
-        position:'relative',
-        marginTop:10,
-        marginLeft:40,
+    items: {
+        position: 'relative',
+        marginTop: 10,
+        marginLeft: 40,
     },
-    item_user:{
-        flexDirection:'row',
-        width:w-300,
-        alignContent:'center',
-        marginTop:5
+    item_user: {
+        flexDirection: 'row',
+        width: w - 300,
+        alignContent: 'center',
+        marginTop: 5
 
     },
-    item_username:{
-        fontSize:13,
-        marginLeft:5,
-        marginTop:3,
-        fontWeight:'100'
+    item_username: {
+        fontSize: 13,
+        marginLeft: 5,
+        marginTop: 3,
+        fontWeight: '100'
     },
-    item_userimg:{
-        width:25,
-        height:25,
-        borderRadius:12.5
+    item_userimg: {
+        width: 25,
+        height: 25,
+        borderRadius: 12.5
     },
-    item_text:{
-        width:w-300,
-        fontSize:15,
-        fontWeight:'bold',
-        height:35,
-        marginTop:5,
-        overflow:'hidden',
+    item_text: {
+        width: w - 300,
+        fontSize: 15,
+        fontWeight: 'bold',
+        height: 35,
+        marginTop: 5,
+        overflow: 'hidden',
     },
-    item_img:{
-        width:w-300,
-        height:150,
-        borderRadius:20
+    item_img: {
+        width: w - 300,
+        height: 150,
+        borderRadius: 20
     },
     foodtext: {
         zIndex: 10,
@@ -180,16 +180,16 @@ const styles = StyleSheet.create({
         elevation: 10,
         borderRadius: 25,
     },
-    bodybar:{
-        fontSize:30,
-        marginLeft:w-430,
-        marginRight:w-430,
-        color:blue
+    bodybar: {
+        fontSize: 30,
+        marginLeft: w - 430,
+        marginRight: w - 430,
+        color: blue
     },
-    bodybox:{
-        flexDirection:'row',
-        alignItems:'center',
-        justifyContent:'center'
+    bodybox: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     headportrait: {
         width: 48,

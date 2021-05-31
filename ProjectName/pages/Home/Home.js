@@ -174,8 +174,10 @@ const Home = ({ navigation }) => {
                                 />
                                 <Text style={styles.foodtext}>{nav.text}</Text>
                                 <Text style={styles.foodtime}>{nav.time}进入冰箱</Text>
-                                <Text style={[styles.foodreaminingtime, { color: nav.remainingday <= '3' ? 'red' : '#858585' }]}>保质期还剩{nav.remainingday}天</Text>
-                                {/* <TouchableOpacity
+                                <Text style={[styles.foodreaminingtime, { color: nav.remainingday <= '3' ? 'red' : '#858585' }]}>
+                                    {nav.remainingday < 0 ? '已过期' : '保质期还剩' + nav.remainingday + '天'}
+                                </Text>
+                                <TouchableOpacity
                                     onPress={() => {
                                         Alert.alert("Hold on!", "你确定要删除吗？", [
                                             {
@@ -187,7 +189,6 @@ const Home = ({ navigation }) => {
                                                 text: '确定',
                                                 onPress: () => {
                                                     console.log('删除');
-                                                    data.splice(idx, 1)
                                                     setData([...data])
                                                     fetch('http://154.8.164.57:1127/deletefooddata', {
                                                         method: 'POST',
@@ -198,15 +199,16 @@ const Home = ({ navigation }) => {
                                                     }).then(res => res.json())
                                                         .then((res) => {
                                                             console.log(res);
+                                                            navigation.push('tabnav')
                                                         })
-                                                }
+                                                    }
                                             }
                                         ]);
                                     }}
                                     style={styles.delete}
                                 >
                                     <Icon1 name='delete-empty' size={35} style={{ color: 'rgb(243,230,82)' }} />
-                                </TouchableOpacity> */}
+                                </TouchableOpacity>
                                 <TouchableOpacity
                                     onPress={() => {
 
@@ -241,7 +243,9 @@ const Home = ({ navigation }) => {
                                 />
                                 <Text style={styles.foodtext}>{nav.text}</Text>
                                 <Text style={styles.foodtime}>{nav.time}进入冰箱</Text>
-                                <Text style={[styles.foodreaminingtime, { color: nav.remainingday <= '3' ? 'red' : '#858585' }]}>保质期还剩{nav.remainingday}天</Text>
+                                <Text style={[styles.foodreaminingtime, { color: nav.remainingday <= '3' ? 'red' : '#858585' }]}>
+                                    {nav.remainingday < 0 ? '已过期' : '保质期还剩' + nav.remainingday + '天'}
+                                </Text>
                                 <TouchableOpacity
                                     onPress={() => {
                                         Alert.alert("Hold on!", "你确定要删除吗？", [

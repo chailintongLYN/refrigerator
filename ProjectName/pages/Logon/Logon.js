@@ -82,7 +82,7 @@ const LogonPage = ({ navigation }) => {
                                 }
                             })
                     }
-                    else{
+                    else {
                         alert('用户名或密码不能为空')
                     }
                 }}

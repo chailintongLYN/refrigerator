@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, StyleSheet, Image, Button,ScrollView, TouchableOpacity } from 'react-native'
+import { Text, View, StyleSheet, Image, Button, ScrollView, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign';
 import '../../common/global'
 
@@ -115,30 +115,33 @@ const Myfollows = ({ navigation }) => {
                 <Icon name='left' size={35} style={{ marginLeft: ptd(50) }} onPress={() => { navigation.goBack() }} />
                 <Text style={{ fontSize: 20, marginLeft: 85, fontWeight: 'bold' }}>我的粉丝</Text>
             </View>
-            <ScrollView style={styles.attionlist} contentContainerStyle={{alignItems:'center'}}>
+            <ScrollView style={styles.attionlist} contentContainerStyle={{ alignItems: 'center' }}>
                 {
-                    attention.map((item, index) => (
-                        <TouchableOpacity
-                            style={styles.attionitem}
-                            onPress={() => {
-                                navigation.push('MycareCon'
-                                , { conlist: item }
-                                )
-                            }}
-                            key={index}
-                        >
-                            <Image source={item.attuserimg} style={styles.attimg} />
-                            <Text style={{ fontSize: 20, marginLeft: 20 }}>{item.attuser}</Text>
+                    attention != undefined ?
+                        attention.map((item, index) => (
                             <TouchableOpacity
-                                style={styles.attbtn}
+                                style={styles.attionitem}
                                 onPress={() => {
-                                    console.log('关注');
+                                    navigation.push('MycareCon'
+                                        , { conlist: item }
+                                    )
                                 }}
+                                key={index}
                             >
-                                <Text style={{ fontSize: 17, color: 'white', marginTop: 8 }}>{item.attstate}</Text>
+                                <Image source={item.attuserimg} style={styles.attimg} />
+                                <Text style={{ fontSize: 20, marginLeft: 20 }}>{item.attuser}</Text>
+                                <TouchableOpacity
+                                    style={styles.attbtn}
+                                    onPress={() => {
+                                        console.log('关注');
+                                    }}
+                                >
+                                    <Text style={{ fontSize: 17, color: 'white', marginTop: 8 }}>{item.attstate}</Text>
+                                </TouchableOpacity>
                             </TouchableOpacity>
-                        </TouchableOpacity>
-                    ))
+                        ))
+                        :
+                        <Text>主人，您还没有任何粉丝</Text>
                 }
             </ScrollView>
         </View>
@@ -162,15 +165,15 @@ const styles = StyleSheet.create({
         marginLeft: ptd(80),
         // flex:1
     },
-    attionitem:{
-        width:ptd(320),
-        height:100,
-        flexDirection:'row',
-        backgroundColor:'white',
-        marginBottom:20,
-        alignItems:'center',
-        borderRadius:100,
-        borderWidth:2,
+    attionitem: {
+        width: ptd(320),
+        height: 100,
+        flexDirection: 'row',
+        backgroundColor: 'white',
+        marginBottom: 20,
+        alignItems: 'center',
+        borderRadius: 100,
+        borderWidth: 2,
     },
     head: {
         flexDirection: 'row',

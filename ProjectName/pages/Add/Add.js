@@ -4,6 +4,7 @@ import { TextInput } from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/AntDesign';
 import ImagePicker from 'react-native-image-picker';
 import ModalDropdown from 'react-native-modal-dropdown';
+import { useFocusEffect } from '@react-navigation/native';
 
 const myDate = new Date();
 const year = myDate.getFullYear();
@@ -31,8 +32,12 @@ const AddPage = ({ navigation }) => {
             // Error retrieving data
         }
     };
-    _retrieveData();
 
+    useFocusEffect(
+        React.useCallback(() => {
+            _retrieveData();
+        }, [])
+    )
     let datainfo = {
         username: username,
         text: '',
@@ -178,22 +183,6 @@ const AddPage = ({ navigation }) => {
                         style={styles.confirm}
                         onPress={async () => {
                             if (datainfo.text != '' && datainfo.type != '' && datainfo.remainingday != '') {
-
-                                // fetch('http://154.8.164.57:1127/updata', {
-                                //     method: 'POST',
-                                //     body: JSON.stringify(datainfo),
-                                //     headers: new Headers({
-                                //         'Content-Type': 'application/json'
-                                //     })
-                                // }).then(res => res)
-                                //     .then((res) => {
-                                //         if (res.status == 200) {
-                                //             alert('添加成功')
-                                //         }
-                                //         else {
-                                //             alert('添加失败')
-                                //         }
-                                //     })
                                 var formData = new FormData();
                                 let file = {
                                     uri: imgpath,

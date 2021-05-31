@@ -1,27 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { Text, View, StyleSheet, Image, Button, ScrollView, TouchableOpacity, AsyncStorage } from 'react-native'
+import { Text, View, StyleSheet, Image, ScrollView, TouchableOpacity, AsyncStorage } from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign';
 import '../../common/global'
 import { useFocusEffect } from '@react-navigation/native';
-
-// const mycook = [
-//     { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃llllllalallalalallalalalalalallalalalala的哈哈哈哈哈哈哈哈哈哈哈哈哈', time: '2021-04-19', img: require('../images/cooked.png') },
-//     { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-//     { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-//     { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-//     { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-//     { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-//     { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-//     { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-
-// ]
-
 
 const Mypage = ({ navigation }) => {
     const [username, setUsername] = useState('')
     const [userimg, setUserimg] = useState('')
     const [number, setNumber] = useState({});
-    const [text,setText]=useState([]);
+    const [text, setText] = useState([]);
 
     const _retrieveData = async () => {
         try {
@@ -48,7 +35,7 @@ const Mypage = ({ navigation }) => {
                     })
                 }).then(res => res.json())
                     .then((res) => {
-                        console.log(res);
+                        console.log(res.text.length);
                         setNumber(res.number[0]);
                         setText(res.text)
                     })
@@ -59,8 +46,6 @@ const Mypage = ({ navigation }) => {
     // console.log(data.text);
     // console.log(data);
     // var number=data.number[0];
-    console.log(number);
-    console.log(text)
     return (
         <View style={{ flex: 1 }}>
             <View style={styles.bgc}>
@@ -82,7 +67,7 @@ const Mypage = ({ navigation }) => {
                         <Text style={styles.search_name}>我的粉丝</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.mysearch} onPress={() => navigation.navigate('Mydetails', { index: 0, list: text })}>
-                        <Text style={styles.title_number}>{number.textnumber}</Text>
+                        <Text style={styles.title_number}>{text.length}</Text>
                         <Text style={styles.search_name}>我的心得</Text>
                     </TouchableOpacity>
                 </View>
@@ -95,11 +80,13 @@ const Mypage = ({ navigation }) => {
                             key={index}
                             onPress={() => navigation.navigate('Mydetails', { index: index, list: text, userimg: userimg })}
                         >
-                            <Image source={{uri:item.img}} style={styles.cooked_img} />
+                            <Image source={{ uri: item.img }} style={styles.cooked_img} />
                             {/* <Image source={{ uri: item.img }} style={styles.cooked_img} /> */}
                             <View>
                                 <Text style={styles.content}>{item.content}</Text>
-                                <Text style={{ marginLeft: 10, color: '#9D9E9D', marginTop: 10 }}>{item.ctime}</Text>
+                                <Text style={{ marginLeft: 10, color: '#9D9E9D', marginTop: 10 }}>
+                                {item.ctime.substring(0,10)} {item.ctime.substring(12,19)}
+                                </Text>
                             </View>
                         </TouchableOpacity>
                     ))

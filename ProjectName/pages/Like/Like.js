@@ -34,31 +34,31 @@ const LikePage = ({ navigation }) => {
             // Error retrieving data
         }
     };
-    _retrieveData();
     useFocusEffect(
         React.useCallback(() => {
-            
-                AsyncStorage.getItem('username').then((username) => {
-                    setUserName(username)
-                    fetch('http://154.8.164.57:1127/getmylike', {
-                        method: 'POST',
-                        body: JSON.stringify({ username: username }),
-                        headers: new Headers({
-                            'Content-Type': 'application/json'
-                        })
-                    }).then(res => res.json())
-                        .then((res) => {
-                            if (res.status != 'nosave') {
-                                setData(res.results)
-                                setAllData(res.results)
-                            }
-                            else{
-                                setData([])
-                                setAllData([])
-                            }
-                        })
-                })
-            
+            _retrieveData();
+
+            AsyncStorage.getItem('username').then((username) => {
+                setUserName(username)
+                fetch('http://154.8.164.57:1127/getmylike', {
+                    method: 'POST',
+                    body: JSON.stringify({ username: username }),
+                    headers: new Headers({
+                        'Content-Type': 'application/json'
+                    })
+                }).then(res => res.json())
+                    .then((res) => {
+                        if (res.status != 'nosave') {
+                            setData(res.results)
+                            setAllData(res.results)
+                        }
+                        else {
+                            setData([])
+                            setAllData([])
+                        }
+                    })
+            })
+
         }, [])
     )
     return (
@@ -140,7 +140,7 @@ const LikePage = ({ navigation }) => {
                                                 setData([...data])
                                                 fetch('http://154.8.164.57:1127/delesave', {
                                                     method: 'POST',
-                                                    body: JSON.stringify({username:username,mealname: nav.mealname }),
+                                                    body: JSON.stringify({ username: username, mealname: nav.mealname }),
                                                     headers: new Headers({
                                                         'Content-Type': 'application/json'
                                                     })

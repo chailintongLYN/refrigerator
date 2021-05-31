@@ -104,7 +104,7 @@ const CookPage = ({ navigation }) => {
     }
 
     return (
-        <View style={{flex:1}}>
+        <View style={{ flex: 1 }}>
             <View style={styles.titlebar}>
                 <Text style={styles.hello}>
                     {username}主人，欢迎来到你的冰箱!
@@ -201,29 +201,29 @@ const styles = StyleSheet.create({
         marginTop:5
 
     },
-    item_username:{
-        fontSize:13,
-        marginLeft:5,
-        marginTop:3,
-        fontWeight:'100'
+    item_username: {
+        fontSize: 13,
+        marginLeft: 5,
+        marginTop: 3,
+        fontWeight: '100'
     },
-    item_userimg:{
-        width:25,
-        height:25,
-        borderRadius:12.5
+    item_userimg: {
+        width: 25,
+        height: 25,
+        borderRadius: 12.5
     },
-    item_text:{
-        width:w-300,
-        fontSize:15,
-        fontWeight:'bold',
-        height:35,
-        marginTop:5,
-        overflow:'hidden',
+    item_text: {
+        width: w - 300,
+        fontSize: 15,
+        fontWeight: 'bold',
+        height: 35,
+        marginTop: 5,
+        overflow: 'hidden',
     },
-    item_img:{
-        width:w-300,
-        height:150,
-        borderRadius:20
+    item_img: {
+        width: w - 300,
+        height: 150,
+        borderRadius: 20
     },
     foodtext: {
         zIndex: 10,
@@ -246,16 +246,16 @@ const styles = StyleSheet.create({
         elevation: 10,
         borderRadius: 25,
     },
-    bodybar:{
-        fontSize:30,
-        marginLeft:w-430,
-        marginRight:w-430,
-        color:blue
+    bodybar: {
+        fontSize: 30,
+        marginLeft: w - 430,
+        marginRight: w - 430,
+        color: blue
     },
-    bodybox:{
-        flexDirection:'row',
-        alignItems:'center',
-        justifyContent:'center'
+    bodybox: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     headportrait: {
         width: 48,

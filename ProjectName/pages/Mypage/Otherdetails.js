@@ -36,7 +36,7 @@ const Mydetails=({navigation,route})=>{
                                 <View style={{flexDirection:'row',marginTop:20,alignItems:'center'}}>
                                     <Text style={{fontSize:18}} onPress={()=>navigation.navigate('Mypages')}>{item.username}</Text>
                                     <Text style={{marginLeft:w-330,color:'#9D9E9D'}}>{item.time}</Text>
-                                    <Text style={styles.delete} onPress={()=>console.log('删除')}>{item.ctime}</Text>
+                                    <Text style={styles.delete}>{item.ctime.substring(0,10)} {item.ctime.substring(12,19)}</Text>
                                 </View>
                                 <View style={{marginTop:10}}>
                                     <Text style={{width:ptd(200),fontSize:15}}>{item.content}</Text>
@@ -61,7 +61,7 @@ const styles=StyleSheet.create({
         height:230,
     },
     delete:{
-        marginLeft:w-400,
+        marginLeft:w-450,
         color:'#9D9E9D'
     },
     userimg:{

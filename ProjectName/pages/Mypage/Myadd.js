@@ -77,7 +77,6 @@ const styles=StyleSheet.create({
         height:60,
         marginLeft:(w-(w-50))/2,
         backgroundColor:blue,
-        marginTop:20
     },
     jilu:{
         width:w-50,

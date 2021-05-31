@@ -4,40 +4,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import '../../common/global'
 import { useFocusEffect } from '@react-navigation/native';
 
-// const attention=[
-//     {
-//         attuser:'用户名',
-//         attuserimg:require('../images/logo.jpg'),
-//         attstate:'已关注',
-//         attcook:[
-//             {username:'小小刀',userimg:require('../images/logo.jpg'),content:'今天吃生蚝啊，清蒸生蚝好好吃',time:'2021-04-19',img:require('../images/cooked.png')},
-//             {username:'小小刀',userimg:require('../images/logo.jpg'),content:'今天吃生蚝啊，清蒸生蚝好好吃',time:'2021-04-19',img:require('../images/cooked.png')},
-//             {username:'小小刀',userimg:require('../images/logo.jpg'),content:'今天吃生蚝啊，清蒸生蚝好好吃',time:'2021-04-19',img:require('../images/cooked.png')},
-//             {username:'小小刀',userimg:require('../images/logo.jpg'),content:'今天吃生蚝啊，清蒸生蚝好好吃',time:'2021-04-19',img:require('../images/cooked.png')},
-//         ]
-//     },
-//     {
-//         attuser:'用户名',
-//         attuserimg:require('../images/logo.jpg'),
-//         attstate:'已关注',
-//         attcook:[
-//             {username:'小小刀',userimg:require('../images/logo.jpg'),content:'今天吃生蚝啊，清蒸生蚝好好吃',time:'2021-04-19',img:require('../images/cooked.png')},
-//             {username:'小小刀',userimg:require('../images/logo.jpg'),content:'今天吃生蚝啊，清蒸生蚝好好吃',time:'2021-04-19',img:require('../images/cooked.png')},
-//             {username:'小小刀',userimg:require('../images/logo.jpg'),content:'今天吃生蚝啊，清蒸生蚝好好吃',time:'2021-04-19',img:require('../images/cooked.png')},
-//             {username:'小小刀',userimg:require('../images/logo.jpg'),content:'今天吃生蚝啊，清蒸生蚝好好吃',time:'2021-04-19',img:require('../images/cooked.png')},
-//         ]
-//     },{
-//         attuser:'用户名',
-//         attuserimg:require('../images/logo.jpg'),
-//         attstate:'已关注',
-//         attcook:[
-//             {username:'小小刀',userimg:require('../images/logo.jpg'),content:'今天吃生蚝啊，清蒸生蚝好好吃',time:'2021-04-19',img:require('../images/cooked.png')},
-//             {username:'小小刀',userimg:require('../images/logo.jpg'),content:'今天吃生蚝啊，清蒸生蚝好好吃',time:'2021-04-19',img:require('../images/cooked.png')},
-//             {username:'小小刀',userimg:require('../images/logo.jpg'),content:'今天吃生蚝啊，清蒸生蚝好好吃',time:'2021-04-19',img:require('../images/cooked.png')},
-//             {username:'小小刀',userimg:require('../images/logo.jpg'),content:'今天吃生蚝啊，清蒸生蚝好好吃',time:'2021-04-19',img:require('../images/cooked.png')},
-//         ]
-//     }
-// ]
+
 const MycarePage = ({navigation}) => {
     const [username, setUsername] = useState('')
     const [userimg, setUserimg] = useState('')
@@ -122,6 +89,7 @@ const MycarePage = ({navigation}) => {
             </View>
             <ScrollView style={styles.attionlist} contentContainerStyle={{alignItems:'center'}}>
                 {
+                    list!=undefined?
                     list.map((item,index)=>(
                         <TouchableOpacity style={styles.attionitem} onPress={()=>{navigation.navigate('Mypages',{conlist:item})}} key={index}>
                             <Image source={{uri:item.followimg}} style={styles.attimg}/>
@@ -131,6 +99,8 @@ const MycarePage = ({navigation}) => {
                             </TouchableOpacity>
                         </TouchableOpacity>
                     ))
+                    :
+                    <Text>主人，您还没有关注任何人~</Text>
                 }
             </ScrollView>
         </View>

@@ -31,17 +31,17 @@ const Mydetails=({navigation,route})=>{
                 {
                     list.map((item,index)=>(
                         <View key={index} style={styles.v1} onLayout={event=>con(index,event)}>
-                            <Image source={{uri:userimg}} style={styles.userimg} onPress={()=>navigation.navigate('Mypages')}/>
+                            <Image source={{uri:item.uimg}} style={styles.userimg} onPress={()=>navigation.navigate('Mypages')}/>
                             <View style={{marginLeft:w-440}}>
                                 <View style={{flexDirection:'row',marginTop:20,alignItems:'center'}}>
                                     <Text style={{fontSize:18}} onPress={()=>navigation.navigate('Mypages')}>{item.username}</Text>
                                     <Text style={{marginLeft:w-330,color:'#9D9E9D'}}>{item.time}</Text>
-                                    <Text style={styles.delete} onPress={()=>console.log('删除')}>删除</Text>
+                                    <Text style={styles.delete} onPress={()=>console.log('删除')}>{item.ctime}</Text>
                                 </View>
                                 <View style={{marginTop:10}}>
                                     <Text style={{width:ptd(200),fontSize:15}}>{item.content}</Text>
                                     {/* <Image source={{uri:item.img}} style={styles.img}/> */}
-                                    <Image source={require('../images/cook1.jpg')} style={styles.img}/>
+                                    <Image source={{uri:item.img}} style={styles.img}/>
                                 </View>
                             </View>
                         </View>

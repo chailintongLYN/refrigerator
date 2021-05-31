@@ -27,6 +27,7 @@ import Myadd from './pages/Mypage/Myadd'
 import SetUserimgPage from './pages/Mypage/set/SetUserimg'
 import SetPasswordPage from './pages/Mypage/set/SetPassword'
 import AddPage from './pages/Add/Add';
+import Otherdetails from './pages/Mypage/Otherdetails'
 // import Myset from './pages/Mypage/Myset'
 // 引入图标
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -219,6 +220,8 @@ const App = () => {
         />
         <RootStack.Screen options={{headerShown:false}} name='SetPassword' component={SetPasswordPage}/> 
         <RootStack.Screen options={{headerShown:false}} name='Myadd' component={Myadd}/> 
+        <RootStack.Screen options={{headerShown:false}} name='Otherdetails' component={Otherdetails}/> 
+
       </RootStack.Navigator>
     </NavigationContainer>
     // <Tab.Navigator

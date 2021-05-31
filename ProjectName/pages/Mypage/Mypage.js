@@ -4,17 +4,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import '../../common/global'
 import { useFocusEffect } from '@react-navigation/native';
 
-// const mycook = [
-//     { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃llllllalallalalallalalalalalallalalalala的哈哈哈哈哈哈哈哈哈哈哈哈哈', time: '2021-04-19', img: require('../images/cooked.png') },
-//     { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-//     { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-//     { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-//     { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-//     { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-//     { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-//     { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
 
-// ]
 
 
 const Mypage = ({ navigation }) => {
@@ -89,6 +79,7 @@ const Mypage = ({ navigation }) => {
             </View>
             <ScrollView style={{ marginTop: 20, width: ptd(375) }} contentContainerStyle={{ alignItems: 'center' }}>
                 {
+                    text!=undefined?
                     text.map((item, index) => (
                         <TouchableOpacity
                             style={[styles.mycooked, { marginBottom: index == text.length - 1 ? 20 : 0 }]}
@@ -103,6 +94,8 @@ const Mypage = ({ navigation }) => {
                             </View>
                         </TouchableOpacity>
                     ))
+                    :
+                    <Text>主人，您还没有发表心得</Text>
                 }
             </ScrollView>
         </View>

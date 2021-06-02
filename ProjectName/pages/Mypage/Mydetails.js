@@ -1,5 +1,5 @@
-import React from 'react'
-import { Text, View, StyleSheet, Image, Button,ScrollView, TouchableOpacity } from 'react-native'
+import React,{useEffect,useState} from 'react'
+import { Text, View, StyleSheet, Image, Button,ScrollView, TouchableOpacity,AsyncStorage } from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign';
 import '../../common/global'
 var layout={
@@ -7,6 +7,8 @@ var layout={
     y:0
 }
 const Mydetails=({navigation,route})=>{
+    const [username, setUsername] = useState('')
+
     const list=route.params.list;
     // console.log('userimg:',route.params.userimg)
     const userimg=route.params.userimg;
@@ -16,6 +18,24 @@ const Mydetails=({navigation,route})=>{
         if(index===route.params.index){
             layout = event.nativeEvent.layout
         }
+    }
+    const Delete=(textid)=>{
+        console.log('删除')
+        AsyncStorage.getItem('username').then((username) => {
+            console.log(username);
+            setUserName(username);
+            fetch('http://154.8.164.57:1127/deletext', {
+                method: 'POST',
+                body: JSON.stringify({ username: username,textid:textid }),
+                headers: new Headers({
+                    'Content-Type': 'applocation/json'
+                })
+            }).then(res => res.json())
+                .then((res) => {
+                    console.log('res',res); 
+                    console.log(1);                   
+                })
+        })
     }
     React.useEffect(()=>{
         con(),
@@ -36,7 +56,7 @@ const Mydetails=({navigation,route})=>{
                                 <View style={{flexDirection:'row',marginTop:20,alignItems:'center'}}>
                                     <Text style={{fontSize:18}} onPress={()=>navigation.navigate('Mypages')}>{item.username}</Text>
                                     <Text style={{marginLeft:w-330,color:'#9D9E9D'}}>{item.time}</Text>
-                                    <Text style={styles.delete} onPress={()=>console.log('删除')}>删除</Text>
+                                    <Text style={styles.delete} onPress={()=>Delete(item.textid)}>删除</Text>
                                 </View>
                                 <View style={{marginTop:10}}>
                                     <Text style={{width:ptd(200),fontSize:15}}>{item.content}</Text>

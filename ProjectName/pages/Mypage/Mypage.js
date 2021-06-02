@@ -35,7 +35,7 @@ const Mypage = ({ navigation }) => {
                     })
                 }).then(res => res.json())
                     .then((res) => {
-                        console.log(res.text.length);
+                        console.log(res);
                         setNumber(res.number[0]);
                         setText(res.text)
                     })

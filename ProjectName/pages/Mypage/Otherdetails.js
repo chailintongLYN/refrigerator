@@ -23,7 +23,6 @@ const Mydetails=({navigation,route})=>{
         <View>
             <View style={styles.head}>
                 <Icon name='left' size={30} style={{marginLeft:w-420}} onPress={()=>navigation.goBack()}/>
-                <Text style={styles.head_text}>心得</Text>
             </View>
             <ScrollView style={{marginTop:30, width:ptd(375)}} ref={(view) => { window = view; }} contentContainerStyle={{alignItems:'center'}}> 
                 {

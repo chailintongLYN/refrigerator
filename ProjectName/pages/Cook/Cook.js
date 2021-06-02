@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { ScrollView, Text, View, StyleSheet, Image, TouchableOpacity, AsyncStorage ,TextInput,FlatList,ActivityIndicator} from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign';
 import { useFocusEffect } from '@react-navigation/native';
@@ -15,8 +15,9 @@ if (day.length == 1) {
 }
 
 var pagenow=1;
-const CookPage = ({ navigation }) => {
-    const [totalPage,setTotalpage]=useState(1);
+const CookPage = ({ navigation}) => {    
+    const [totalPage,setTotalpage]=useState(0);
+    // const [pagenow,setPagenow]=useState(1)
     const [username, setUserName] = useState('')
     const [userimg, setUserImage] = useState('')
     const [data,setData]=useState([]);
@@ -66,13 +67,17 @@ const CookPage = ({ navigation }) => {
     }
     console.log('waitotalpage',totalPage);
     //请求数据
-    useFocusEffect(
-        React.useCallback(() => {
-            _retrieveData();
-            getDate(pagenow)
+    useEffect(()=>{
+        _retrieveData();
+        getDate(pagenow)
+    },[])
+    // useFocusEffect(
+    //     React.useCallback(() => {
+    //         _retrieveData();
+    //         getDate(pagenow)
 
-        }, [])
-    )
+    //     }, [])
+    // )
     const _separator=()=>{
         return <View style={{height:1,backgroundColor:'#999999'}}/>;
     }
@@ -94,6 +99,8 @@ const CookPage = ({ navigation }) => {
         // }
         //如果当前的页大于总页数，那就是到最后一页，返回
         if((pagenow!=1)&&(pagenow>=totalPage)){
+            console.log(1);
+            
             return ;
         }else{
             pagenow++;

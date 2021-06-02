@@ -4,42 +4,30 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import '../../common/global'
 import { useFocusEffect } from '@react-navigation/native';
 
-
-const mycook = [
-    { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃llllllalallalalallalalalalalallalalalala的哈哈哈哈哈哈哈哈哈哈哈哈哈', time: '2021-04-19', img: require('../images/cooked.png') },
-    { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-    { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-    { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-    { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-    { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-    { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-    { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-
-]
-
-
 const Mypages = ({ navigation,route }) => {
     const [username, setUsername] = useState('')
     const [userimg, setUserimg] = useState('')
     const [number, setNumber] = useState({});
     const [text, setText] = useState([]);
 
-    // setUsername(route.params.username)
-    // setUserimg(route.params.userimg)
+
     console.log(route.params);
     useFocusEffect(
         React.useCallback(()=>{
-            setUsername(route.params.username);
+            setUserimg(route.params.userimg)
+            setUsername(route.params.username)
             fetch('http://154.8.164.57:1127/getmydata',{
                 method:'POST',
-                body:JSON.stringify({username:username}),
+                body:JSON.stringify({username:route.params.username}),
                 header:new Headers({
                     'Content-Type':'applocation/json'
-                }).then(res=>res.json())
+                })
+            }).then(res=>res.json())
                     .then((res)=>{
-                        console.log(res);
+                        console.log('res',res);
+                        setNumber(res.number[0]);
+                        setText(res.text)
                     })
-            });
         },[])
     )
     return (
@@ -50,40 +38,45 @@ const Mypages = ({ navigation,route }) => {
             </View>
             <View style={styles.titlebar}>
                 <View style={{ flexDirection: 'row' }}>
-                    <Image source={require('../images/logo.jpg')} style={styles.userimg} />
-                    <Text style={styles.username}>小小刀</Text>
+                    <Image source={{uri:userimg}} style={styles.userimg} />
+                    <Text style={styles.username}>{username}</Text>
                     <Icon name='camera' size={40} style={{ color: blue, marginLeft: ptd(115), marginTop: 25 }} onPress={() => navigation.navigate('Myadd')} />
                 </View>
                 <View style={{ flexDirection: 'row' }}>
                     <TouchableOpacity style={styles.mysearch} onPress={() => { navigation.navigate('Mycare') }}>
-                        <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 10 }}>3</Text>
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 10 }}>{number.followsnumber}</Text>
                         <Text style={{ fontSize: 17, marginTop: 15, color: '#9D9E9D' }}>关注</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.mysearch} onPress={() => { navigation.navigate('Myfollows') }}>
-                        <Text style={styles.title_number}>3</Text>
+                        <Text style={styles.title_number}>{number.fansnumber}</Text>
                         <Text style={styles.search_name}>我的粉丝</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.mysearch} onPress={() => navigation.navigate('Mydetails', { index: 0, list: mycook })}>
-                        <Text style={styles.title_number}>3</Text>
+                    <TouchableOpacity style={styles.mysearch} onPress={() => navigation.navigate('Mydetails', { index: 0, list: text })}>
+                        <Text style={styles.title_number}>{text.length}</Text>
                         <Text style={styles.search_name}>我的心得</Text>
                     </TouchableOpacity>
                 </View>
             </View>
             <ScrollView style={{ marginTop: 20, width: ptd(375) }} contentContainerStyle={{ alignItems: 'center' }}>
                 {
-                    mycook.map((item, index) => (
+                    text!=undefined?
+                    text.map((item, index) => (
                         <TouchableOpacity
-                            style={[styles.mycooked, { marginBottom: index == mycook.length - 1 ? 20 : 0 }]}
+                            style={[styles.mycooked, { marginBottom: index == text.length - 1 ? 20 : 0 }]}
                             key={index}
-                            onPress={() => navigation.navigate('Mydetails', { index: index, list: mycook })}
+                            onPress={() => navigation.navigate('Otherdetails', { index: index, list:text })}
                         >
-                            <Image source={item.img} style={styles.cooked_img} />
+                            <Image source={{uri:item.img}} style={styles.cooked_img} />
                             <View>
                                 <Text style={styles.content}>{item.content}</Text>
-                                <Text style={{ marginLeft: 10, color: '#9D9E9D' }}>{item.time}</Text>
+                                <Text style={{ marginLeft: 10, color: '#9D9E9D', marginTop: 10 }}>
+                                {item.ctime.substring(0,10)} {item.ctime.substring(12,19)}
+                                </Text>
                             </View>
                         </TouchableOpacity>
                     ))
+                    :
+                    <Text>主人，您还没有发表心得</Text>
                 }
             </ScrollView>
         </View>

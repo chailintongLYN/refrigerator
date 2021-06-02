@@ -8,9 +8,7 @@ var layout={
 }
 const Mydetails=({navigation,route})=>{
     const list=route.params.list;
-    // console.log('userimg:',route.params.userimg)
-    const userimg=route.params.userimg;
-    
+    const userimg=route.params.userimg;    
     console.log(list)
     function con(index,event){
         if(index===route.params.index){
@@ -31,12 +29,14 @@ const Mydetails=({navigation,route})=>{
                 {
                     list.map((item,index)=>(
                         <View key={index} style={styles.v1} onLayout={event=>con(index,event)}>
-                            <Image source={{uri:item.uimg}} style={styles.userimg} onPress={()=>navigation.navigate('Mypages')}/>
+                            <TouchableOpacity style={styles.userimg} onPress={()=>navigation.navigate('Mypages',{username:item.username,userimg:item.uimg})}><Image source={{uri:item.uimg}} style={{width:50,height:50,borderRadius:25,}}/></TouchableOpacity>
                             <View style={{marginLeft:w-440}}>
                                 <View style={{flexDirection:'row',marginTop:20,alignItems:'center'}}>
-                                    <Text style={{fontSize:18}} onPress={()=>navigation.navigate('Mypages')}>{item.username}</Text>
+                                    <Text style={{fontSize:18}} onPress={()=>navigation.navigate('Mypages',{username:item.username,userimg:item.uimg})}>{item.username}</Text>
                                     <Text style={{marginLeft:w-330,color:'#9D9E9D'}}>{item.time}</Text>
-                                    <Text style={styles.delete}>{item.ctime.substring(0,10)} {item.ctime.substring(12,19)}</Text>
+                                    <Text style={styles.delete}>
+                                        {item.ctime.substring(0, 10)} {Number(item.ctime.substring(12, 13)) + 8}{item.ctime.substring(13, 19)}
+                                    </Text>
                                 </View>
                                 <View style={{marginTop:10}}>
                                     <Text style={{width:ptd(200),fontSize:15}}>{item.content}</Text>
@@ -67,7 +67,8 @@ const styles=StyleSheet.create({
     userimg:{
         width:50,height:50,
         borderRadius:25,
-        marginTop:10
+        marginTop:10,
+        marginLeft:5
     },
     head_text:{
         fontSize:20,

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Text, View, StyleSheet, Image, Button, ScrollView, TouchableOpacity, AsyncStorage } from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign';
 import '../../common/global'
+import { useFocusEffect } from '@react-navigation/native';
+
 
 const mycook = [
     { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃llllllalallalalallalalalalalallalalalala的哈哈哈哈哈哈哈哈哈哈哈哈哈', time: '2021-04-19', img: require('../images/cooked.png') },
@@ -16,7 +18,30 @@ const mycook = [
 ]
 
 
-const Mypages = ({ navigation }) => {
+const Mypages = ({ navigation,route }) => {
+    const [username, setUsername] = useState('')
+    const [userimg, setUserimg] = useState('')
+    const [number, setNumber] = useState({});
+    const [text, setText] = useState([]);
+
+    // setUsername(route.params.username)
+    // setUserimg(route.params.userimg)
+    console.log(route.params);
+    useFocusEffect(
+        React.useCallback(()=>{
+            setUsername(route.params.username);
+            fetch('http://154.8.164.57:1127/getmydata',{
+                method:'POST',
+                body:JSON.stringify({username:username}),
+                header:new Headers({
+                    'Content-Type':'applocation/json'
+                }).then(res=>res.json())
+                    .then((res)=>{
+                        console.log(res);
+                    })
+            });
+        },[])
+    )
     return (
         <View style={{ flex: 1 }}>
             <View style={styles.bgc}>

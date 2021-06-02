@@ -88,7 +88,7 @@ const Myadd = ({ navigation }) => {
                                 .then((res) => {
                                     console.log(res);
                                     if (res.status == 'success') {
-                                        alert('发表成功')
+                                        navigation.goBack()
                                     }
                                     else {
                                         alert('发表失败')

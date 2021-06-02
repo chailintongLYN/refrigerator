@@ -43,7 +43,7 @@ const CookPage = ({ navigation }) => {
                 })
             }).then(res => res.json())
                 .then((res) => {
-                    console.log('res',res);
+                    // console.log('res',res);
                     setData(data.concat(res.meal));
 
                     let foot=0;
@@ -140,7 +140,7 @@ const CookPage = ({ navigation }) => {
             <FlatList
                 data={data}
                 renderItem={({item,index})=>
-                    <TouchableOpacity style={styles.items} onPress={()=>navigation.navigate('Otherdetails',{index:index,list:data})}>
+                    <TouchableOpacity style={styles.items} onPress={()=>navigation.navigate('Otherdetails',{index:index,list:data,username:item.username,userimg:item.uimg})}>
                             <Image source={{uri:item.img}} style={styles.item_img}/>
                             <Text style={styles.item_text}>{item.content}</Text>
                             <View style={styles.item_user}>

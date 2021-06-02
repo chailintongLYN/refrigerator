@@ -74,25 +74,25 @@ const Mypage = ({ navigation }) => {
             </View>
             <ScrollView style={{ marginTop: 20, width: ptd(375) }} contentContainerStyle={{ alignItems: 'center' }}>
                 {
-                    text!=undefined?
-                    text.map((item, index) => (
-                        <TouchableOpacity
-                            style={[styles.mycooked, { marginBottom: index == text.length - 1 ? 20 : 0 }]}
-                            key={index}
-                            onPress={() => navigation.navigate('Mydetails', { index: index, list: text, userimg: userimg })}
-                        >
-                            <Image source={{ uri: item.img }} style={styles.cooked_img} />
-                            {/* <Image source={{ uri: item.img }} style={styles.cooked_img} /> */}
-                            <View>
-                                <Text style={styles.content}>{item.content}</Text>
-                                <Text style={{ marginLeft: 10, color: '#9D9E9D', marginTop: 10 }}>
-                                {item.ctime.substring(0,10)} {item.ctime.substring(12,19)}
-                                </Text>
-                            </View>
-                        </TouchableOpacity>
-                    ))
-                    :
-                    <Text>主人，您还没有发表心得</Text>
+                    text != undefined ?
+                        text.map((item, index) => (
+                            <TouchableOpacity
+                                style={[styles.mycooked, { marginBottom: index == text.length - 1 ? 20 : 0 }]}
+                                key={index}
+                                onPress={() => navigation.navigate('Mydetails', { index: index, list: text, userimg: userimg })}
+                            >
+                                <Image source={{ uri: item.img }} style={styles.cooked_img} />
+                                {/* <Image source={{ uri: item.img }} style={styles.cooked_img} /> */}
+                                <View>
+                                    <Text style={styles.content}>{item.content}</Text>
+                                    <Text style={{ marginLeft: 10, color: '#9D9E9D', marginTop: 10 }}>
+                                        {item.ctime.substring(0, 10)} {Number(item.ctime.substring(12, 13)) + 8}{item.ctime.substring(13, 19)}
+                                    </Text>
+                                </View>
+                            </TouchableOpacity>
+                        ))
+                        :
+                        <Text>主人，您还没有发表心得</Text>
                 }
             </ScrollView>
         </View>

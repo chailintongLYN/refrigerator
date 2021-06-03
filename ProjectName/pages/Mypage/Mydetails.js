@@ -39,7 +39,7 @@ const Mydetails=({navigation,route})=>{
     }
     React.useEffect(()=>{
         con(),
-        window.scrollTo({ x: 0, y:230*route.params.index, animated: true});
+        window.scrollTo({ x: 0, y:340*route.params.index, animated: true});
     })
     return(
         <View>
@@ -51,7 +51,7 @@ const Mydetails=({navigation,route})=>{
                 {
                     list.map((item,index)=>(
                         <View key={index} style={styles.v1} onLayout={event=>con(index,event)}>
-                            <Image source={{uri:userimg}} style={styles.userimg} onPress={()=>navigation.navigate('Mypages')}/>
+                            <Image source={{uri:item.uimg}} style={styles.userimg} onPress={()=>navigation.navigate('Mypages')}/>
                             <View style={{marginLeft:w-440}}>
                                 <View style={{flexDirection:'row',marginTop:20,alignItems:'center'}}>
                                     <Text style={{fontSize:18}} onPress={()=>navigation.navigate('Mypages')}>{item.username}</Text>
@@ -61,7 +61,7 @@ const Mydetails=({navigation,route})=>{
                                 <View style={{marginTop:10}}>
                                     <Text style={{width:ptd(200),fontSize:15}}>{item.content}</Text>
                                     {/* <Image source={{uri:item.img}} style={styles.img}/> */}
-                                    <Image source={require('../images/cook1.jpg')} style={styles.img}/>
+                                    <Image source={{uri:item.img}} style={styles.img}/>
                                 </View>
                             </View>
                         </View>

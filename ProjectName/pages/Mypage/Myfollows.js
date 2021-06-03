@@ -1,114 +1,36 @@
-import React from 'react'
-import { Text, View, StyleSheet, Image, Button, ScrollView, TouchableOpacity } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { Text, View, StyleSheet, Image, Button, ScrollView, TouchableOpacity,AsyncStorage } from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign';
 import '../../common/global'
+import { useFocusEffect } from '@react-navigation/native';
 
-const attention = [
-    {
-        attuser: '用户名',
-        attuserimg: require('../images/logo.jpg'),
-        attstate: '关注',
-        attcook: [
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-        ]
-    },
-    {
-        attuser: '用户名',
-        attuserimg: require('../images/logo.jpg'),
-        attstate: '关注',
-        attcook: [
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-        ]
-    }, {
-        attuser: '用户名',
-        attuserimg: require('../images/logo.jpg'),
-        attstate: '关注',
-        attcook: [
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-        ]
-    }, {
-        attuser: '用户名',
-        attuserimg: require('../images/logo.jpg'),
-        attstate: '关注',
-        attcook: [
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-        ]
-    }, {
-        attuser: '用户名',
-        attuserimg: require('../images/logo.jpg'),
-        attstate: '关注',
-        attcook: [
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-        ]
-    }, {
-        attuser: '用户名',
-        attuserimg: require('../images/logo.jpg'),
-        attstate: '关注',
-        attcook: [
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-        ]
-    }, {
-        attuser: '用户名',
-        attuserimg: require('../images/logo.jpg'),
-        attstate: '关注',
-        attcook: [
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-        ]
-    }, {
-        attuser: '用户名',
-        attuserimg: require('../images/logo.jpg'),
-        attstate: '关注',
-        attcook: [
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-        ]
-    }, {
-        attuser: '用户名',
-        attuserimg: require('../images/logo.jpg'),
-        attstate: '关注',
-        attcook: [
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-        ]
-    }, {
-        attuser: '用户名',
-        attuserimg: require('../images/logo.jpg'),
-        attstate: '关注',
-        attcook: [
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-            { username: '小小刀', userimg: require('../images/logo.jpg'), content: '今天吃生蚝啊，清蒸生蚝好好吃', time: '2021-04-19', img: require('../images/cooked.png') },
-        ]
-    }
-]
 const Myfollows = ({ navigation }) => {
-    console.log(JSON.parse(attention[0].attuserimg))
+    const [attention,setAttention]=useState([]);
+    const [isattention,setIsattention]=useState('')
+    useFocusEffect(
+        React.useCallback(() => {
+            console.log('myfollow');
+            AsyncStorage.getItem('username').then((username) => {
+                console.log(username);
+                // setUsername(username);
+                fetch('http://154.8.164.57:1127/getfans', {
+                    method: 'POST',
+                    body: JSON.stringify({ username: username }),
+                    headers: new Headers({
+                        'Content-Type': 'applocation/json'
+                    })
+                }).then(res => res.json())
+                    .then((res) => {
+
+                        console.log(res);
+                        setAttention(res.results);
+                    })
+            })
+        }, [])
+    )
+
+
+    // console.log(JSON.parse(attention[0].attuserimg))
     return (
         <View>
             <View style={styles.head}>
@@ -122,22 +44,22 @@ const Myfollows = ({ navigation }) => {
                             <TouchableOpacity
                                 style={styles.attionitem}
                                 onPress={() => {
-                                    navigation.push('MycareCon'
-                                        , { conlist: item }
+                                    navigation.push('Mypages'
+                                        , { username: item.username,userimg:item.userimg}
                                     )
                                 }}
                                 key={index}
                             >
-                                <Image source={item.attuserimg} style={styles.attimg} />
-                                <Text style={{ fontSize: 20, marginLeft: 20 }}>{item.attuser}</Text>
-                                <TouchableOpacity
+                                <Image source={{uri:item.userimg}} style={styles.attimg} />
+                                <Text style={{ fontSize: 20, marginLeft: 20 }}>{item.username}</Text>
+                                {/* <TouchableOpacity
                                     style={styles.attbtn}
                                     onPress={() => {
                                         console.log('关注');
                                     }}
                                 >
-                                    <Text style={{ fontSize: 17, color: 'white', marginTop: 8 }}>{item.attstate}</Text>
-                                </TouchableOpacity>
+                                    <Text style={{ fontSize: 17, color: 'white', marginTop: 8 }}>{isattention}</Text>
+                                </TouchableOpacity> */}
                             </TouchableOpacity>
                         ))
                         :

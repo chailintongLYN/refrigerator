@@ -45,6 +45,7 @@ const MycarePage = ({navigation}) => {
     function attentionClick(followname) {
         if (isattention === '关注') {
             console.log('变成已关注');
+
             AsyncStorage.getItem('username').then((username) => {
                 fetch('http://154.8.164.57:1127/addcare', {
                     method: 'POST',
@@ -91,10 +92,10 @@ const MycarePage = ({navigation}) => {
                 {
                     list != undefined ?
                         list.map((item, index) => (
-                            <TouchableOpacity style={styles.attionitem} onPress={() => { navigation.navigate('Mypages', { conlist: item }) }} key={index}>
+                            <TouchableOpacity style={styles.attionitem} onPress={() => { navigation.navigate('Mypages', { username:item.followname,userimg:item.followimg }) }} key={index}>
                                 <Image source={{ uri: item.followimg }} style={styles.attimg} />
                                 <Text style={{ fontSize: 20, marginLeft: 20 }}>{item.followname}</Text>
-                                <TouchableOpacity style={styles.attbtn} onPress={() => attentionClick(item.followname)}>
+                                <TouchableOpacity style={[styles.attbtn,{backgroundColor:isattention=='关注'?blue:'#9D9E9D'}]} onPress={() => attentionClick(item.followname)}>
                                     <Text style={{ fontSize: 17, color: 'white', marginTop: 8 }}>{isattention}</Text>
                                 </TouchableOpacity>
                             </TouchableOpacity>
@@ -118,7 +119,6 @@ const styles = StyleSheet.create({
     attbtn: {
         width: ptd(70),
         height: 40,
-        backgroundColor: '#9D9E9D',
         borderRadius: 20,
         alignItems: 'center',
         marginLeft: ptd(80)

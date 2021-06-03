@@ -5,17 +5,14 @@ import '../../common/global'
 import { useFocusEffect } from '@react-navigation/native';
 
 const Mypages = ({ navigation,route }) => {
-    const [username, setUsername] = useState('')
-    const [userimg, setUserimg] = useState('')
     const [number, setNumber] = useState({});
+    const [username,setUsername]=useState('');
     const [text, setText] = useState([]);
-
-
-    console.log(route.params);
+    const [isattention, setIsattention] = useState('')
+    const userimg=route.params.userimg;
+    console.log('mypages传递',route.params);
     useFocusEffect(
         React.useCallback(()=>{
-            setUserimg(route.params.userimg)
-            setUsername(route.params.username)
             fetch('http://154.8.164.57:1127/getmydata',{
                 method:'POST',
                 body:JSON.stringify({username:route.params.username}),
@@ -28,24 +25,87 @@ const Mypages = ({ navigation,route }) => {
                         setNumber(res.number[0]);
                         setText(res.text)
                     })
+
+            AsyncStorage.getItem('username').then((username) => {
+                setUsername(username);
+                fetch('http://154.8.164.57:1127/iffollow', {
+                    method: 'POST',
+                    body: JSON.stringify({ username: username, followname: route.params.username }),
+                    headers: new Headers({
+                        'Content-Type': 'applocation/json'
+                    })
+                }).then(res => res.json())
+                    .then((res) => {
+                        console.log('是否关注',res);
+                        if(res.results){
+                            setIsattention('已关注')
+                        }else{
+                            setIsattention('关注')
+                        }
+
+                    })
+            })
+            
         },[])
     )
+
+    function attentionClick(followname) {
+        if (isattention === '关注') {
+            console.log('变成已关注');
+            AsyncStorage.getItem('username').then((username) => {
+                setUsername(username);
+                fetch('http://154.8.164.57:1127/addcare', {
+                    method: 'POST',
+                    body: JSON.stringify({ username: username, followname: followname }),
+                    headers: new Headers({
+                        'Content-Type': 'applocation/json'
+                    })
+                }).then(res => res.json())
+                    .then((res) => {
+                        // console.log(res);
+                        setIsattention('已关注')
+
+                    })
+            })
+        } else {
+            console.log('变成关注')
+            AsyncStorage.getItem('username').then((username) => {
+                // console.log(username);
+                setUsername(username);
+                fetch('http://154.8.164.57:1127/delecare', {
+                    method: 'POST',
+                    body: JSON.stringify({ username: username, followname: followname }),
+                    headers: new Headers({
+                        'Content-Type': 'applocation/json'
+                    })
+                }).then(res => res.json())
+                    .then((res) => {
+                        // console.log(res);
+                        // setList(res.results);
+                        setIsattention('关注')
+
+                    })
+            })
+        }
+    }
     return (
         <View style={{ flex: 1 }}>
             <View style={styles.bgc}>
                 <Icon name='left' size={40} style={styles.back} onPress={() => navigation.goBack()} />
-                <TouchableOpacity style={styles.attion}><Text style={styles.attion_text}>关注</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.attion}>
+                    <Text style={styles.attion_text} onPress={()=>attentionClick(route.params.username)}>{isattention}</Text>
+                </TouchableOpacity>
             </View>
             <View style={styles.titlebar}>
                 <View style={{ flexDirection: 'row' }}>
                     <Image source={{uri:userimg}} style={styles.userimg} />
-                    <Text style={styles.username}>{username}</Text>
+                    <Text style={styles.username}>{route.params.username}</Text>
                     <Icon name='camera' size={40} style={{ color: blue, marginLeft: ptd(115), marginTop: 25 }} onPress={() => navigation.navigate('Myadd')} />
                 </View>
                 <View style={{ flexDirection: 'row' }}>
                     <TouchableOpacity style={styles.mysearch} onPress={() => { navigation.navigate('Mycare') }}>
                         <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 10 }}>{number.followsnumber}</Text>
-                        <Text style={{ fontSize: 17, marginTop: 15, color: '#9D9E9D' }}>关注</Text>
+                        <Text style={{ fontSize: 17, marginTop: 15, color: '#9D9E9D' }} >关注</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.mysearch} onPress={() => { navigation.navigate('Myfollows') }}>
                         <Text style={styles.title_number}>{number.fansnumber}</Text>

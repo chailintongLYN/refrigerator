@@ -14,7 +14,7 @@ const Mypage = ({ navigation }) => {
         try {
             setUserimg(await AsyncStorage.getItem('userimg'));
             setUsername(await AsyncStorage.getItem('username'));
-            // We have data!!
+            // We have data!!r
         } catch (error) {
             // Error retrieving data
         }

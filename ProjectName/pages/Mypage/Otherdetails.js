@@ -17,7 +17,7 @@ const Mydetails=({navigation,route})=>{
     }
     React.useEffect(()=>{
         con(),
-        window.scrollTo({ x: 0, y:230*route.params.index, animated: true});
+        window.scrollTo({ x: 0, y:340*route.params.index, animated: true});
     })
     return(
         <View>

@@ -7,13 +7,11 @@ var layout={
     y:0
 }
 const Mydetails=({navigation,route})=>{
-    const [username, setUsername] = useState('')
 
-    const list=route.params.list;
+    const [list, setList] = useState(route.params.list)
     // console.log('userimg:',route.params.userimg)
     const userimg=route.params.userimg;
     
-    console.log(list)
     function con(index,event){
         if(index===route.params.index){
             layout = event.nativeEvent.layout
@@ -23,7 +21,6 @@ const Mydetails=({navigation,route})=>{
         console.log('删除')
         AsyncStorage.getItem('username').then((username) => {
             console.log(username);
-            setUserName(username);
             fetch('http://154.8.164.57:1127/deletext', {
                 method: 'POST',
                 body: JSON.stringify({ username: username,textid:textid }),
@@ -32,8 +29,16 @@ const Mydetails=({navigation,route})=>{
                 })
             }).then(res => res.json())
                 .then((res) => {
-                    console.log('res',res); 
-                    console.log(1);                   
+                    console.log(1);
+                    if (res.status == 'success') {
+                        alert('删除成功')
+                        console.log('res',res); 
+                        setList([...list])
+                    }
+                    else{
+                        alert('删除失败')
+                    }
+                    // navigation.push('Mydetails')
                 })
         })
     }
@@ -51,7 +56,7 @@ const Mydetails=({navigation,route})=>{
                 {
                     list.map((item,index)=>(
                         <View key={index} style={styles.v1} onLayout={event=>con(index,event)}>
-                            <Image source={{uri:userimg}} style={styles.userimg} onPress={()=>navigation.navigate('Mypages')}/>
+                            <Image source={{uri:item.uimg}} style={styles.userimg} onPress={()=>navigation.navigate('Mypages')}/>
                             <View style={{marginLeft:w-440}}>
                                 <View style={{flexDirection:'row',marginTop:20,alignItems:'center'}}>
                                     <Text style={{fontSize:18}} onPress={()=>navigation.navigate('Mypages')}>{item.username}</Text>
@@ -61,7 +66,7 @@ const Mydetails=({navigation,route})=>{
                                 <View style={{marginTop:10}}>
                                     <Text style={{width:ptd(200),fontSize:15}}>{item.content}</Text>
                                     {/* <Image source={{uri:item.img}} style={styles.img}/> */}
-                                    <Image source={require('../images/cook1.jpg')} style={styles.img}/>
+                                    <Image source={{uri:item.img}} style={styles.img}/>
                                 </View>
                             </View>
                         </View>

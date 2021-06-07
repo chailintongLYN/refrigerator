@@ -123,6 +123,7 @@ const AddPage = ({ navigation }) => {
                                 borderRadius: 50,
                                 fontSize: ptd(18),
                                 color: '#FFFFFF',
+                                width:ptd(200),
                                 backgroundColor: blue,
                             }
                         }
@@ -237,7 +238,7 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         position: 'relative',
         left: ptd(45),
-        width: w - 285,
+        width: w - ptd(285),
         height: ptd(36),
         backgroundColor: blue,
         alignItems: 'center',

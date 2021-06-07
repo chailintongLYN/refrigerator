@@ -88,7 +88,7 @@ const MenudetailsPage = ({ navigation, route }) => {
                 <Text style={styles.titletext}>
                     {mealdetails.text}
                 </Text>
-                <Icon1 name='access-time' size={32} style={styles.icontime}></Icon1>
+                <Icon1 name='access-time' size={ptd(32)} style={styles.icontime}></Icon1>
                 <Text style={styles.timetext}>时间：{mealdetails.time}</Text>
                 <TouchableOpacity
                     style={styles.iconsave}
@@ -118,11 +118,11 @@ const MenudetailsPage = ({ navigation, route }) => {
                                 })
                     }}
                 >
-                    <Icon2 name='star' size={32} style={{ color: ifsave == true ? 'rgb(243,230,82)' : white2 }}></Icon2>
+                    <Icon2 name='star' size={ptd(32)} style={{ color: ifsave == true ? 'rgb(243,230,82)' : white2 }}></Icon2>
                 </TouchableOpacity>
                 <Text style={styles.savetext}>收藏：{save}人</Text>
                 <TouchableOpacity style={styles.iconclose} onPress={() => navigation.goBack()}>
-                    <Icon2 name='closecircle' size={46} color={white2}></Icon2>
+                    <Icon2 name='closecircle' size={ptd(46)} color={white2}></Icon2>
                 </TouchableOpacity>
             </View>
             <View>
@@ -241,28 +241,28 @@ const styles = StyleSheet.create({
     savetext: {
         color: white2,
         position: 'absolute',
-        left: 270,
-        top: 70,
-        fontSize: 18,
+        left: ptd(245),
+        top: ptd(70),
+        fontSize: ptd(18),
         fontWeight: 'bold',
     },
     iconsave: {
         position: 'absolute',
-        left: 230,
-        top: 65,
+        left: ptd(210),
+        top: ptd(65),
     },
     timetext: {
         color: white2,
         position: 'absolute',
-        top: 70,
-        left: 60,
-        fontSize: 18,
+        top: ptd(70),
+        left: ptd(50),
+        fontSize: ptd(18),
         fontWeight: 'bold',
     },
     icontime: {
         position: 'absolute',
-        top: 65,
-        left: 25,
+        top: ptd(65),
+        left: ptd(15),
         color: white2,
     },
     titletext: {

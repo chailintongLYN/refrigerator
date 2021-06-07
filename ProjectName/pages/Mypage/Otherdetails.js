@@ -22,23 +22,23 @@ const Mydetails=({navigation,route})=>{
     return(
         <View>
             <View style={styles.head}>
-                <Icon name='left' size={30} style={{marginLeft:w-420}} onPress={()=>navigation.goBack()}/>
+                <Icon name='left' size={30} style={{marginLeft:w-330}} onPress={()=>navigation.goBack()}/>
             </View>
             <ScrollView style={{marginTop:30, width:ptd(375)}} ref={(view) => { window = view; }} contentContainerStyle={{alignItems:'center'}}> 
                 {
                     list.map((item,index)=>(
                         <View key={index} style={styles.v1} onLayout={event=>con(index,event)}>
                             <TouchableOpacity style={styles.userimg} onPress={()=>navigation.navigate('Mypages',{username:item.username,userimg:item.uimg})}><Image source={{uri:item.uimg}} style={{width:50,height:50,borderRadius:25,}}/></TouchableOpacity>
-                            <View style={{marginLeft:w-440}}>
+                            <View style={{marginLeft:w-390}}>
                                 <View style={{flexDirection:'row',marginTop:20,alignItems:'center'}}>
-                                    <Text style={{fontSize:18}} onPress={()=>navigation.navigate('Mypages',{username:item.username,userimg:item.uimg})}>{item.username}</Text>
+                                    <Text style={{fontSize:18,marginLeft:w-330}} onPress={()=>navigation.navigate('Mypages',{username:item.username,userimg:item.uimg})}>{item.username}</Text>
                                     <Text style={{marginLeft:w-330,color:'#9D9E9D'}}>{item.time}</Text>
                                     <Text style={styles.delete}>
                                         {item.ctime.substring(0, 10)} {Number(item.ctime.substring(12, 13)) + 8}{item.ctime.substring(13, 19)}
                                     </Text>
                                 </View>
                                 <View style={{marginTop:10}}>
-                                    <Text style={{width:ptd(200),fontSize:15}}>{item.content}</Text>
+                                    <Text style={styles.content}>{item.content}</Text>
                                     {/* <Image source={{uri:item.img}} style={styles.img}/> */}
                                     <Image source={{uri:item.img}} style={styles.img}/>
                                 </View>
@@ -53,6 +53,11 @@ const Mydetails=({navigation,route})=>{
 }
 export default Mydetails
 const styles=StyleSheet.create({
+    content:{
+        width:ptd(260),
+        fontSize:15,
+        marginTop:10
+    },
     img:{
         width:250,
         borderRadius:20,
@@ -60,7 +65,7 @@ const styles=StyleSheet.create({
         height:230,
     },
     delete:{
-        marginLeft:w-450,
+        marginLeft:w-330,
         color:'#9D9E9D'
     },
     userimg:{

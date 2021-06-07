@@ -74,7 +74,7 @@ const LogonPage = ({ navigation }) => {
                                                 res.results[0].img
                                             )
                                         })
-                                    alert("登录成功")
+                                    // alert("登录成功")
                                     navigation.push('tabnav');
                                 }
                                 else {

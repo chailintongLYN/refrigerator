@@ -325,12 +325,14 @@ const styles = StyleSheet.create({
         color: white,
         position: 'absolute',
         right: 25,
-        fontSize: 16,
+        fontSize: 12,
+        marginTop:5
     },
     hello: {
-        marginLeft: 20,
+        marginLeft: ptd(25),
         color: white,
-        fontSize: 16
+        fontSize: 15,
+        marginTop:5
     },
     titlebar: {
         flexDirection: 'row',

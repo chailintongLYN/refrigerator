@@ -5,7 +5,7 @@ import '../../common/global'
 import { useFocusEffect } from '@react-navigation/native';
 
 
-const MycarePage = ({navigation}) => {
+const OthercarePage = ({navigation,route}) => {
     const [username, setUsername] = useState('')
     const [userimg, setUserimg] = useState('')
     const [list, setList] = useState([])
@@ -22,13 +22,10 @@ const MycarePage = ({navigation}) => {
     _retrieveData();
     useFocusEffect(
         React.useCallback(() => {
-            console.log('mypage');
-            AsyncStorage.getItem('username').then((username) => {
-                // console.log(username);
-                setUsername(username);
-                fetch('http://154.8.164.57:1127/getcare', {
+            console.log('Otherpage');
+            fetch('http://154.8.164.57:1127/getcare', {
                     method: 'POST',
-                    body: JSON.stringify({ username: username }),
+                    body: JSON.stringify({ username: route.params.username }),
                     headers: new Headers({
                         'Content-Type': 'applocation/json'
                     })
@@ -38,18 +35,15 @@ const MycarePage = ({navigation}) => {
                         setList(res.results);
 
                     })
-            })
         }, [])
     )
     console.log(list);
     function attentionClick(followname) {
         if (isattention === '关注') {
             console.log('变成已关注');
-
-            AsyncStorage.getItem('username').then((username) => {
-                fetch('http://154.8.164.57:1127/addcare', {
+            fetch('http://154.8.164.57:1127/addcare', {
                     method: 'POST',
-                    body: JSON.stringify({ username: username, followname: followname }),
+                    body: JSON.stringify({ username: route.params.username, followname: followname }),
                     headers: new Headers({
                         'Content-Type': 'applocation/json'
                     })
@@ -59,26 +53,21 @@ const MycarePage = ({navigation}) => {
                         setIsattention('已关注')
 
                     })
-            })
         } else {
             console.log('变成关注')
-            AsyncStorage.getItem('username').then((username) => {
-                // console.log(username);
-                setUsername(username);
-                fetch('http://154.8.164.57:1127/delecare', {
-                    method: 'POST',
-                    body: JSON.stringify({ username: username, followname: followname }),
-                    headers: new Headers({
-                        'Content-Type': 'applocation/json'
-                    })
-                }).then(res => res.json())
-                    .then((res) => {
-                        // console.log(res);
-                        // setList(res.results);
-                        setIsattention('关注')
+            fetch('http://154.8.164.57:1127/delecare', {
+                method: 'POST',
+                body: JSON.stringify({ username: route.params.username, followname: followname }),
+                headers: new Headers({
+                    'Content-Type': 'applocation/json'
+                })
+            }).then(res => res.json())
+                .then((res) => {
+                    // console.log(res);
+                    // setList(res.results);
+                    setIsattention('关注')
 
-                    })
-            })
+                })
         }
     }
 
@@ -107,7 +96,7 @@ const MycarePage = ({navigation}) => {
         </View>
     )
 }
-export default MycarePage
+export default OthercarePage
 
 const styles = StyleSheet.create({
     attimg: {

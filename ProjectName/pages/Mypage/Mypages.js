@@ -102,17 +102,17 @@ const Mypages = ({ navigation,route }) => {
                     <Text style={styles.username}>{route.params.username}</Text>
                 </View>
                 <View style={{ flexDirection: 'row' }}>
-                    <TouchableOpacity style={styles.mysearch} onPress={() => { navigation.navigate('Mycare') }}>
+                    <TouchableOpacity style={styles.mysearch} onPress={() => { navigation.navigate('Othercare',{username:route.params.username}) }}>
                         <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 10 }}>{number.followsnumber}</Text>
                         <Text style={{ fontSize: 17, marginTop: 15, color: '#9D9E9D' }} >关注</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.mysearch} onPress={() => { navigation.navigate('Myfollows') }}>
+                    <TouchableOpacity style={styles.mysearch} onPress={() => { navigation.navigate('Otherfollows',{username:route.params.username}) }}>
                         <Text style={styles.title_number}>{number.fansnumber}</Text>
-                        <Text style={styles.search_name}>我的粉丝</Text>
+                        <Text style={styles.search_name}>ta的粉丝</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.mysearch} onPress={() => navigation.navigate('Mydetails', { index: 0, list: text })}>
                         <Text style={styles.title_number}>{text.length}</Text>
-                        <Text style={styles.search_name}>我的心得</Text>
+                        <Text style={styles.search_name}>ta的心得</Text>
                     </TouchableOpacity>
                 </View>
             </View>

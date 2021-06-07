@@ -100,7 +100,6 @@ const Mypages = ({ navigation,route }) => {
                 <View style={{ flexDirection: 'row' }}>
                     <Image source={{uri:userimg}} style={styles.userimg} />
                     <Text style={styles.username}>{route.params.username}</Text>
-                    <Icon name='camera' size={40} style={{ color: blue, marginLeft: ptd(115), marginTop: 25 }} onPress={() => navigation.navigate('Myadd')} />
                 </View>
                 <View style={{ flexDirection: 'row' }}>
                     <TouchableOpacity style={styles.mysearch} onPress={() => { navigation.navigate('Mycare') }}>

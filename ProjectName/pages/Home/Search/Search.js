@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
         height: 30,
     },
     delete: {
-        marginLeft: 50,
+        marginLeft: w-330,
         marginTop: 10,
         alignItems: 'center',
         backgroundColor: blue,
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
     },
     foodtext: {
         marginTop: 18,
-        marginLeft: 72,
+        marginLeft: w-315,
         fontSize: 18
     },
     foodimg: {
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
     food: {
         flexDirection: 'row',
         backgroundColor: '#FFF',
-        width: w - 50,
+        width: w - 100,
         height: 131,
         marginLeft: 25,
         borderRadius: 25,

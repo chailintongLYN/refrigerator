@@ -1,4 +1,6 @@
 /node_modules/
+/备份1/
+/备份2/
 # Logs
 logs
 *.log

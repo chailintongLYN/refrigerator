@@ -1,9 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.projectname">
+  package="com.menuadmin">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
       android:name=".MainApplication"
@@ -23,12 +21,5 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
       </activity>
-      <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
-      <!-- <meta-data android:name="JPUSH_CHANNEL" android:value="${APP_CHANNEL}"/>
-      <meta-data android:name="JPUSH_APPKEY" android:value="${JPUSH_APPKEY}"/>
-      <premission 
-        android:name="${6d318f0ae76bd54dc334880c}.permission.JPUSH_MESSAGE"
-        android:protectionLevel="signature"/> -->
     </application>
-
 </manifest>

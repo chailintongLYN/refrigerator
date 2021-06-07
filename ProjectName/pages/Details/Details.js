@@ -30,7 +30,7 @@ const Details = ({ navigation, route }) => {
                     {time}进入冰箱
                 </Text>
                 <Text style={[styles.remainingtime, { color: remainingday <= 3 ? 'red' : 'black' }]}>
-                    保质期还剩{remainingday}天
+                    {remainingday < 0 ? '已过期' : '保质期还剩' + remainingday + '天'}
                 </Text>
                 {/* <TouchableOpacity style={styles.meal}>
                     <Text style={{ fontSize: 30 }}>饭</Text>

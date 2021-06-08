@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -12,26 +12,36 @@ import {
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import Banner from '../component/Banner';
 import UserItem from '../component/UserItem';
 
-const ManageUser = ({navigation, userList}) => {
+const ManageUser = ({ navigation, userList }) => {
   const [showList, setShowList] = useState([]);
 
   const [keyWord, setkeyWord] = useState('');
 
   useEffect(() => {
-    const preList = JSON.parse(JSON.stringify(userList));
-    console.log(preList);
-    const newArr = preList.filter(item => {
-      return item.username.indexOf(keyWord) !== -1;
-    });
-    setShowList(newArr);
+    fetch('http://154.8.164.57:1127/showusers', {
+      method: 'GET',
+      headers: new Headers({
+        'Content-Type': 'applocation/json'
+      })
+    }).then(res => res.json())
+      .then((res) => {
+        userList = res.results
+        const preList = JSON.parse(JSON.stringify(userList));
+        console.log(preList);
+        const newArr = preList.filter(item => {
+          return item.username.indexOf(keyWord) !== -1;
+        });
+        setShowList(newArr);
+      })
+
   }, [userList, keyWord]);
 
   return (
-    <SafeAreaView style={{backgroundColor: '#fff', flex: 1}}>
+    <SafeAreaView style={{ backgroundColor: '#fff', flex: 1 }}>
       <Banner />
 
       <View style={styles.inputwrapper}>
@@ -53,7 +63,7 @@ const ManageUser = ({navigation, userList}) => {
         </View>
       </View>
 
-      <View style={{height: 15, width: '100%'}} />
+      <View style={{ height: 15, width: '100%' }} />
       <ScrollView keyboardShouldPersistTaps="handled">
         <View style={[styles.commonWrapper]}>
           <View style={styles.list}>
@@ -62,7 +72,7 @@ const ManageUser = ({navigation, userList}) => {
             })}
           </View>
         </View>
-        <View style={{height: 25, width: '100%'}} />
+        <View style={{ height: 25, width: '100%' }} />
       </ScrollView>
     </SafeAreaView>
   );
@@ -92,7 +102,7 @@ const styles = StyleSheet.create({
     paddingLeft: 16,
     paddingRight: 16,
   },
-  commonWrapper: {paddingLeft: 16, paddingRight: 16},
+  commonWrapper: { paddingLeft: 16, paddingRight: 16 },
   inputContent: {
     height: 38,
     width: '100%',

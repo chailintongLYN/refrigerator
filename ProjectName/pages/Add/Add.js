@@ -123,7 +123,7 @@ const AddPage = ({ navigation }) => {
                                 borderRadius: 50,
                                 fontSize: ptd(18),
                                 color: '#FFFFFF',
-                                width:ptd(200),
+                                // width:ptd(200),
                                 backgroundColor: blue,
                             }
                         }

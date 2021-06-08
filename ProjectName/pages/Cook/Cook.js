@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { ScrollView, Text, View, StyleSheet, Image, TouchableOpacity, AsyncStorage ,TextInput,FlatList,ActivityIndicator} from 'react-native'
+import { ScrollView, Text, View, StyleSheet, Image, TouchableOpacity, AsyncStorage, TextInput, FlatList, ActivityIndicator } from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign';
 import { useFocusEffect } from '@react-navigation/native';
 
@@ -14,13 +14,13 @@ if (day.length == 1) {
     day = '0' + day;
 }
 
-var pagenow=1;
-const CookPage = ({ navigation}) => {    
-    const [totalPage,setTotalpage]=useState(0);
+var pagenow = 1;
+const CookPage = ({ navigation }) => {
+    const [totalPage, setTotalpage] = useState(0);
     // const [pagenow,setPagenow]=useState(1)
     const [username, setUserName] = useState('')
     const [userimg, setUserImage] = useState('')
-    const [data,setData]=useState([]);
+    const [data, setData] = useState([]);
     const _retrieveData = async () => {
         try {
             setUserImage(await AsyncStorage.getItem('userimg'));
@@ -31,14 +31,14 @@ const CookPage = ({ navigation}) => {
         }
     };
     //获取数据
-    const getDate=(pagenow)=>{
+    const getDate = (pagenow) => {
         console.log('cook');
         AsyncStorage.getItem('username').then((username) => {
             console.log(username);
             setUserName(username);
             fetch('http://154.8.164.57:1127/gettext', {
                 method: 'POST',
-                body: JSON.stringify({ username: username,currentpage:pagenow }),
+                body: JSON.stringify({ username: username, currentpage: pagenow }),
                 headers: new Headers({
                     'Content-Type': 'applocation/json'
                 })
@@ -47,30 +47,30 @@ const CookPage = ({ navigation}) => {
                     // console.log('res',res);
                     setData(data.concat(res.meal));
 
-                    let foot=0;
-                    if(res.len%12===0){
-                        var pnumber=parseInt(res.len/12)
-                        setTotalpage(parseInt(res.len/12));
-                        console.log('neitotalpage',pnumber);
-                        if(pagenow>=pnumber){
-                            foot=1;
+                    let foot = 0;
+                    if (res.len % 12 === 0) {
+                        var pnumber = parseInt(res.len / 12)
+                        setTotalpage(parseInt(res.len / 12));
+                        console.log('neitotalpage', pnumber);
+                        if (pagenow >= pnumber) {
+                            foot = 1;
                         }
-                    }else{
-                        var pnumber=parseInt(res.len/12)+1
-                        setTotalpage(parseInt(res.len/12)+1)
-                        if(pagenow>=pnumber){
-                            foot=1;
+                    } else {
+                        var pnumber = parseInt(res.len / 12) + 1
+                        setTotalpage(parseInt(res.len / 12) + 1)
+                        if (pagenow >= pnumber) {
+                            foot = 1;
                         }
                     }
                 })
         })
     }
-    console.log('waitotalpage',totalPage);
+    console.log('waitotalpage', totalPage);
     //请求数据
-    useEffect(()=>{
+    useEffect(() => {
         _retrieveData();
         getDate(pagenow)
-    },[])
+    }, [])
     // useFocusEffect(
     //     React.useCallback(() => {
     //         _retrieveData();
@@ -78,31 +78,31 @@ const CookPage = ({ navigation}) => {
 
     //     }, [])
     // )
-    const _separator=()=>{
-        return <View style={{height:1,backgroundColor:'#999999'}}/>;
+    const _separator = () => {
+        return <View style={{ height: 1, backgroundColor: '#999999' }} />;
     }
 
-     const _renderFooter=()=>{
-            return(
-                <View style={styles.footer}>
-                    {pagenow<totalPage?<Text>正在加载更多数据...</Text>:<Text>暂时没有更多数据了...</Text>}
-                    <ActivityIndicator />
-                </View>
-            )
+    const _renderFooter = () => {
+        return (
+            <View style={styles.footer}>
+                {pagenow < totalPage ? <Text>正在加载更多数据...</Text> : <Text>暂时没有更多数据了...</Text>}
+                <ActivityIndicator />
+            </View>
+        )
     }
 
 
-     const _onEndReached=()=>{
-         console.log(222)
+    const _onEndReached = () => {
+        console.log(222)
         // if(showFoot!=0){
         //     return ;
         // }
         //如果当前的页大于总页数，那就是到最后一页，返回
-        if((pagenow!=1)&&(pagenow>=totalPage)){
+        if ((pagenow != 1) && (pagenow >= totalPage)) {
             console.log(1);
-            
-            return ;
-        }else{
+
+            return;
+        } else {
             pagenow++;
         }
         // setShowfoot(2);
@@ -140,62 +140,62 @@ const CookPage = ({ navigation}) => {
             </View>
 
             <View style={styles.bodybox}>
-                <Text style={[styles.body_1,]}>——</Text>
+                <Text style={styles.body_1}>——</Text>
                 <Text style={styles.bodybar}>心得广场</Text>
                 <Text style={styles.body_2}>——</Text>
             </View>
             <FlatList
                 data={data}
-                renderItem={({item,index})=>
-                    <TouchableOpacity style={styles.items} onPress={()=>navigation.navigate('Otherdetails',{index:index,list:data,username:item.username,userimg:item.uimg})}>
-                            <Image source={{uri:item.img}} style={styles.item_img}/>
-                            <Text style={styles.item_text}>{item.content}</Text>
-                            <View style={styles.item_user}>
-                                <Image source={{uri:item.uimg}} style={styles.item_userimg}/>
-                                <Text style={styles.item_username}>{item.username}</Text>
-                            </View>
-                        </TouchableOpacity>
+                renderItem={({ item, index }) =>
+                    <TouchableOpacity style={styles.items} onPress={() => navigation.navigate('Otherdetails', { index: index, list: data, username: item.username, userimg: item.uimg })}>
+                        <Image source={{ uri: item.img }} style={styles.item_img} />
+                        <Text style={styles.item_text}>{item.content}</Text>
+                        <View style={styles.item_user}>
+                            <Image source={{ uri: item.uimg }} style={styles.item_userimg} />
+                            <Text style={styles.item_username}>{item.username}</Text>
+                        </View>
+                    </TouchableOpacity>
                 }
-                numColumns ={2}
+                numColumns={2}
                 ListFooterComponent={_renderFooter()}
                 onEndReached={_onEndReached}
                 onEndReachedThreshold={0.1}
             />
-                
+
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    footer:{
-        flexDirection:'row',
-        height:24,
-        justifyContent:'center',
-        alignItems:'center',
-        marginBottom:10,
+    footer: {
+        flexDirection: 'row',
+        height: 24,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 10,
     },
     content: {
         fontSize: 15,
         color: 'black',
     },
-    xinde:{
-        flexDirection:'row',
+    xinde: {
+        flexDirection: 'row',
         flexWrap: 'wrap',
-        justifyContent:'space-between',
-        marginTop:20,
-        width:w-40,
+        justifyContent: 'space-between',
+        marginTop: 20,
+        width: w - 40,
     },
-    items:{
-        position:'relative',
-        marginTop:10,
-        marginLeft:25
+    items: {
+        position: 'relative',
+        marginTop: 10,
+        marginLeft: 25
         // width:ptd(100)
     },
-    item_user:{
-        flexDirection:'row',
-        width:w-300,
-        alignContent:'center',
-        marginTop:5
+    item_user: {
+        flexDirection: 'row',
+        width: w - 300,
+        alignContent: 'center',
+        marginTop: 5
 
     },
     item_username: {
@@ -242,16 +242,16 @@ const styles = StyleSheet.create({
         elevation: 10,
         borderRadius: 25,
     },
-    body_1:{
-        marginLeft:w-350
+    body_1: {
+        // marginLeft:w-ptd(250)
     },
-    body_2:{
-        marginLeft:w-250
+    body_2: {
+        // marginLeft:w-ptd(50)
     },
     bodybar: {
         fontSize: 30,
-        marginLeft: w - 330,
-        marginRight: w - 430,
+        // marginLeft: w - 330,
+        // marginRight: w - 430,
         color: blue
     },
     bodybox: {
@@ -294,13 +294,13 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: 25,
         fontSize: 12,
-        marginTop:5
+        marginTop: 5
     },
     hello: {
         marginLeft: ptd(25),
         color: white,
         fontSize: 15,
-        marginTop:5
+        marginTop: 5
     },
     titlebar: {
         flexDirection: 'row',

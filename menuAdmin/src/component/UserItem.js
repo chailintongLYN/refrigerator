@@ -1,28 +1,40 @@
 import React from 'react';
-import {TouchableOpacity, StyleSheet, View, Text, Image} from 'react-native';
-import {Modal} from '@ant-design/react-native';
-import {useNavigation} from '@react-navigation/native';
-import {connect} from 'react-redux';
-import {updateUserListAction} from '../actions/manageUserAction';
+import { TouchableOpacity, StyleSheet, View, Text, Image } from 'react-native';
+import { Modal } from '@ant-design/react-native';
+import { useNavigation } from '@react-navigation/native';
+import { connect } from 'react-redux';
+import { updateUserListAction } from '../actions/manageUserAction';
 
-const UserItem = ({selectUser, userList, updateList}) => {
+const UserItem = ({ selectUser, userList, updateList }) => {
   const navigation = useNavigation();
 
   //去详情
   const toDetail = () => {
     navigation.navigate('UserDetail', {
       id: selectUser.id,
+      username: selectUser.username,
     });
   };
 
   //删除用户
-  const confirmDel = () => {
-    const index = userList.findIndex(subItem => {
-      if (subItem.id === selectUser.id) return true;
-    });
-    const preArr = JSON.parse(JSON.stringify(userList));
-    preArr.splice(index, 1);
-    updateList(preArr);
+  const confirmDel = (username) => {
+    console.log(username);
+    fetch('http://154.8.164.57:1127/deleteuser', {
+      method: 'POST',
+      body: JSON.stringify({ username: username }),
+      headers: new Headers({
+        'Content-Type': 'applocation/json'
+      })
+    }).then(res => res.json())
+      .then((res) => {
+        console.log('res', res);
+        const index = userList.findIndex(subItem => {
+          if (subItem.id === selectUser.id) return true;
+        });
+        const preArr = JSON.parse(JSON.stringify(userList));
+        preArr.splice(index, 1);
+        updateList(preArr);
+      })
   };
 
   return (
@@ -48,7 +60,7 @@ const UserItem = ({selectUser, userList, updateList}) => {
               onPress: () => console.log('cancel'),
               style: 'cancel',
             },
-            {text: '删除', onPress: () => confirmDel()},
+            { text: '删除', onPress: () => confirmDel(selectUser.username) },
           ]);
         }}>
         <Text style={styles.delWrapper}>删除</Text>

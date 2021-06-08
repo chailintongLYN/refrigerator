@@ -15,6 +15,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {connect} from 'react-redux';
 import FoodItem from '../component/FoodItem';
 import Banner from '../component/Banner';
+import { Header } from 'react-native/Libraries/NewAppScreen';
 
 const ManageFood = ({navigation, foodList}) => {
   const [showList, setShowList] = useState([]);
@@ -22,11 +23,24 @@ const ManageFood = ({navigation, foodList}) => {
   const [keyWord, setkeyWord] = useState('');
 
   useEffect(() => {
-    const preList = JSON.parse(JSON.stringify(foodList));
-    const newArr = preList.filter(item => {
-      return item.title.indexOf(keyWord) !== -1;
-    });
-    setShowList(newArr);
+    fetch('http://154.8.164.57:1127/showmenus',{
+      method:'GET',
+      headers: new Headers({
+        'Content-Type': 'applocation/json'
+      })
+    }).then(res => res.json())
+      .then((res) => {
+        console.log(res.results);
+        foodList = res.results
+        const preList = JSON.parse(JSON.stringify(foodList));
+        console.log(preList);
+        
+        const newArr = preList.filter(item => {
+          return item.mealname.indexOf(keyWord) !== -1;
+        });
+        setShowList(newArr);
+
+    })
   }, [foodList, keyWord]);
 
   return (

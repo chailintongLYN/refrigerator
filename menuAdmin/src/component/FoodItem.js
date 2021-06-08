@@ -1,17 +1,30 @@
 import React from 'react';
-import {TouchableOpacity, StyleSheet, View, Text, Image} from 'react-native';
-import {Modal} from '@ant-design/react-native';
-import {connect} from 'react-redux';
-import {updateListAction} from '../actions/manageFoodAction';
+import { TouchableOpacity, StyleSheet, View, Text, Image } from 'react-native';
+import { Modal } from '@ant-design/react-native';
+import { connect } from 'react-redux';
+import { updateListAction } from '../actions/manageFoodAction';
 
-const FoodItem = ({item, foodList, updateList}) => {
-  const confirmDel = () => {
-    const index = foodList.findIndex(subItem => {
-      if (subItem.id === item.id) return true;
-    });
-    const preArr = JSON.parse(JSON.stringify(foodList));
-    preArr.splice(index, 1);
-    updateList(preArr);
+const FoodItem = ({ item, foodList, updateList }) => {
+  const confirmDel = (mealname) => {
+    console.log(mealname);
+    
+    fetch('http://154.8.164.57:1127/deletemenu', {
+      method: 'POST',
+      body: JSON.stringify({ mealname: mealname }),
+      headers: new Headers({
+        'Content-Type': 'applocation/json'
+      })
+    }).then(res => res.json())
+      .then((res) => {
+        console.log('res',res)
+        const index = foodList.findIndex(subItem => {
+          if (subItem.id === item.id) return true;
+        });
+        const preArr = JSON.parse(JSON.stringify(foodList));
+        preArr.splice(index, 1);
+        updateList(preArr);
+      })
+
   };
   return (
     <TouchableOpacity style={styles.singleItem} activeOpacity={1}>
@@ -22,7 +35,7 @@ const FoodItem = ({item, foodList, updateList}) => {
           }}
           style={styles.foodImg}
         />
-        <Text style={styles.todoTitle}>{item.title}</Text>
+        <Text style={styles.todoTitle}>{item.mealname}</Text>
       </View>
 
       <TouchableOpacity
@@ -34,11 +47,11 @@ const FoodItem = ({item, foodList, updateList}) => {
               onPress: () => console.log('cancel'),
               style: 'cancel',
             },
-            {text: '删除', onPress: () => confirmDel()},
+            { text: '删除', onPress: () => confirmDel(item.mealname) },
           ]);
         }}>
         <Image
-          style={{height: 25, width: 25}}
+          style={{ height: 25, width: 25 }}
           source={require('../assets/del.png')}
         />
       </TouchableOpacity>
